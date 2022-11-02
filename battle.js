@@ -15,6 +15,8 @@ const battleBackground = new sprite({position:{
     y:0},
     image: batlleBackgroundImage
 })
+
+//Barras de vida
 const health = new Image()
 health.src = './assets/sin nombre.png'
 const healthBar = new sprite({
@@ -24,47 +26,6 @@ const healthBar = new sprite({
     },
     image:health
 })
-const frameAtaquePlayer = new Image()
-frameAtaquePlayer.src = './assets/Ataque.png'
-
-const frameAtaqueEnemigo = new Image()
-frameAtaqueEnemigo.src = './assets/AtaqueEnemigo.png'
-let finalAtaque = false
-
-let turno = 1
-
-let ataques = []
-
-
-const ataqueOne = new ataquesLista({vida:35,nombreAt:'zero',turno:0,})
-const ataqueTwo = new ataquesLista({vida:45,nombreAt:'Cuchilla',limite:5,turno: 1,elemento:document.createElement('button'),letras:8})
-const ataqueThree = new ataquesLista({vida:35,nombreAt:'Rayo',limite:10,turno:2,elemento:document.createElement('button'),letras:4})
-ataques.push(ataqueOne,ataqueTwo,ataqueThree)
-for (let index = 1; index < ataques.length; index++) {
-    let actual = ataques[index].elemento
-    actual.innerHTML = ataques[index].nombreAtaque + ' (' + ataques[index].limite + ')'
-    console.log(actual.innerHTML,ataques[index].nombreAtaque)
-    AttacksContainer.appendChild(actual)
-    
-}
-
-let vidasPlayer = [
-    vida1= {
-        vida: '300px',
-        max: 300
-    }
-]
-let vidasEnemys = [
-    monster1={
-        vida: '300px',
-        nombreMonster: 'cannibal'
-    },
-    monster2={
-        vida: '300px',
-        nombreMonster: 'juan'
-    }
-
-]
 
 const Enemyhealth = new Image()
 Enemyhealth.src = './assets/EnemyHealth.png'
@@ -75,13 +36,33 @@ const healthEnemyBar = new sprite({
     },
     image:Enemyhealth
 })
+
+
+
+
+// contenedor de ataques
+let ataques = []
+const ataqueOne = new ataquesLista({vida:15,nombreAt:'zero',turno:0})
+const ataqueTwo = new ataquesLista({vida:65,nombreAt:'Cuchilla',limite:5,turno: 1,elemento:document.createElement('button'),letras:8,image:'./assets/personaje2.png'})
+const ataqueThree = new ataquesLista({vida:35,nombreAt:'Rayo',limite:10,turno:2,elemento:document.createElement('button'),letras:4})
+ataques.push(ataqueOne,ataqueTwo,ataqueThree)
+for (let index = 1; index < ataques.length; index++) {
+    let actual = ataques[index].elemento
+    actual.innerHTML = ataques[index].nombreAtaque + ' (' + ataques[index].limite + ')'
+    console.log(actual.innerHTML,ataques[index].nombreAtaque)
+    AttacksContainer.appendChild(actual)
+    
+}
+
+
+let finalAtaque = false
+let turno = 1
 let choice = {value: undefined}
 let restar = false
 
-
+//Lugares del Inventario
 const LugaresEnInventario =[]
 const Lugar1 = new ataquesLista({vida:35,nombreAt:'Pocion grande',limite:5,elemento:document.createElement('button'),letras:13})
-
 LugaresEnInventario.push(Lugar1)
 
 for (let index = 0; index < LugaresEnInventario.length; index++) {
@@ -92,10 +73,8 @@ for (let index = 0; index < LugaresEnInventario.length; index++) {
 }
 
 
-const JuanDMG = new Image()
-JuanDMG.src = './assets/Frames.png'
-const JugadorDMG = new Image()
-JugadorDMG.src = './assets/personaje2.png'
+
+
 
 const SalirDeInventario = document.createElement('button')
 SalirDeInventario.classList.add('salir')
@@ -140,9 +119,6 @@ function animateBattle() {
         if( !EnemyBar.clientWidth <= 0 && !PlayerBar.clientWidth == 0) {
             pelea(choice.value)
         }
-                
-           // }else if(PlayerBar.clientWidth <= 0){
-            //    aparecerMensaje(playerName.innerHTML + " Ha muerto")
 
             
 
@@ -167,14 +143,15 @@ function pelea(ataque) {
                     for (let i = 0; i < vidasEnemys.length; i++) {
                         if(EnemyName.innerHTML == vidasEnemys[i].nombreMonster) {
                             if (total > 0 ) {
-                                AnimationDamage(Enemigo,JuanDMG,4,10)
+                                AnimationDamage(Enemigo,JuanDMG,4,10,true)
                                 vidasEnemys[i].vida = String(total) + 'px'
                                 gsap.delayedCall(1.5,defaulter)
                                 
                             }else{
                                 vidasEnemys[i].vida ='0px'
-
                                 gsap.delayedCall(2,() => {aparecerMensaje(EnemyName.innerHTML + " Ha muerto")}) 
+                                document.querySelector('.atacks').style.display ='none'
+                                AnimationDamage(Enemigo,JuanDead,4,10,false)
                                 turno = 0
                                 return;
                             }
@@ -182,7 +159,7 @@ function pelea(ataque) {
                     
                     }
                     if (finalAtaque && turno == 1) {
-                        AnimationDamage(jugador,frameAtaquePlayer,4,10)
+                        AnimationDamage(jugador,frameAtaquePlayer,4,10,true)
                         gsap.delayedCall(3,ataqueMonstruo)
                         gsap.delayedCall(1.5,defaulter)
                     }
@@ -298,23 +275,26 @@ function damage(total,index,array,vidaPersonaje){
     }       
             for (let i = 0; i < array.length; i++) {
                     if (total > 0 ) {
-                        AnimationDamage(jugador,JugadorDMG,10,10)
+                        AnimationDamage(jugador,JugadorDMG,10,10,true)
                         vidaPersonaje[index].vida = String(total) + 'px'
                         gsap.delayedCall(1.5, defaulter)
                     }else if(index == vidasPlayer.length - 1){
                         vidaPersonaje[index].vida ='0px'
+                        document.querySelector('.atacks').style.display ='none'
                         aparecerMensaje("Derrota")
+                        AnimationDamage(jugador, jugadorDead,10,10,false)
                         turno = 0
                         return;
                     }
             }
 }
 
-function AnimationDamage(character,image,frames,velocity) {
+function AnimationDamage(character,image,frames,velocity,animate) {
     character.image = image
     character.frames.max = frames
     character.velocity = velocity
-    character.width = (character.image.width - 20) / character.frames.max
+    character.width = character.image.width  / character.frames.max
+    character.animate = animate
 }
 
 

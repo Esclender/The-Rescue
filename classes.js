@@ -75,13 +75,15 @@ class movimiento{
 }
 
 class ataquesLista{
-    constructor({vida,nombreAt,limite,turno,elemento,letras}){
+    constructor({vida,nombreAt,limite,turno,elemento,letras,image}){
         this.vida = vida
         this.nombreAtaque = nombreAt
         this.limite = limite
         this.turno = turno
         this.elemento = elemento
         this.letras = letras
+        this.image = new Image()
+        this.image.src = image
     }
 
 }
