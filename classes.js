@@ -85,3 +85,10 @@ class ataquesLista{
     }
 
 }
+
+class frameso{
+    constructor({dmg = {capas}}){
+        this.damage = {frams:capas}
+        
+    }
+}

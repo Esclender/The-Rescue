@@ -26,6 +26,7 @@ const healthBar = new sprite({
 })
 const frameAtaquePlayer = new Image()
 frameAtaquePlayer.src = './assets/Ataque.png'
+
 const frameAtaqueEnemigo = new Image()
 frameAtaqueEnemigo.src = './assets/AtaqueEnemigo.png'
 let finalAtaque = false
@@ -91,6 +92,11 @@ for (let index = 0; index < LugaresEnInventario.length; index++) {
 }
 
 
+const JuanDMG = new Image()
+JuanDMG.src = './assets/Frames.png'
+const JugadorDMG = new Image()
+JugadorDMG.src = './assets/personaje2.png'
+
 const SalirDeInventario = document.createElement('button')
 SalirDeInventario.classList.add('salir')
 SalirDeInventario.innerHTML = 'Salir'
@@ -133,14 +139,13 @@ function animateBattle() {
     }
         if( !EnemyBar.clientWidth <= 0 && !PlayerBar.clientWidth == 0) {
             pelea(choice.value)
-        }else{
-            if (EnemyBar.clientWidth <= 0) {
-                
-            }else if(PlayerBar.clientWidth <= 0){
-                aparecerMensaje(playerName.innerHTML + " Ha muerto")
-
-            }
         }
+                
+           // }else if(PlayerBar.clientWidth <= 0){
+            //    aparecerMensaje(playerName.innerHTML + " Ha muerto")
+
+            
+
         
     
 }
@@ -162,10 +167,14 @@ function pelea(ataque) {
                     for (let i = 0; i < vidasEnemys.length; i++) {
                         if(EnemyName.innerHTML == vidasEnemys[i].nombreMonster) {
                             if (total > 0 ) {
+                                AnimationDamage(Enemigo,JuanDMG,4,10)
                                 vidasEnemys[i].vida = String(total) + 'px'
+                                gsap.delayedCall(1.5,defaulter)
+                                
                             }else{
                                 vidasEnemys[i].vida ='0px'
-                                aparecerMensaje(EnemyName.innerHTML + " Ha muerto")
+
+                                gsap.delayedCall(2,() => {aparecerMensaje(EnemyName.innerHTML + " Ha muerto")}) 
                                 turno = 0
                                 return;
                             }
@@ -173,23 +182,16 @@ function pelea(ataque) {
                     
                     }
                     if (finalAtaque && turno == 1) {
-                        jugador.image= frameAtaquePlayer
-                        jugador.frames.max = 4
-                        jugador.velocity = 10
-                        jugador.width = jugador.image.width / jugador.frames.max
+                        AnimationDamage(jugador,frameAtaquePlayer,4,10)
                         gsap.delayedCall(3,ataqueMonstruo)
                         gsap.delayedCall(1.5,defaulter)
-                        
                     }
                     ataques[i].elemento.innerHTML = ataques[i].nombreAtaque + ' (' + ataques[i].limite + ')'
 
                     turno = 2
                     if (turno == 2) {
-                        
                         gsap.delayedCall(5, () =>{
-                            console.log(turno)
                             turno = 1
-                            console.log(turno)
                         })
                         
                     }
@@ -213,8 +215,6 @@ function pelea(ataque) {
         }
         curar(ataque)
     
-        
-        
         restar =  false  
        
     }
@@ -222,24 +222,32 @@ function pelea(ataque) {
 }
 
 function ataqueMonstruo() {
-    Enemigo.image = EnemigoImage
+    Enemigo.image = frameAtaqueEnemigo
     const MonsterAttack = Math.floor(Math.random() * 3); 
     for (let i = 0; i < ataques.length; i++) {
         if( MonsterAttack == ataques[i].turno  ){
-            const ancho = PlayerBar.clientWidth
-            const total =String(ancho - ataques[i].vida)
-            vidasPlayer[vidasPlayer.length - 1].vida = total + 'px'
+            let total = PlayerBar.clientWidth;
         }
+        damage(PlayerBar.clientWidth,vidasPlayer.length - 1,vidasEnemys,vidasPlayer)
+        gsap.delayedCall(2, () => {Enemigo.image = EnemigoImage})
     }  
     finalAtaque = false 
 }
 
 function defaulter() {
-    jugador.image= JugadorImage
-    jugador.frames.max = 10
-    jugador.velocity = 20
-    jugador.width = jugador.image.width / jugador.frames.max
-    Enemigo.image = frameAtaqueEnemigo
+        jugador.image= JugadorImage
+        jugador.frames.max = 10
+        jugador.velocity = 20
+        jugador.width = jugador.image.width / jugador.frames.max
+
+        Enemigo.image = EnemigoImage
+        Enemigo.width = Enemigo.image.width / Enemigo.frames.max
+        Enemigo.frames.max = 6
+
+
+    
+
+
 }
 
 function curar(objeto) {
@@ -280,6 +288,33 @@ function aparecerMensaje(escribir) {
         })
 
     }
+}
+
+function damage(total,index,array,vidaPersonaje){
+    for (let i = 0; i < ataques.length; i++) {
+            if (total > 0){
+                total = total - ataques[i].vida
+            }
+    }       
+            for (let i = 0; i < array.length; i++) {
+                    if (total > 0 ) {
+                        AnimationDamage(jugador,JugadorDMG,10,10)
+                        vidaPersonaje[index].vida = String(total) + 'px'
+                        gsap.delayedCall(1.5, defaulter)
+                    }else if(index == vidasPlayer.length - 1){
+                        vidaPersonaje[index].vida ='0px'
+                        aparecerMensaje("Derrota")
+                        turno = 0
+                        return;
+                    }
+            }
+}
+
+function AnimationDamage(character,image,frames,velocity) {
+    character.image = image
+    character.frames.max = frames
+    character.velocity = velocity
+    character.width = (character.image.width - 20) / character.frames.max
 }
 
 

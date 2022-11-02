@@ -346,7 +346,7 @@ function animate() {
         }
 
 }
-animate()
+animateBattle()
 
 
 
