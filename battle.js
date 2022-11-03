@@ -44,7 +44,7 @@ const healthEnemyBar = new sprite({
 let ataques = []
 const ataqueOne = new ataquesLista({vida:15,nombreAt:'zero',turno:0})
 const ataqueTwo = new ataquesLista({vida:65,nombreAt:'Cuchilla',limite:5,turno: 1,elemento:document.createElement('button'),letras:8,image:'./assets/personaje2.png'})
-const ataqueThree = new ataquesLista({vida:35,nombreAt:'Rayo',limite:10,turno:2,elemento:document.createElement('button'),letras:4})
+const ataqueThree = new ataquesLista({vida:35,nombreAt:'Fire Ball',limite:10,turno:2,elemento:document.createElement('button'),letras:9})
 ataques.push(ataqueOne,ataqueTwo,ataqueThree)
 for (let index = 1; index < ataques.length; index++) {
     let actual = ataques[index].elemento
@@ -98,6 +98,7 @@ function animateBattle() {
     healthEnemyBar.draw()
     jugador.draw()
     Enemigo.draw()
+    GneralEfect.draw()
 
     document.querySelectorAll('button').forEach((e) =>{ e.addEventListener('click', (e) =>{choice = {
         value: e.target.innerHTML}
@@ -130,20 +131,19 @@ function pelea(ataque) {
     if (restar) { 
  
         for (let i = 0; i < ataques.length ; i++) {
-            if(ataque.slice(0,ataques[i].letras) == ataques[i].nombreAtaque ){
+            if(ataque.slice(0,ataques[i].letras) ==  ataques[i].nombreAtaque ){
                 if (turno == 1 ) {
                     if (ataques[i].limite > 0) {
                     let total = EnemyBar.clientWidth;
                     ataques[i].limite -= 1
                     if (total > 0) {
                         total = total - ataques[i].vida
-                        console.log("total es ", total)
+                        ElegirEfecto(ataque.slice(0,ataques[i].letras))
                     }
                     
                     for (let i = 0; i < vidasEnemys.length; i++) {
                         if(EnemyName.innerHTML == vidasEnemys[i].nombreMonster) {
                             if (total > 0 ) {
-                                AnimationDamage(Enemigo,JuanDMG,4,10,true)
                                 vidasEnemys[i].vida = String(total) + 'px'
                                 gsap.delayedCall(1.5,defaulter)
                                 
@@ -205,13 +205,13 @@ function ataqueMonstruo() {
         if( MonsterAttack == ataques[i].turno  ){
             let total = PlayerBar.clientWidth;
         }
-        damage(PlayerBar.clientWidth,vidasPlayer.length - 1,vidasEnemys,vidasPlayer)
+        damage(PlayerBar.clientWidth,vidasPlayer.length - 1,vidasEnemys,vidasPlayer,MonsterAttack)
         gsap.delayedCall(2, () => {Enemigo.image = EnemigoImage})
     }  
     finalAtaque = false 
 }
 
-function defaulter() {
+function defaulter(efecto) {
         jugador.image= JugadorImage
         jugador.frames.max = 10
         jugador.velocity = 20
@@ -221,6 +221,7 @@ function defaulter() {
         Enemigo.width = Enemigo.image.width / Enemigo.frames.max
         Enemigo.frames.max = 6
 
+        GneralEfect.image = AtaquDefaultEfecct
 
     
 
@@ -267,15 +268,14 @@ function aparecerMensaje(escribir) {
     }
 }
 
-function damage(total,index,array,vidaPersonaje){
+function damage(total,index,array,vidaPersonaje,numero){
     for (let i = 0; i < ataques.length; i++) {
             if (total > 0){
-                total = total - ataques[i].vida
+                total = total - ataques[numero].vida
             }
     }       
             for (let i = 0; i < array.length; i++) {
                     if (total > 0 ) {
-                        AnimationDamage(jugador,JugadorDMG,10,10,true)
                         vidaPersonaje[index].vida = String(total) + 'px'
                         gsap.delayedCall(1.5, defaulter)
                     }else if(index == vidasPlayer.length - 1){
@@ -297,4 +297,12 @@ function AnimationDamage(character,image,frames,velocity,animate) {
     character.animate = animate
 }
 
+function ElegirEfecto(nombreEfecto) {
+    for (let index = 0; index < arrayDeEfectos.length; index++) {
+        if (nombreEfecto == arrayDeEfectos[index].nombre) {
+            AnimationDamage(GneralEfect,arrayDeEfectos[index].frame,4,10,true)
+        }
+        
+    }
+}
 

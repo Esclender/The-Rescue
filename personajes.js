@@ -1,3 +1,8 @@
+//Mapa
+const canvas = document.querySelector('#mapa')
+const ctx = canvas.getContext('2d')
+
+
 //jugador
 const jugadorDead = new Image()
 jugadorDead.src = './assets/MuertePersonaje.png'
@@ -10,7 +15,7 @@ JugadorDMG.src = './assets/personaje2.png'
 
 //Enemigos
 
-//juan
+//juan (Datos y Frames)
 const frameAtaqueEnemigo = new Image()
 frameAtaqueEnemigo.src = './assets/AtaqueEnemigo.png'
 const JuanDMG = new Image()
@@ -41,4 +46,45 @@ let vidasEnemys = [
     }
 
 ]
+
+
+//Efectos de ataque
+
+const AtaquDefaultEfecct = new Image()
+AtaquDefaultEfecct.src= '/assets/DefaultAnimaciones.png'
+const FireballFrame = new Image()
+FireballFrame.src = './assets/Boladfuego.png'
+const CuchillaFrame = new Image()
+CuchillaFrame.src = './assets/cuchillaEffect.png'
+
+
+const GneralEfect= new sprite({
+    position:{
+        x:canvas.width / 2 - (-596) ,
+        y:canvas.height / 2 - (-159)  
+    },
+    image:AtaquDefaultEfecct,
+    frames:{
+        max:4
+    },
+    animate: true,
+    velocity: 15
+})
+
+const arrayDeEfectos = [
+    fire={
+        nombre: 'Fire Ball',
+        frame: FireballFrame
+    },
+    cuchilla={
+        nombre: 'Cuchilla',
+        frame: CuchillaFrame
+    }
+]
+
+
+
+
+
+
 

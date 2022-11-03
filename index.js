@@ -1,5 +1,3 @@
-const canvas = document.querySelector('#mapa')
-const ctx = canvas.getContext('2d')
 const town = new Image()
 town.src= './assets/Mpa-1.png'
 const personaje = new Image()
@@ -346,7 +344,7 @@ function animate() {
         }
 
 }
-animate()
+animateBattle()
 
 
 

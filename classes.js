@@ -1,5 +1,5 @@
 class sprite{
-    constructor({position,image,frames = {max:1},animate,velocity}){
+    constructor({position,image,frames = {max:1},animate,velocity,name}){
         this.position = position
         this.image = image
         this.frames = {...frames,val:0,elapse:0}
@@ -12,6 +12,7 @@ class sprite{
         this.velocity = velocity
         this.animate = animate
         this.moving= false
+        this.name = name
         
     }
 
@@ -82,8 +83,7 @@ class ataquesLista{
         this.turno = turno
         this.elemento = elemento
         this.letras = letras
-        this.image = new Image()
-        this.image.src = image
+        this.image = image
     }
 
 }
