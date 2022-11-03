@@ -154,12 +154,35 @@
             background-color: #fff;
         }
 
+        .audio{
+            display: inline-block;
+            position: absolute;
+            top: 110px;
+            left: 45%;
+        }
+
+        .audio > button{
+            width: 40px;
+            height: 40px;
+            background-image: url('./assets/audio/PlayButton.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .audio > button:hover{
+            box-shadow: none;
+        }
+
         
     </style>
 </head>
 <body>
  
     <div id="container">
+        <div class="audio">
+            <button class="play"></button>
+            <button class="pause"></button>
+        </div>
         <div class="life">
             <h1 class="nickname">Esclender</h1>
             <h1 class="nickname-enemy">juan</h1>
@@ -182,6 +205,7 @@
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js" integrity="sha512-gmwBmiTVER57N3jYS3LinA9eb8aHrJua5iQD7yqYCKa5x6Jjc7VDVaEA0je0Lu0bP9j7tEjV3+1qUm6loO99Kw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     
+    <script src="./audios.js"></script>
     <script src="./classes.js"></script>
     <script src="./personajes.js"></script>
     <script src="./data/data.js"></script>

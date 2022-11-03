@@ -45,6 +45,7 @@ let ataques = []
 const ataqueOne = new ataquesLista({vida:15,nombreAt:'zero',turno:0})
 const ataqueTwo = new ataquesLista({vida:65,nombreAt:'Cuchilla',limite:5,turno: 1,elemento:document.createElement('button'),letras:8,image:'./assets/personaje2.png'})
 const ataqueThree = new ataquesLista({vida:35,nombreAt:'Fire Ball',limite:10,turno:2,elemento:document.createElement('button'),letras:9})
+
 ataques.push(ataqueOne,ataqueTwo,ataqueThree)
 for (let index = 1; index < ataques.length; index++) {
     let actual = ataques[index].elemento
