@@ -1,3 +1,7 @@
+//Mapa
+const canvas = document.querySelector('#mapa')
+const ctx = canvas.getContext('2d')
+
 class sprite{
     constructor({position,image,frames = {max:1},animate,velocity,name}){
         this.position = position
@@ -18,7 +22,7 @@ class sprite{
 
     draw(){
         //ctx.drawImage(this.image,this.position.x,this.position.y)
-        
+
         ctx.drawImage(
             this.image,
             this.frames.val  * this.width ,

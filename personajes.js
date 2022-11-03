@@ -1,6 +1,4 @@
-//Mapa
-const canvas = document.querySelector('#mapa')
-const ctx = canvas.getContext('2d')
+
 
 
 //jugador
@@ -51,7 +49,7 @@ let vidasEnemys = [
 //Efectos de ataque
 
 const AtaquDefaultEfecct = new Image()
-AtaquDefaultEfecct.src= '/assets/DefaultAnimaciones.png'
+AtaquDefaultEfecct.src= './assets/DefaultAnimaciones.png'
 const FireballFrame = new Image()
 FireballFrame.src = './assets/Boladfuego.png'
 const CuchillaFrame = new Image()
