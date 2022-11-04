@@ -123,6 +123,7 @@ function animateBattle() {
         }
     }
         if( !EnemyBar.clientWidth <= 0 && !PlayerBar.clientWidth == 0) {
+            sound.play()
             pelea(choice.value)
         }
 
@@ -134,7 +135,7 @@ function animateBattle() {
 function pelea(ataque) {
     //Ataque del Player
     if (restar) { 
- 
+        
         for (let i = 0; i < ataques.length ; i++) {
             if(ataque.slice(0,ataques[i].letras) ==  ataques[i].nombreAtaque ){
                 if (turno == 1 ) {
@@ -156,7 +157,7 @@ function pelea(ataque) {
                                 vidasEnemys[i].vida ='0px'
                                 gsap.delayedCall(3,() => {aparecerMensaje(EnemyName.innerHTML + " Ha muerto")}) 
                                 document.querySelector('.atacks').style.display ='none'
-                                gsap.delayedCall(0.1,() => {Scream.play()})
+                                gsap.delayedCall(0.1,() => {Scream.play(); sound.pause()})
                                 gsap.delayedCall(2,() => {Scream.pause()})
                                 gsap.delayedCall(2.5,() => {AnimationDamage(Enemigo,AtaquDefaultEfecct,4,10,false)}) 
                                 gsap.delayedCall(.5,defaulter)
