@@ -123,7 +123,10 @@ function animateBattle() {
         }
     }
         if( !EnemyBar.clientWidth <= 0 && !PlayerBar.clientWidth == 0) {
-            sound.play()
+            if (estado) {
+              sound.play()  
+            }
+            
             pelea(choice.value)
         }
 
