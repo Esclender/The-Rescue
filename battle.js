@@ -44,7 +44,7 @@ const healthEnemyBar = new sprite({
 let ataques = []
 const ataqueOne = new ataquesLista({vida:15,nombreAt:'zero',turno:0})
 const ataqueTwo = new ataquesLista({vida:65,nombreAt:'Cuchilla',limite:5,turno: 1,elemento:document.createElement('button'),letras:8,image:'./assets/personaje2.png'})
-const ataqueThree = new ataquesLista({vida:35,nombreAt:'Fire Ball',limite:10,turno:2,elemento:document.createElement('button'),letras:9})
+const ataqueThree = new ataquesLista({vida:45,nombreAt:'Fire Ball',limite:10,turno:2,elemento:document.createElement('button'),letras:9})
 
 ataques.push(ataqueOne,ataqueTwo,ataqueThree)
 for (let index = 1; index < ataques.length; index++) {
@@ -84,6 +84,10 @@ InventarioContainer.appendChild(SalirDeInventario)
 
 
 function animateBattle() {
+    //if (estado) {
+   //    sound.play() 
+   // }
+    
     const battleId = window.requestAnimationFrame(animateBattle)
     battleBackground.draw()
     gsap.to('.atacks',{
@@ -150,9 +154,12 @@ function pelea(ataque) {
                                 
                             }else{
                                 vidasEnemys[i].vida ='0px'
-                                gsap.delayedCall(2,() => {aparecerMensaje(EnemyName.innerHTML + " Ha muerto")}) 
+                                gsap.delayedCall(3,() => {aparecerMensaje(EnemyName.innerHTML + " Ha muerto")}) 
                                 document.querySelector('.atacks').style.display ='none'
-                                AnimationDamage(Enemigo,JuanDead,4,10,false)
+                                gsap.delayedCall(0.1,() => {Scream.play()})
+                                gsap.delayedCall(2,() => {Scream.pause()})
+                                gsap.delayedCall(2.5,() => {AnimationDamage(Enemigo,AtaquDefaultEfecct,4,10,false)}) 
+                                gsap.delayedCall(.5,defaulter)
                                 turno = 0
                                 return;
                             }
@@ -206,9 +213,10 @@ function ataqueMonstruo() {
         if( MonsterAttack == ataques[i].turno  ){
             let total = PlayerBar.clientWidth;
         }
-        damage(PlayerBar.clientWidth,vidasPlayer.length - 1,vidasEnemys,vidasPlayer,MonsterAttack)
-        gsap.delayedCall(2, () => {Enemigo.image = EnemigoImage})
+
     }  
+    damage(PlayerBar.clientWidth,vidasPlayer.length - 1,vidasEnemys,vidasPlayer,MonsterAttack)
+    gsap.delayedCall(2, () => {Enemigo.image = EnemigoImage})
     finalAtaque = false 
 }
 
@@ -270,24 +278,24 @@ function aparecerMensaje(escribir) {
 }
 
 function damage(total,index,array,vidaPersonaje,numero){
-    for (let i = 0; i < ataques.length; i++) {
-            if (total > 0){
-                total = total - ataques[numero].vida
+        if (total > 0){
+            total = total - ataques[numero].vida
+        }
+       
+            if (total > 0 ) {
+                vidaPersonaje[index].vida = String(total) + 'px'
+                console.log(numero)
+                console.log('las vida del jugador es', vidaPersonaje[index].vida)
+                gsap.delayedCall(1.5, defaulter)
+            }else if(index == vidasPlayer.length - 1){
+                vidaPersonaje[index].vida ='0px'
+                document.querySelector('.atacks').style.display ='none'
+                aparecerMensaje("Derrota")
+                AnimationDamage(jugador, jugadorDead,10,10,false)
+                turno = 0
+                return;
             }
-    }       
-            for (let i = 0; i < array.length; i++) {
-                    if (total > 0 ) {
-                        vidaPersonaje[index].vida = String(total) + 'px'
-                        gsap.delayedCall(1.5, defaulter)
-                    }else if(index == vidasPlayer.length - 1){
-                        vidaPersonaje[index].vida ='0px'
-                        document.querySelector('.atacks').style.display ='none'
-                        aparecerMensaje("Derrota")
-                        AnimationDamage(jugador, jugadorDead,10,10,false)
-                        turno = 0
-                        return;
-                    }
-            }
+            
 }
 
 function AnimationDamage(character,image,frames,velocity,animate) {

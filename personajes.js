@@ -16,8 +16,6 @@ JugadorDMG.src = './assets/personaje2.png'
 //juan (Datos y Frames)
 const frameAtaqueEnemigo = new Image()
 frameAtaqueEnemigo.src = './assets/AtaqueEnemigo.png'
-const JuanDMG = new Image()
-JuanDMG.src = './assets/Frames.png'
 const JuanDead = new Image()
 JuanDead.src ='./assets/FramesDead.png'
 
