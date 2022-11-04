@@ -4,6 +4,8 @@
 //jugador
 const jugadorDead = new Image()
 jugadorDead.src = './assets/MuertePersonaje.png'
+const jugadorDead2 = new Image()
+jugadorDead2.src = './assets/Muerte-Playere.png'
 const frameAtaquePlayer = new Image()
 frameAtaquePlayer.src = './assets/Ataque.png'
 const JugadorDMG = new Image()

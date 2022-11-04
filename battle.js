@@ -42,7 +42,7 @@ const healthEnemyBar = new sprite({
 
 // contenedor de ataques
 let ataques = []
-const ataqueOne = new ataquesLista({vida:15,nombreAt:'zero',turno:0})
+const ataqueOne = new ataquesLista({vida:105,nombreAt:'zero',turno:0})
 const ataqueTwo = new ataquesLista({vida:65,nombreAt:'Cuchilla',limite:5,turno: 1,elemento:document.createElement('button'),letras:8,image:'./assets/personaje2.png'})
 const ataqueThree = new ataquesLista({vida:45,nombreAt:'Fire Ball',limite:10,turno:2,elemento:document.createElement('button'),letras:9})
 
@@ -295,7 +295,8 @@ function damage(total,index,array,vidaPersonaje,numero){
                 vidaPersonaje[index].vida ='0px'
                 document.querySelector('.atacks').style.display ='none'
                 aparecerMensaje("Derrota")
-                AnimationDamage(jugador, jugadorDead,10,10,false)
+                AnimationDamage(jugador, jugadorDead2,7,10,true)
+                gsap.delayedCall(1.5, () => {AnimationDamage(jugador, jugadorDead2,7,10,false)})
                 turno = 0
                 return;
             }
