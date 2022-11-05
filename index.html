@@ -65,8 +65,8 @@
 
         .menu-contenedor{
             position: absolute;
-            right: 10%;
-            top: 30%;
+            left: 2%;
+            top: 25%;
             width: 40%;
             height: 40%;
             font-size: 20px;
@@ -92,23 +92,98 @@
             background-color: #111111;
             
         }
+
+        
+        .play,.pause{
+            background-color: rgba(0, 0, 0, 0);
+            border: none;
+            background-image: url('./assets/audio/play.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 80px;
+            width: 80px;
+            position:absolute;
+            right: 0;
+            cursor: pointer;
+        }
+        .pause{
+            background-image: url('./assets/audio/pausa.png');
+            right: 81px;
+        }
+        .play:hover{
+            background-color:rgba(0, 0, 0, 0) ;
+        }
+        .pause:hover{
+            background-color:rgba(0, 0, 0, 0) ;
+        }
+        .flash{
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            border-radius: 20px;
+            background-color: #111111;
+            opacity: 0;
+            position: absolute;
+            pointer-events: none;
+            z-index: 200;
+        }
+
+        h1{
+            line-height: 55px;
+        }
+
+        .titulo-juego{
+            font-size: 75px;
+            margin-top: 25px;
+            padding: 25px;
+            color: rgba(255, 255, 255, 0);
+
+            background-image: url('./assets/WhatsApp\ Image\ 2022-11-05\ at\ 5.03.24\ PM.jpeg');
+            background-position-x: 45% ;
+            background-position-Y: 78% ;
+            
+            -webkit-background-clip: text;
+        }
         
     </style>
 </head>
 <body>
- 
+    
+    
     <div id="menu-principal">
+        <div class="flash"></div>
+        <button class="play"></button>
+        <button class="pause"></button>
+        <h1 class="titulo-juego">RESCUE</h1>
         <div class="menu-contenedor">
-            <h1 class="titulo" style="color:red">Estas preparado para  forjar <br> tu Leyenda?</h1>
-           <a href="./inicoJuego.html"><button>Empezar</a></button> </a> 
+            <h1 class="titulo" style="color:red">Estas listo<br> para  forjar  tu Leyenda?</h1>
+            <button class="begin">Empezar</a></button>
         </div>
             
     </div>
 
-<script>
-    let MainSound = new Audio("./assets/audio/Castlecall.mp3")
-    MainSound.play()
-</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js" integrity="sha512-gmwBmiTVER57N3jYS3LinA9eb8aHrJua5iQD7yqYCKa5x6Jjc7VDVaEA0je0Lu0bP9j7tEjV3+1qUm6loO99Kw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        let MainSound = new Audio("./assets/audio/Castlecall.mp3")
+        document.querySelector('.play').addEventListener('click', () =>{MainSound.play()})
+        document.querySelector('.pause').addEventListener('click', () =>{MainSound.pause()})
+
+        let empezarbtt = document.querySelector('.begin')
+
+        empezarbtt.addEventListener('click', () => {
+            console.log("funciona")
+            gsap.to('.flash',{
+                opacity:1,
+                duration: 2
+
+            })
+            gsap.delayedCall(3,() => {
+                window.location.href = './index2.html'
+            })
+        })
+
+    </script>
     
 </body>
 </html>

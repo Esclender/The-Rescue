@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The rescue</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        *{
+            font-family: 'Press Start 2P', cursive;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            background-color: #000;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #contenedor{
+            margin-left: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill,700px);
+            gap: 700px;
+            align-items: center;
+            width: 8000px;
+            height: 600px;
+            align-content: center;
+            transition: 2s;
+        }
+
+       
+
+        h1{
+            font-size: 18px;
+            line-height: 30px;
+            color: #ff0;
+        }
+
+        .next-btt{
+            bottom: 0;
+            right: 20px;
+            position: absolute;
+            padding: 20px;
+            cursor: pointer;
+        }
+
+        .back-btt{
+            display: none;
+            bottom: 0;
+            left: 20px;
+            position: absolute;
+            padding: 20px;
+            cursor: pointer;
+        }
+
+
+
+        .flash{
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            height: 100vh;
+            background-color: #111111;
+            opacity: 1;
+            position: absolute;
+            pointer-events: none;
+            z-index: 200;
+        }
+    </style>
+</head>
+<body>
+    <div id="contenedor">
+        <div class="flash"></div>
+        <div class="historia">
+            <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem aut vitae asperiores! Id fugit <br>   explicabo, iusto sit suscipit molestiae doloremque dignissimos repudiandae non! Dolorem a facilis nisi. Totam, aliquid esse!Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem aut vitae asperiores! Id fugit explicabo, iusto sit suscipit molestiae doloremque dignissimos repudiandae non! Dolorem a facilis nisi. Totam, aliquid esseLoreLorem ipsum. </h1>
+
+        </div>
+
+        <div class="historia">
+            <h1>Lorem ch dolor sit amet consectetur adipisicing elit. Autem aut vitae asperiores! Id fugit <br>   explicabo, iusto sit suscipit molestiae doloremque dignissimos repudiandae non! Dolorem a facilis nisi. Totam, aliquid esse!Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem aut vitae asperiores! Id fugit explicabo, iusto sit suscipit molestiae doloremque dignissimos repudiandae non! Dolorem a facilis nisi. Totam, aliquid esseLoreLorem ipsum. </h1>
+
+        </div>
+
+        <div class="historia">
+            <h1>Lorem ch dolor sit amet consectetur adipisicing elit. Autem aut vitae asperiores! Id fugit <br>   explicabo, iusto sit suscipit molestiae doloremque dignissimos repudiandae non! Dolorem a facilis nisi. Totam, aliquid esse!Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem aut vitae asperiores! Id fugit explicabo, iusto sit suscipit molestiae doloremque dignissimos repudiandae non! Dolorem a facilis nisi. Totam, aliquid esseLoreLorem ipsum. </h1>
+
+        </div>
+
+        <div class="historia">
+            <h1>Lorem ch dolor sit amet consectetur adipisicing elit. Autem aut vitae asperiores! Id fugit <br>   explicabo, iusto sit suscipit molestiae doloremque dignissimos repudiandae non! Dolorem a facilis nisi. Totam, aliquid esse!Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem aut vitae asperiores! Id fugit explicabo, iusto sit suscipit molestiae doloremque dignissimos repudiandae non! Dolorem a facilis nisi. Totam, aliquid esseLoreLorem ipsum. </h1>
+
+        </div>
+    </div>
+    <button class="back-btt">Atras</button>
+    <button class="next-btt">Siguiente</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js" integrity="sha512-gmwBmiTVER57N3jYS3LinA9eb8aHrJua5iQD7yqYCKa5x6Jjc7VDVaEA0je0Lu0bP9j7tEjV3+1qUm6loO99Kw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        let MainSound = new Audio('./assets/audio/Castlecall.mp3')
+        let container = document.querySelector('#contenedor')
+        let backBoton = document.querySelector('.back-btt')
+        let boton = document.querySelector('.next-btt')
+        let parrafos = 1
+        let margen = -1350
+
+        boton.addEventListener('click', () => {
+            if (boton.innerHTML == "Empezar aventura") {
+                gsap.to('.flash',{
+                    opacity:1,
+                    duration: 2
+
+                })
+                gsap.delayedCall(3, () =>{window.location.href = './inicoJuego.html'}) 
+            }
+
+            
+            parrafos += 1
+            if (parrafos > 1) {
+                document.querySelector('.back-btt').style.display = 'block'
+            }
+            container.style.marginLeft = String(margen) + 'px'
+            if (margen != -5400) {
+                margen -= 1350
+            }
+
+            if (parrafos == 4 ) {
+                boton.innerHTML = "Empezar aventura"
+            } 
+
+        })
+
+        backBoton.addEventListener('click', () => {
+            margen += 1350
+            parrafos -= 1
+      
+
+
+
+            
+            console.log(margen,parrafos)
+            if (parrafos < 1) {
+                document.querySelector('.back-btt').style.display = 'none'
+            }
+
+            container.style.marginLeft = String(margen) + 'px'
+            if (parrafos < 4) {
+                boton.innerHTML = "Siguiente"
+            }
+            
+
+        })
+
+        gsap.delayedCall(3,() =>{
+            gsap.to('.flash',{
+                opacity:0,
+                duration: 2
+
+            })
+        })
+
+
+    </script>
+</body>
+</html>

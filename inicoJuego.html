@@ -41,7 +41,7 @@
             left: 0;
             border-radius: 20px;
             background-color: #111111;
-            opacity: 0;
+            opacity: 1;
             position: absolute;
             pointer-events: none;
             z-index: 200;
@@ -247,7 +247,16 @@
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js" integrity="sha512-gmwBmiTVER57N3jYS3LinA9eb8aHrJua5iQD7yqYCKa5x6Jjc7VDVaEA0je0Lu0bP9j7tEjV3+1qUm6loO99Kw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     
-    
+    <script>
+            gsap.delayedCall(3,() =>{
+                gsap.to('.flash',{
+                    opacity:0,
+                    duration: 2
+
+                })
+            })
+
+    </script>
     <script src="./audios.js"></script>
     <script src="./classes.js"></script>
     <script src="./personajes.js"></script>
