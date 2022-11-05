@@ -44,183 +44,71 @@
             opacity: 0;
             position: absolute;
             pointer-events: none;
+            z-index: 200;
         }
 
-        .atacks, .inventario,.mensaje{
+        .off{
+           display : none;
+        }
+
+
+  
+        #menu-principal{
+            border-radius: 20px;
+            background-image: url("./assets/Fonfo-menu.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
             position: absolute;
-            opacity: 0;
-            bottom: 4px;
-            left: 4px;
-            right: 4px;
-            height: 30%;
-            border-radius: 0 0 20px 20px;
-            border-top: 4px solid #690909 ;
-            background-color: rgba(255, 255, 255, 0);
-            display: flex;
-            overflow: hidden;
+            width: 1000px;
+            height: 580px;
         }
 
-        .inventario{
-            display: grid;
-            grid-template-columns: repeat(5,1fr);
-            background-color: #fff;
-            opacity: 0;
+        .menu-contenedor{
+            position: absolute;
+            right: 10%;
+            top: 30%;
+            width: 40%;
+            height: 40%;
+            font-size: 20px;
         }
-
-        .aparecer{
-            z-index: 99;
-        }
-        .aparecer2{
-            z-index: 59;
-        }        
-
-        .salir{
-            grid-column: 5/6;
-        }
-
-
-        .atacks > button{
-            width: 30%;
-        }
-
-        .attacks-container{
-            width: 70%;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-
-        }
-
-        .attacks-container > button:nth-child(1),.attacks-container > button:nth-child(2){
-            border-right: 4px solid #690909;
+        
+        .menu-contenedor > button{
+            margin-top: 30px;
+            width: 80%;
+            border-radius: 10px;
+            height: 60px;
+            background-color: #11111161;
+            border: none;
+            cursor: pointer;
             
         }
-        .attacks-container > button:nth-child(3),.attacks-container > button:nth-child(4){
-            border-right: 4px solid #690909;
-        }
 
-        button{
-            border: none;
-            background-color: transparent;
+         a{
+            text-decoration: none;
+            color: #fff;
         }
-
 
         button:hover{
-            box-shadow: 8px 15px 47px 4px rgba(0,0,0,0.75) inset;
-            -webkit-box-shadow: 8px 15px 47px 4px rgba(0,0,0,0.75) inset;
-            -moz-box-shadow: 8px 15px 47px 4px rgba(0,0,0,0.75) inset;
-            cursor: pointer;
+            background-color: #111111;
+            
         }
-
-        .nickname{
-            display: inline-block;
-            position: absolute;
-            top: 90px;
-            left: 60px;
-            font-size: 16px;
-        }
-
-        .nickname-enemy{
-            display: inline-block;
-            position: absolute;
-            top: 90px;
-            right: 105px;
-            font-size: 16px;
-        }
-
-        #playerBar{
-            height: 20px;
-            position: absolute;
-            top: 110px;
-            left: 60px;
-            background-color: #0f0;
-        }
-
-        #EnemyBar{
-            height: 20px;
-            position: absolute;
-            top: 110px;
-            right: 105px;
-            background-color: #f00;
-        }
-
-        .life{
-            opacity: 0;
-        }
-
-        .mensaje{
-            opacity: 0;
-            justify-content: center;
-            align-items: center;
-            background-color: #fff;
-        }
-
-        .audio{
-            display: inline-block;
-            position: absolute;
-            top: 110px;
-            left: 42%;
-        }
-
-        .audio > button{
-            width: 40px;
-            height: 40px;
-        }
-
-        .audio > button:nth-child(1){
-            background-image: url('./assets/audio/play.png');
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-
-        .audio > button:nth-child(2){
-            background-image: url('./assets/audio/pausa.png');
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-
-        .audio > button:hover{
-            box-shadow: none;
-        }
-
         
     </style>
 </head>
 <body>
  
-    <div id="container">
-        <div class="audio">
-            <button class="play"></button>
-            <button class="pause"></button>
+    <div id="menu-principal">
+        <div class="menu-contenedor">
+            <h1 class="titulo" style="color:red">Estas preparado para  forjar <br> tu Leyenda?</h1>
+           <a href="./inicoJuego.html"><button>Empezar</a></button> </a> 
         </div>
-        <div class="life">
-            <h1 class="nickname">Esclender</h1>
-            <h1 class="nickname-enemy">juan</h1>
-            <div id="EnemyBar"></div>
-            <div id="playerBar"></div>
-        </div>
-        <div class="flash"></div>
-        <canvas id="mapa"></canvas>        
-        <div class="mensaje ">
-            <h1 class="EscribirMensaje"></h1>
-        </div>
-        <div class="inventario ">
-        </div>
-        <div class="atacks">
-            <div class="attacks-container">
-            </div>
-            <button>Inventario</button>
-        </div>
-
+            
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js" integrity="sha512-gmwBmiTVER57N3jYS3LinA9eb8aHrJua5iQD7yqYCKa5x6Jjc7VDVaEA0je0Lu0bP9j7tEjV3+1qUm6loO99Kw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    
-    <script src="./audios.js"></script>
-    <script src="./classes.js"></script>
-    <script src="./personajes.js"></script>
-    <script src="./data/data.js"></script>
-    <script src="battle.js"></script>
-    <script src="./index.js"></script>
-    
+
+<script>
+    let MainSound = new Audio("./assets/audio/Castlecall.mp3")
+    MainSound.play()
+</script>
     
 </body>
 </html>

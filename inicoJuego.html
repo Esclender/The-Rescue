@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <title>Document</title>   
+    <style>
+        *{
+            font-family: 'Press Start 2P', cursive;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+    
+        body{
+            background-color: #040404;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            
+        }
+    
+        canvas{
+            border: 4px solid #690909;
+            border-radius: 20px;
+            margin-top: 30px;
+        }
+
+        #container{
+            display: inline-block;
+            position: relative;
+        }
+
+        .flash{
+            top: 30px;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            border-radius: 20px;
+            background-color: #111111;
+            opacity: 0;
+            position: absolute;
+            pointer-events: none;
+            z-index: 200;
+        }
+
+        .atacks, .inventario,.mensaje{
+            position: absolute;
+            opacity: 0;
+            bottom: 4px;
+            left: 4px;
+            right: 4px;
+            height: 30%;
+            border-radius: 0 0 20px 20px;
+            border-top: 4px solid #690909 ;
+            background-color: rgba(255, 255, 255, 0);
+            display: flex;
+            overflow: hidden;
+        }
+
+        .off{
+           display : none;
+        }
+
+
+        .inventario{
+            display: grid;
+            grid-template-columns: repeat(5,1fr);
+            background-color: #fff;
+            opacity: 0;
+        }
+
+        .aparecer{
+            z-index: 99;
+        }
+        .aparecer2{
+            z-index: 59;
+        }        
+
+        .salir{
+            grid-column: 5/6;
+        }
+
+
+        .atacks > button{
+            width: 30%;
+        }
+
+        .attacks-container{
+            width: 70%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+
+        }
+
+        .attacks-container > button:nth-child(1),.attacks-container > button:nth-child(2){
+            border-right: 4px solid #690909;
+            
+        }
+        .attacks-container > button:nth-child(3),.attacks-container > button:nth-child(4){
+            border-right: 4px solid #690909;
+        }
+
+        button{
+            border: none;
+            background-color: transparent;
+        }
+
+
+        button:hover{
+            box-shadow: 8px 15px 47px 4px rgba(0,0,0,0.75) inset;
+            -webkit-box-shadow: 8px 15px 47px 4px rgba(0,0,0,0.75) inset;
+            -moz-box-shadow: 8px 15px 47px 4px rgba(0,0,0,0.75) inset;
+            cursor: pointer;
+        }
+
+        .nickname{
+            display: inline-block;
+            position: absolute;
+            top: 90px;
+            left: 60px;
+            font-size: 16px;
+        }
+
+        .nickname-enemy{
+            display: inline-block;
+            position: absolute;
+            top: 90px;
+            right: 105px;
+            font-size: 16px;
+        }
+
+        #playerBar{
+            height: 20px;
+            position: absolute;
+            top: 110px;
+            left: 60px;
+            background-color: #0f0;
+        }
+
+        #EnemyBar{
+            height: 20px;
+            position: absolute;
+            top: 110px;
+            right: 105px;
+            background-color: #f00;
+        }
+
+        .life{
+            opacity: 0;
+        }
+
+        .mensaje{
+            opacity: 0;
+            justify-content: center;
+            align-items: center;
+            background-color: #fff;
+        }
+
+        .audio{
+            display: inline-block;
+            position: absolute;
+            top: 110px;
+            left: 42%;
+        }
+
+        .audio > button{
+            width: 40px;
+            height: 40px;
+        }
+
+        .audio > button:nth-child(1){
+            background-image: url('./assets/audio/play.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .audio > button:nth-child(2){
+            background-image: url('./assets/audio/pausa.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .audio > button:hover{
+            box-shadow: none;
+        }
+
+        #menu-principal{
+            border-radius: 20px;
+            background-image: url("./assets/Fonfo-menu.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .menu-contenedor{
+            position: absolute;
+            right: 10%;
+            top: 30%;
+            width: 40%;
+            height: 40%;
+            font-size: 20px;
+        }
+        
+        .menu-contenedor > button{
+            margin-top: 30px;
+            width: 80%;
+            border-radius: 10px;
+            height: 60px;
+            background-color: #111111;
+        }
+        
+    </style>
+</head>
+<body>
+ 
+    <div id="container">
+
+        <div class="audio">
+            <button class="play"></button>
+            <button class="pause"></button>
+        </div>
+        <div class="life">
+            <h1 class="nickname">Esclender</h1>
+            <h1 class="nickname-enemy">juan</h1>
+            <div id="EnemyBar"></div>
+            <div id="playerBar"></div>
+        </div>
+        <div class="flash"></div>
+        <canvas id="mapa"></canvas>        
+        <div class="mensaje ">
+            <h1 class="EscribirMensaje"></h1>
+        </div>
+        <div class="inventario ">
+        </div>
+        <div class="atacks off">
+            <div class="attacks-container">
+            </div>
+            <button>Inventario</button>
+        </div>
+
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js" integrity="sha512-gmwBmiTVER57N3jYS3LinA9eb8aHrJua5iQD7yqYCKa5x6Jjc7VDVaEA0je0Lu0bP9j7tEjV3+1qUm6loO99Kw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    
+    <script src="./audios.js"></script>
+    <script src="./classes.js"></script>
+    <script src="./personajes.js"></script>
+    <script src="./data/data.js"></script>
+    <script src="./ubicacionesEnemys.js"></script>
+    <script src="battle.js"></script>
+    <script src="./index.js"></script>
+    
+    
+</body>
+</html>

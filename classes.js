@@ -61,10 +61,12 @@ class sprite{
 class cuadro{
     static width = 48
     static height = 48
-    constructor({position}){
+    constructor({position,name}){
         this.position = position
         this.width = 48
         this.height= 48
+        this.nombre = name
+        this.isdead = false
     }
 
     draw(){

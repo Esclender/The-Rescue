@@ -8,16 +8,9 @@ const personajeleft = new Image()
 personajeleft.src= './assets/mi-proyecto-3.png'
 const personajeup = new Image()
 personajeup.src= './assets/Mi proyecto4.png'
-const CollisionBattles = []
-const Enemys = []
-const battleZone = []
-const batlleColision = []
+
 const objectsCollison = []
 const cuadros = []
-let offset = {
-    x:-210,
-    y:-470
-}
 
 
 let lastMover = 1
@@ -37,6 +30,7 @@ const keys ={
     }
 }
 
+//Creacion del Mapa
 canvas.width = 1054
 canvas.height = 576;
 ctx.fillStyle= '#fff'
@@ -59,8 +53,7 @@ const jugador= new sprite({
     velocity: 20
 })
 
-const EnemigoImage = new Image()
-EnemigoImage.src = './assets/Enemigo.png'
+
 const Enemigo= new sprite({
     position:{
         x:canvas.width / 2 - (-196) ,
@@ -103,12 +96,10 @@ for (let i = 0; i < collision.length; i+=50) {
 }
 
 for (let i = 0; i < collision.length; i+=50) {
-    batlleColision.push(battleZonesData.slice(i, 50 + i))
+    batlleColision.push(battleZonesDataPlayer.slice(i, 50 + i))
 }
 
-for (let i = 0; i < collision.length; i+=50) {
-    CollisionBattles.push(zonaBatalla.slice(i, 50 + i))
-}
+
 
 objectsCollison.forEach((row,i) => {
     row.forEach((date,j) => {
@@ -136,32 +127,18 @@ batlleColision.forEach((row,i) => {
                     y: i * cuadro.height + offset.y
                 }
             })
-        )
-        }
-       
+        )}
+   
     })
 })
 
-CollisionBattles.forEach((row,i) => {
-    row.forEach((date,j) => {
-        if (date === 1030) {
-            Enemys.push(
-            new cuadro({
-                position:{
-                    x: j * cuadro.width + offset.x ,
-                    y: i * cuadro.height + offset.y
-                }
-            })
-        )
-        }
-       
-    })
-})
+UbicarZonasEnemigas(1030,'juan')
+
 
 
 
 const anchoBoundaries = {
-    ancho: cuadros.length
+    ancho: cuadros.length + 10
 }
 
 const movibles= [background,...cuadros, ...Enemys]
@@ -178,7 +155,8 @@ function collisionEnemys({rectangle1, rectangle2}) {
         rectangle1.position.x + ( rectangle1.area - (48 * 4) )  >= rectangle2.position.x && 
         rectangle1.position.x - ( rectangle1.area - (48 * 4) ) <= rectangle2.position.x   && 
         rectangle1.position.y  + (rectangle1.area - (48 * 4) )  >= rectangle2.position.y  && 
-        rectangle1.position.y - ( rectangle1.area - (48 * 4) ) <= rectangle2.position.y    )
+        rectangle1.position.y - ( rectangle1.area - (48 * 4) ) <= rectangle2.position.y  &&
+        !rectangle2.isdead  )
 }
 
 const setBattle = {initiaded: false}
@@ -186,7 +164,12 @@ const moving = true
 function animate() {
     const animationId = window.requestAnimationFrame(animate)
     background.draw()
-    
+   // if (ubicarZona) {
+        arrayDeApariciones.forEach((row) => {
+            row.draw()
+        })
+  // }
+
     cuadros.forEach((row) => {
         row.draw()
     })
@@ -200,17 +183,16 @@ function animate() {
     })
     lastFrame.player1.draw()
 
-    //console.log(animationId)
-
     if(setBattle.initiaded) return
 
     if (keys.w.pressed || keys.a.pressed || keys.s.pressed || keys.d.pressed ) {
-        for (let i = 0; i < battleZone.length; i++) {
-            const row = Enemys[i]
+        for (let i = 0; i < Enemys.length; i++) {
+            actualBattle = Enemys[i]
             if (collisionEnemys({
                 rectangle1: lastFrame.player1,
-                rectangle2:row
-            }) ) {
+                rectangle2:actualBattle
+            })  ) {
+                
                 gsap.to('.flash',{
                     opacity:1,
                     repeat:5,
@@ -252,11 +234,12 @@ function animate() {
             } 
 
             if (moving) {
-                 movibles.forEach((elemen) => {
-                if (elemen.length == anchoBoundaries.ancho) {
-                    elemen.forEach((valor) => {valor.position.y += 3})
-                }
-                elemen.position.y += 3
+                    movibles.forEach((elemen) => {
+                    if (elemen.length == anchoBoundaries.ancho) {
+                        console.log(elemen)
+                        elemen.forEach((valor) => {valor.position.y += 3})
+                    }
+                    elemen.position.y += 3
                 })
             }
                
@@ -272,7 +255,6 @@ function animate() {
                         y: row.position.y 
                     } }
                 }) ) {
-                    console.log("No cruza ")
                     moving = false
                     break;
 
@@ -299,7 +281,6 @@ function animate() {
                         y: row.position.y - 3
                     } }
                 }) ) {
-                    console.log("No cruza ")
                     moving = false
                     break;
 
@@ -344,7 +325,7 @@ function animate() {
         }
 
 }
-animateBattle()
+animate()
 
 
 
@@ -353,7 +334,6 @@ window.addEventListener('keydown',(e) => {
     switch (e.key) {
         case 'w':
             keys.w.pressed = true
-            console.log(keys)
             break;
         case 'a':
             keys.a.pressed = true
@@ -395,3 +375,4 @@ window.addEventListener('keyup',(e) => {
             break;
     }
 })
+

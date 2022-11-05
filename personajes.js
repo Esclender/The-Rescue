@@ -1,4 +1,7 @@
-
+const EnemyBar = document.querySelector('#EnemyBar')
+const PlayerBar = document.querySelector('#playerBar')
+const EnemyName = document.querySelector('.nickname-enemy')
+const playerName = document.querySelector('.nickname')
 
 
 //jugador
@@ -16,10 +19,11 @@ JugadorDMG.src = './assets/personaje2.png'
 //Enemigos
 
 //juan (Datos y Frames)
+const EnemigoImage = new Image()
+EnemigoImage.src = './assets/Enemigo.png'
 const frameAtaqueEnemigo = new Image()
 frameAtaqueEnemigo.src = './assets/AtaqueEnemigo.png'
-const JuanDead = new Image()
-JuanDead.src ='./assets/FramesDead.png'
+
 
 
 

@@ -1,14 +1,11 @@
 const batlleBackgroundImage = new Image()
 batlleBackgroundImage.src = './assets/Fondo de batalla.png'
-const EnemyBar = document.querySelector('#EnemyBar')
-const PlayerBar = document.querySelector('#playerBar')
-const EnemyName = document.querySelector('.nickname-enemy')
-const playerName = document.querySelector('.nickname')
 const InventarioContainer = document.querySelector('.inventario')
 const AttacksContainer = document.querySelector('.attacks-container')
 const MensajeContainer = document.querySelector('.mensaje')
 const mensaje = document.querySelector('.EscribirMensaje')
 const barraDevidaActual = String(PlayerBar.clientWidth) + 'px'
+const objetosDesaparecer = [EnemyBar,PlayerBar,playerName,EnemyName]
 
 const battleBackground = new sprite({position:{
     x:0,
@@ -82,13 +79,11 @@ SalirDeInventario.classList.add('salir')
 SalirDeInventario.innerHTML = 'Salir'
 InventarioContainer.appendChild(SalirDeInventario)
 
-
+let battleAnimationID ;
 function animateBattle() {
-    //if (estado) {
-   //    sound.play() 
-   // }
+    battleAnimationID = window.requestAnimationFrame(animateBattle)
+    console.log('hola')
     
-    const battleId = window.requestAnimationFrame(animateBattle)
     battleBackground.draw()
     gsap.to('.atacks',{
         opacity:1,
@@ -98,6 +93,8 @@ function animateBattle() {
         opacity:1,
         duration: 1
     })
+    document.querySelector('.atacks').classList.remove('off')
+
     
     healthBar.draw()
     healthEnemyBar.draw()
@@ -109,9 +106,8 @@ function animateBattle() {
         value: e.target.innerHTML}
         restar = true
         if (e.target.innerHTML != 'Inventario') {
-        finalAtaque = true
+            finalAtaque = true
         }
-    
         })
     })
 
@@ -164,6 +160,29 @@ function pelea(ataque) {
                                 gsap.delayedCall(2,() => {Scream.pause()})
                                 gsap.delayedCall(2.5,() => {AnimationDamage(Enemigo,AtaquDefaultEfecct,4,10,false)}) 
                                 gsap.delayedCall(.5,defaulter)
+                                gsap.delayedCall(8, () => {
+                                    let nombreactual = EnemyName.innerHTML
+                                    gsap.to('.flash',{
+                                        opacity:1,
+                                        duration: 2,
+                                        onComplete(){
+                                            
+                                            gsap.delayedCall(4,() => {
+                                                cancelAnimationFrame(battleAnimationID);
+                                                gsap.to('.flash',{
+                                                    opacity: 0
+                                                })
+                                                for (let i = 0; i < objetosDesaparecer.length; i++) {
+                                                    objetosDesaparecer[i].style.display = 'none'
+                                                }
+                                                setBattle.initiaded = false
+                                                EliminarZonasEnemigos(nombreactual)
+                                                animate()
+                                            });
+                                            gsap.delayedCall(10,() => {ReUbicarZonasEnemigas(nombreactual)})
+                                        }
+                                    })
+                                })
                                 turno = 0
                                 return;
                             }
@@ -297,6 +316,31 @@ function damage(total,index,array,vidaPersonaje,numero){
                 aparecerMensaje("Derrota")
                 AnimationDamage(jugador, jugadorDead2,7,10,true)
                 gsap.delayedCall(1.5, () => {AnimationDamage(jugador, jugadorDead2,7,10,false)})
+                gsap.delayedCall(8, () => {
+                    gsap.to('.flash',{
+                        opacity:1,
+                        duration: 2,
+                        onComplete(){
+                            
+                            gsap.delayedCall(4,() => {
+                                cancelAnimationFrame(battleAnimationID);
+                                gsap.to('.flash',{
+                                    opacity: 0
+                                })
+                                for (let i = 0; i < objetosDesaparecer.length; i++) {
+                                    objetosDesaparecer[i].style.display = 'none'
+                                }
+                                setBattle.initiaded = false
+                                EliminarZonasEnemigos('juan')
+                                gsap.delayedCall(10, () => {
+                                    ReUbicarZonasEnemigas();
+                                })
+
+                                animate()
+                            });
+                        }
+                    })
+                })
                 turno = 0
                 return;
             }
