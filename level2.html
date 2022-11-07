@@ -78,6 +78,11 @@
             background-size: 220px 190px;
             background-position-x: 40% ;
             text-align: center;
+            cursor: pointer;
+        }
+
+        .boton-inventario{
+            cursor: pointer;
         }
 
         .aparecer{
@@ -176,13 +181,14 @@
         .audio{
             display: inline-block;
             position: absolute;
-            top: 110px;
+            top: 70px;
             left: 42%;
         }
 
         .audio > button{
             width: 40px;
             height: 40px;
+            cursor: pointer;
         }
 
         .audio > button:nth-child(1){
@@ -260,21 +266,19 @@
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js" integrity="sha512-gmwBmiTVER57N3jYS3LinA9eb8aHrJua5iQD7yqYCKa5x6Jjc7VDVaEA0je0Lu0bP9j7tEjV3+1qUm6loO99Kw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     
-
     <script src="./classes.js"></script>
+    <script src="./ImagenesEnemigosEnNivel.js"></script>
     <script>
-        const mapa1 = new Image()
-        mapa1.src= './assets/Mpa-1.png'
-        let mapa2;
-        gsap.delayedCall(3,() =>{
-            gsap.to('.flash',{
-                opacity:0,
-                duration: 2
+        const mapa2= new Image()
+        mapa2.src ='./assets/mapa2.png'
+        let mapa1;
+            gsap.delayedCall(3,() =>{
+                gsap.to('.flash',{
+                    opacity:0,
+                    duration: 2
 
+                })
             })
-        })
-
-
 
     </script>
     <script src="./pociones.js"></script>
@@ -282,8 +286,10 @@
     <script src="./personajes.js"></script>
     <script src="./data/data.js"></script>
     <script src="./ubicacionesEnemys.js"></script>
-    <script src="battle.js"></script>
+    <script src="./SpitesMapa2.js"></script>
     <script>
+        const foregrounMapa2 = new Image()
+        foregrounMapa2.src = './assets/Foreground-mapa2.png'
         const objectsCollison = []
         const cuadros = []
         const background = new sprite({
@@ -291,11 +297,40 @@
                 x: offset.x,
                 y: offset.y
             },
-            image:mapa1
+            image:mapa2
+        })
+
+        for (let i = 0; i < collision.length; i+=80) {
+            objectsCollison.push(collision.slice(i, 80 + i))
+        }
+    
+        objectsCollison.forEach((row,i) => {
+            row.forEach((date,j) => {
+                if (date === collisionMapa2) {
+                    cuadros.push(
+                        new cuadro({
+                            position:{
+                                x: (j * cuadro.width + offset.x) + medidasExactasMapa2[0].x  ,
+                                y: (i * cuadro.height + offset.y) + medidasExactasMapa2[0].y
+                            }
+                        })
+                    )
+                }
+           
+            })
+        })
+    
+        const foreground2 = new sprite({
+            position:{
+                x: offset.x + medidasExactasMapa2[1].x,
+                y: offset.y + medidasExactasMapa2[1].y
+            },
+            image:foregrounMapa2
         })
     </script>
+    <script src="battle.js"></script>
     <script src="./index.js"></script>
-    
+
     
 </body>
 </html>

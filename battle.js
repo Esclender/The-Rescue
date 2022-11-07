@@ -42,8 +42,9 @@ let ataques = []
 const ataqueOne = new ataquesLista({vida:105,nombreAt:'zero',turno:0})
 const ataqueTwo = new ataquesLista({vida:65,nombreAt:'Cuchilla',limite:5,turno: 1,elemento:document.createElement('button'),letras:8,image:'./assets/personaje2.png'})
 const ataqueThree = new ataquesLista({vida:45,nombreAt:'Fire Ball',limite:10,turno:2,elemento:document.createElement('button'),letras:9})
+const ataqueFour = new ataquesLista({vida:55,nombreAt:'Rayo',limite:10,turno:3,elemento:document.createElement('button'),letras:4})
 
-ataques.push(ataqueOne,ataqueTwo,ataqueThree)
+ataques.push(ataqueOne,ataqueTwo,ataqueThree,ataqueFour)
 for (let index = 1; index < ataques.length; index++) {
     let actual = ataques[index].elemento
     actual.innerHTML = ataques[index].nombreAtaque + ' (' + ataques[index].limite + ')'
@@ -60,12 +61,14 @@ let restar = false
 
 //Lugares del Inventario
 const LugaresEnInventario =[]
-const Lugar1 = new ataquesLista({vida:35,nombreAt:'Pocion grande',limite:5,elemento:document.createElement('button'),letras:13})
+const Lugar1 = new ataquesLista({vida:35,nombreAt:'Pocion grande',limite:5,elemento:document.createElement('button'),letras:13,image:pocionBig})
 LugaresEnInventario.push(Lugar1)
 
 for (let index = 0; index < LugaresEnInventario.length; index++) {
+    let actualImage = LugaresEnInventario[index].image
     let actual = LugaresEnInventario[index].elemento
-    actual.innerHTML = LugaresEnInventario[index].nombreAtaque + ' (' + LugaresEnInventario[index].limite + ')'
+    actual.innerHTML =  LugaresEnInventario[index].nombreAtaque + ' (' + LugaresEnInventario[index].limite + ')'
+    actual.appendChild(actualImage)
     InventarioContainer.append(actual)
     
 }
@@ -83,7 +86,9 @@ let battleAnimationID ;
 function animateBattle() {
     battleAnimationID = window.requestAnimationFrame(animateBattle)
     console.log('hola')
-    
+    for (let i = 0; i < objetosDesaparecer.length; i++) {
+        objetosDesaparecer[i].style.display = 'block'
+    }
     battleBackground.draw()
     gsap.to('.atacks',{
         opacity:1,
@@ -112,19 +117,25 @@ function animateBattle() {
     })
 
     PlayerBar.style.width = vidasPlayer[vidasPlayer.length - 1].vida
-    
+    let indexEnemigoActual;
     for (let i = 0; i < vidasEnemys.length; i++) {
         if(EnemyName.innerHTML == vidasEnemys[i].nombreMonster) {
+            indexEnemigoActual = i
             EnemyBar.style.width = vidasEnemys[i].vida
         }
     }
-        if( !EnemyBar.clientWidth <= 0 && !PlayerBar.clientWidth == 0) {
+        if( !parseInt(vidasEnemys[indexEnemigoActual].vida.slice(0,3)) <= 0 && !PlayerBar.clientWidth == 0) {
             if (estado) {
               sound.play()  
             }
-            
+            for (let i = 0; i < objetosDesaparecer.length; i++) {
+                objetosDesaparecer[i].style.display = 'block'
+            }
+            document.querySelector('.atacks').style.display ='flex'
+     
             pelea(choice.value)
         }
+    
 
             
 
@@ -134,7 +145,7 @@ function animateBattle() {
 function pelea(ataque) {
     //Ataque del Player
     if (restar) { 
-        
+
         for (let i = 0; i < ataques.length ; i++) {
             if(ataque.slice(0,ataques[i].letras) ==  ataques[i].nombreAtaque ){
                 if (turno == 1 ) {
@@ -158,7 +169,7 @@ function pelea(ataque) {
                                 document.querySelector('.atacks').style.display ='none'
                                 gsap.delayedCall(0.1,() => {Scream.play(); sound.pause()})
                                 gsap.delayedCall(2,() => {Scream.pause()})
-                                gsap.delayedCall(2.5,() => {AnimationDamage(Enemigo,AtaquDefaultEfecct,4,10,false)}) 
+                                gsap.delayedCall(2.5,() => {AnimationDamageEfecto(Enemigo,AtaquDefaultEfecct,4,10,false)}) 
                                 gsap.delayedCall(.5,defaulter)
                                 gsap.delayedCall(8, () => {
                                     let nombreactual = EnemyName.innerHTML
@@ -190,9 +201,9 @@ function pelea(ataque) {
                     
                     }
                     if (finalAtaque && turno == 1) {
-                        AnimationDamage(jugador,frameAtaquePlayer,4,10,true)
+                        AnimationDamageEfecto(jugador,frameAtaquePlayer,4,10,true)
                         gsap.delayedCall(3,ataqueMonstruo)
-                        gsap.delayedCall(1.5,defaulter)
+                        gsap.delayedCall(1.5, defaulter)
                     }
                     ataques[i].elemento.innerHTML = ataques[i].nombreAtaque + ' (' + ataques[i].limite + ')'
 
@@ -210,12 +221,14 @@ function pelea(ataque) {
                 
                 
             }else if(ataque == 'Inventario'){
-                gsap.to('.container',{opacity:0})
+                gsap.to('.attacks-container',{opacity:0})
+                gsap.to('.boton-inventario',{opacity:0})
                 InventarioContainer.classList.add('aparecer2')
                 gsap.to('.inventario',{opacity:1})
 
             }else if(ataque=='Salir'){
-                gsap.to('.container',{opacity:1})
+                gsap.to('.attacks-container',{opacity:1})
+                gsap.to('.boton-inventario',{opacity:1})
                 InventarioContainer.classList.remove('aparecer2')
                 gsap.to('.inventario',{opacity:0})
             }
@@ -230,7 +243,6 @@ function pelea(ataque) {
 }
 
 function ataqueMonstruo() {
-    Enemigo.image = frameAtaqueEnemigo
     const MonsterAttack = Math.floor(Math.random() * 3); 
     for (let i = 0; i < ataques.length; i++) {
         if( MonsterAttack == ataques[i].turno  ){
@@ -239,21 +251,15 @@ function ataqueMonstruo() {
 
     }  
     damage(PlayerBar.clientWidth,vidasPlayer.length - 1,vidasEnemys,vidasPlayer,MonsterAttack)
-    gsap.delayedCall(2, () => {Enemigo.image = EnemigoImage})
     finalAtaque = false 
 }
 
-function defaulter(efecto) {
-        jugador.image= JugadorImage
-        jugador.frames.max = 10
-        jugador.velocity = 20
-        jugador.width = jugador.image.width / jugador.frames.max
-
-        Enemigo.image = EnemigoImage
-        Enemigo.width = Enemigo.image.width / Enemigo.frames.max
-        Enemigo.frames.max = 6
-
-        GneralEfect.image = AtaquDefaultEfecct
+function defaulter() {
+    jugador.image= JugadorImage
+    jugador.frames.max = 10
+    jugador.velocity = 20
+    jugador.width = jugador.image.width / jugador.frames.max
+    GneralEfect.image = AtaquDefaultEfecct
 
     
 
@@ -264,11 +270,13 @@ function curar(objeto) {
     for (let index = 0; index < LugaresEnInventario.length; index++) {
         if (objeto.slice(0,LugaresEnInventario[index].letras) == LugaresEnInventario[index].nombreAtaque ) {
             if (PlayerBar.clientWidth < vidasPlayer[vidasPlayer.length - 1].max) {
+                let actualImage = LugaresEnInventario[index].image
                 const ancho = PlayerBar.clientWidth
                 const total =String(ancho + LugaresEnInventario[index].vida)
                 vidasPlayer[vidasPlayer.length - 1].vida = total + 'px'
                 LugaresEnInventario[index].limite -= 1
-                LugaresEnInventario[index].elemento.innerHTML = LugaresEnInventario[index].nombreAtaque + ' (' + LugaresEnInventario[index].limite + ')' 
+                LugaresEnInventario[index].elemento.innerHTML =  LugaresEnInventario[index].nombreAtaque + ' (' + LugaresEnInventario[index].limite + ')' 
+                LugaresEnInventario[index].elemento.appendChild(actualImage)
             }else{
                 aparecerMensaje('Tu vida esta al maximo')
             }
@@ -306,16 +314,14 @@ function damage(total,index,array,vidaPersonaje,numero){
         }
        
             if (total > 0 ) {
-                vidaPersonaje[index].vida = String(total) + 'px'
-                console.log(numero)
-                console.log('las vida del jugador es', vidaPersonaje[index].vida)
-                gsap.delayedCall(1.5, defaulter)
+                AnimationDamage()
+                gsap.delayedCall(2, () => {vidaPersonaje[index].vida = String(total) + 'px'})
             }else if(index == vidasPlayer.length - 1){
                 vidaPersonaje[index].vida ='0px'
                 document.querySelector('.atacks').style.display ='none'
                 aparecerMensaje("Derrota")
-                AnimationDamage(jugador, jugadorDead2,7,10,true)
-                gsap.delayedCall(1.5, () => {AnimationDamage(jugador, jugadorDead2,7,10,false)})
+                AnimationDamageEfecto(jugador, jugadorDead2,7,10,true)
+                gsap.delayedCall(1.5, () => {AnimationDamageEfecto(jugador, jugadorDead2,7,10,false)})
                 gsap.delayedCall(8, () => {
                     gsap.to('.flash',{
                         opacity:1,
@@ -331,7 +337,7 @@ function damage(total,index,array,vidaPersonaje,numero){
                                     objetosDesaparecer[i].style.display = 'none'
                                 }
                                 setBattle.initiaded = false
-                                EliminarZonasEnemigos('juan')
+                                EliminarZonasEnemigos(EnemyName.innerHTML)
                                 gsap.delayedCall(10, () => {
                                     ReUbicarZonasEnemigas();
                                 })
@@ -347,7 +353,15 @@ function damage(total,index,array,vidaPersonaje,numero){
             
 }
 
-function AnimationDamage(character,image,frames,velocity,animate) {
+function AnimationDamage() {
+    console.log("animacion de ataque")
+    gsap.delayedCall(1,() => {Enemigo.position.x += -155})
+    gsap.delayedCall(1.1,() => {Enemigo.position.x += 155})
+
+}
+
+
+function AnimationDamageEfecto(character,image,frames,velocity,animate) {
     character.image = image
     character.frames.max = frames
     character.velocity = velocity
@@ -358,7 +372,7 @@ function AnimationDamage(character,image,frames,velocity,animate) {
 function ElegirEfecto(nombreEfecto) {
     for (let index = 0; index < arrayDeEfectos.length; index++) {
         if (nombreEfecto == arrayDeEfectos[index].nombre) {
-            AnimationDamage(GneralEfect,arrayDeEfectos[index].frame,4,10,true)
+            AnimationDamageEfecto(GneralEfect,arrayDeEfectos[index].frame,4,10,true)
         }
         
     }

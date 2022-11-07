@@ -1,5 +1,3 @@
-const town = new Image()
-town.src= './assets/Mpa-1.png'
 const personaje = new Image()
 personaje.src= './assets/Mi proyecto.png'
 const personajeRigth = new Image()
@@ -9,8 +7,6 @@ personajeleft.src= './assets/mi-proyecto-3.png'
 const personajeup = new Image()
 personajeup.src= './assets/Mi proyecto4.png'
 
-const objectsCollison = []
-const cuadros = []
 
 
 let lastMover = 1
@@ -83,43 +79,18 @@ let lastFrame = new movimiento({
 })
 
 
-const background = new sprite({
-    position:{
-        x: offset.x,
-        y: offset.y
-    },
-    image:town
-})
 
+
+
+
+//Determinar zona del jugador
 for (let i = 0; i < collision.length; i+=50) {
-    objectsCollison.push(collision.slice(i, 50 + i))
+    batlleColisionPlayer.push(battleZonesDataPlayer.slice(i, 50 + i))
 }
 
-for (let i = 0; i < collision.length; i+=50) {
-    batlleColision.push(battleZonesDataPlayer.slice(i, 50 + i))
-}
-
-
-
-objectsCollison.forEach((row,i) => {
+batlleColisionPlayer.forEach((row,i) => {
     row.forEach((date,j) => {
-        if (date === 1036) {
-            cuadros.push(
-            new cuadro({
-                position:{
-                    x: j * cuadro.width + offset.x ,
-                    y: i * cuadro.height + offset.y
-                }
-            })
-        )
-        }
-       
-    })
-})
-
-batlleColision.forEach((row,i) => {
-    row.forEach((date,j) => {
-        if (date === 1030) {
+        if (date === 974 ) {
             battleZone.push(
             new cuadro({
                 position:{
@@ -132,7 +103,8 @@ batlleColision.forEach((row,i) => {
     })
 })
 
-UbicarZonasEnemigas(1030,'juan')
+UbicarZonasEnemigas(974,'juan',CollisionBattles)
+UbicarZonasEnemigas(965,'cannibal',CollisionBattles2)
 
 
 
@@ -141,7 +113,8 @@ const anchoBoundaries = {
     ancho: cuadros.length + 10
 }
 
-const movibles= [background,...cuadros, ...Enemys]
+let movibles= [background,...cuadros, ...Enemys]
+isMpa()
 function collisionObjects({rectangle1, rectangle2}) {
     return(
         rectangle1.position.x + (rectangle1.width + 20)   >= rectangle2.position.x && 
@@ -159,16 +132,37 @@ function collisionEnemys({rectangle1, rectangle2}) {
         !rectangle2.isdead  )
 }
 
+function NextLevelAfterDefeatBoss(background) {
+    if (background.image == mapa1) {
+        console.log(background.position.x, background.position.y)
+        if (background.position.x < -736 && background.position.x > -820  )  {
+            if (background.position.y < -198 && background.position.y > -279  )  {
+                window.location.href = './level2.html'
+            }
+        }
+    }
+}
+
+function isMpa() {
+    if (background.image == mapa2) {
+        movibles= [background,...cuadros, ...Enemys,foreground2,jefe2,enemigo2]
+    }
+}
+
+function isForeground() {
+    if (background.image == mapa2) {
+        enemigo2.draw()
+        jefe2.draw()
+        foreground2.draw()
+    }
+}
+
+
 const setBattle = {initiaded: false}
 const moving = true
 function animate() {
     const animationId = window.requestAnimationFrame(animate)
     background.draw()
-   // if (ubicarZona) {
-        arrayDeApariciones.forEach((row) => {
-            row.draw()
-        })
-  // }
 
     cuadros.forEach((row) => {
         row.draw()
@@ -182,17 +176,22 @@ function animate() {
         row.draw()
     })
     lastFrame.player1.draw()
+    isForeground()
 
+
+    
     if(setBattle.initiaded) return
 
     if (keys.w.pressed || keys.a.pressed || keys.s.pressed || keys.d.pressed ) {
+        NextLevelAfterDefeatBoss(background)
         for (let i = 0; i < Enemys.length; i++) {
             actualBattle = Enemys[i]
             if (collisionEnemys({
                 rectangle1: lastFrame.player1,
                 rectangle2:actualBattle
-            })  ) {
-                
+            })){
+                SeleccionarFrameBatalla(actualBattle.nombre)
+                EnemyName.innerHTML = actualBattle.nombre
                 gsap.to('.flash',{
                     opacity:1,
                     repeat:5,

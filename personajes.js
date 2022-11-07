@@ -21,8 +21,6 @@ JugadorDMG.src = './assets/personaje2.png'
 //juan (Datos y Frames)
 const EnemigoImage = new Image()
 EnemigoImage.src = './assets/Enemigo.png'
-const frameAtaqueEnemigo = new Image()
-frameAtaqueEnemigo.src = './assets/AtaqueEnemigo.png'
 
 
 
@@ -42,12 +40,13 @@ let vidasEnemys = [
     },
     monster2={
         vida: '300px',
-        nombreMonster: 'juan',
-        dead:new Image().src = './assets/FramesDead.png'
+        nombreMonster: 'juan'
         
     }
 
 ]
+
+
 
 
 //Efectos de ataque
