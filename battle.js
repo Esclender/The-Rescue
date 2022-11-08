@@ -59,19 +59,28 @@ let turno = 1
 let choice = {value: undefined}
 let restar = false
 
-//Lugares del Inventario
-const LugaresEnInventario =[]
-const Lugar1 = new ataquesLista({vida:35,nombreAt:'Pocion grande',limite:5,elemento:document.createElement('button'),letras:13,image:pocionBig})
-LugaresEnInventario.push(Lugar1)
-
-for (let index = 0; index < LugaresEnInventario.length; index++) {
-    let actualImage = LugaresEnInventario[index].image
-    let actual = LugaresEnInventario[index].elemento
-    actual.innerHTML =  LugaresEnInventario[index].nombreAtaque + ' (' + LugaresEnInventario[index].limite + ')'
-    actual.appendChild(actualImage)
-    InventarioContainer.append(actual)
+//Lugares del Inventario batalla
+function CrearInventarioBatalla() {
     
+    for (let i = 0; i < LugaresEnInventarioBatalla.length; i++) { 
+   
+        for (let index = 0; index < arrayDePociones.length; index++) {
+            if (LugaresEnInventarioBatalla[i] == LugaresPocionesGeneral[index].url) {
+                
+                let actualImage = arrayDePociones[index]
+                let actual = document.createElement('button')
+                actual.innerHTML =  LugaresPocionesGeneral[index].nombreAtaque + ' (' + LugaresPocionesGeneral[index].limite + ')'
+                actual.appendChild(actualImage)
+                InventarioContainer.append(actual)
+
+            }
+
+        } 
+    }
+    InventarioContainer.appendChild(SalirDeInventario)
 }
+
+
 
 
 
@@ -80,12 +89,10 @@ for (let index = 0; index < LugaresEnInventario.length; index++) {
 const SalirDeInventario = document.createElement('button')
 SalirDeInventario.classList.add('salir')
 SalirDeInventario.innerHTML = 'Salir'
-InventarioContainer.appendChild(SalirDeInventario)
 
 let battleAnimationID ;
 function animateBattle() {
     battleAnimationID = window.requestAnimationFrame(animateBattle)
-    console.log('hola')
     for (let i = 0; i < objetosDesaparecer.length; i++) {
         objetosDesaparecer[i].style.display = 'block'
     }
@@ -145,7 +152,7 @@ function animateBattle() {
 function pelea(ataque) {
     //Ataque del Player
     if (restar) { 
-
+        CrearInventarioBatalla()
         for (let i = 0; i < ataques.length ; i++) {
             if(ataque.slice(0,ataques[i].letras) ==  ataques[i].nombreAtaque ){
                 if (turno == 1 ) {
@@ -267,16 +274,16 @@ function defaulter() {
 }
 
 function curar(objeto) {
-    for (let index = 0; index < LugaresEnInventario.length; index++) {
-        if (objeto.slice(0,LugaresEnInventario[index].letras) == LugaresEnInventario[index].nombreAtaque ) {
+    for (let index = 0; index < LugaresEnInventarioBatalla.length; index++) {
+        if (objeto.slice(0,LugaresEnInventarioBatalla[index].letras) == LugaresEnInventarioBatalla[index].nombreAtaque ) {
             if (PlayerBar.clientWidth < vidasPlayer[vidasPlayer.length - 1].max) {
-                let actualImage = LugaresEnInventario[index].image
+                let actualImage = arrayDePociones[index]
                 const ancho = PlayerBar.clientWidth
-                const total =String(ancho + LugaresEnInventario[index].vida)
+                const total =String(ancho + LugaresEnInventarioBatalla[index].vida)
                 vidasPlayer[vidasPlayer.length - 1].vida = total + 'px'
-                LugaresEnInventario[index].limite -= 1
-                LugaresEnInventario[index].elemento.innerHTML =  LugaresEnInventario[index].nombreAtaque + ' (' + LugaresEnInventario[index].limite + ')' 
-                LugaresEnInventario[index].elemento.appendChild(actualImage)
+                LugaresEnInventarioBatalla[index].limite -= 1
+                LugaresEnInventarioBatalla[index].elemento.innerHTML =  LugaresEnInventarioBatalla[index].nombreAtaque + ' (' + LugaresEnInventarioBatalla[index].limite + ')' 
+                LugaresEnInventarioBatalla[index].elemento.appendChild(actualImage)
             }else{
                 aparecerMensaje('Tu vida esta al maximo')
             }

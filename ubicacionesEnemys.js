@@ -3,6 +3,7 @@ let offset = {
     y:-570
 }
 const collisionMapa2 = 965
+const collisionMapa1 = 1141
 const medidasExactasMapa2 = [
     roj={
         x:292 ,
@@ -22,19 +23,20 @@ let actualPosicionX = [] ;
 let actualPosicionY = [] ;
 
 
-const CollisionBattles = []
-const CollisionBattles2 = []
-const posiciones = [
-]
+const posiciones = []
+
+
 const battleZone = []
 const batlleColisionPlayer = []
 const Enemys = []
 
 //Enemigo 1
+const CollisionBattles = []
 for (let i = 0; i < collision.length; i+=80) {
     CollisionBattles.push(zonaBatallaEnemigo1.slice(i, 80 + i))
 }
 //Enemigo 2
+const CollisionBattles2 = []
 for (let i = 0; i < collision.length; i+=80) {
     CollisionBattles2.push(zonaBatallaEnemigo2.slice(i, 80 + i))
 }
@@ -43,10 +45,6 @@ for (let i = 0; i < collision.length; i+=80) {
 
 
 //Colocacion de las zonas (Por tipo de monstruo)
-
-
-
-
 
 
 function UbicarZonasEnemigas(numero,nombre,array) {

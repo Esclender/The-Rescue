@@ -21,7 +21,6 @@ class sprite{
     }
 
     draw(){
-        //ctx.drawImage(this.image,this.position.x,this.position.y)
 
         ctx.drawImage(
             this.image,
@@ -83,7 +82,7 @@ class movimiento{
 }
 
 class ataquesLista{
-    constructor({vida,nombreAt,limite,turno,elemento,letras,image}){
+    constructor({vida,nombreAt,limite,turno,elemento,letras,image,url}){
         this.vida = vida
         this.nombreAtaque = nombreAt
         this.limite = limite
@@ -91,6 +90,7 @@ class ataquesLista{
         this.elemento = elemento
         this.letras = letras
         this.image = image
+        this.url = `url("${this.image}")`
     }
 
 }

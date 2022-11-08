@@ -6,8 +6,8 @@ const personajeleft = new Image()
 personajeleft.src= './assets/mi-proyecto-3.png'
 const personajeup = new Image()
 personajeup.src= './assets/Mi proyecto4.png'
-
-
+const botonInventarioMapa = document.querySelector('.boton-inventario-mapa')
+const inventarioContenedorMapa = document.querySelector('.inventario-mapa')
 
 let lastMover = 1
 
@@ -78,6 +78,73 @@ let lastFrame = new movimiento({
     })
 })
 
+//Lugares inventario Mapa
+//limite es == cantidad
+botonInventarioMapa.addEventListener('click',() => {
+    inventarioContenedorMapa.classList.toggle("off")
+    
+})
+
+
+pocion1 = new ataquesLista({vida:35,limite:5,nombreAt:'Pocion grande',elemento:document.createElement('button'),letras:13,image: pocionBig.src})
+pocion2 = new ataquesLista({vida:35,nombreAt: 'Pocion small',limite:5,elemento:document.createElement('button'),letras:12,image: pocionSmall.src})
+LugaresPocionesGeneral.push(pocion1,pocion2)
+LugaresEnInventarioMapa.push(pocion1,pocion2)
+
+for (let index = 0; index < LugaresEnInventarioMapa.length; index++) {
+    let actual = document.createElement('div')
+    let cantidadTag = document.createElement('div')
+    let cantidad = LugaresEnInventarioMapa[index].limite
+    actual.classList.add('pociones-mapa')
+    cantidadTag.innerHTML = cantidad
+    actual.style.backgroundImage = LugaresEnInventarioMapa[index].url ;
+    actual.append(cantidadTag)
+    pocionContainer.append(actual)
+    
+}
+let pocionesEninventario;
+let pocionesParaBatalla;
+//Eventos de click de las pociones en el mapa
+function crearVariablesPociones() {
+    window.requestAnimationFrame(crearVariablesPociones)
+    console.log()
+    pocionesEninventario = document.querySelectorAll('.pociones-mapa')
+    pocionesParaBatalla = document.querySelectorAll('.pociones-batalla')
+
+    for (let index = 0; index < pocionesEninventario.length; index++) {
+        pocionesEninventario[index].addEventListener('click', (e) => {
+            if (e.target.classList.value == 'pociones-mapa') {
+                pocionesEninventario[index].classList.remove("pociones-mapa")
+                pocionesEninventario[index].classList.add("pociones-batalla")
+                PocionesBatalla.append(pocionesEninventario[index])
+                LugaresEnInventarioBatalla.push(pocionesEninventario[index].style.backgroundImage)
+            }
+    
+        })
+    
+    }
+    
+      
+    for (let index = 0; index < pocionesParaBatalla.length; index++) {
+        pocionesParaBatalla[index].addEventListener('click', (e) => {
+            if (e.target.classList.value == 'pociones-batalla') {
+                console.log('pociones batalla')
+                pocionesParaBatalla[index].classList.remove("pociones-batalla")
+                pocionesParaBatalla[index].classList.add("pociones-mapa")
+                pocionContainer.append(e.target)
+                console.log(pocionesParaBatalla)
+            }
+            
+    
+        })
+    
+    }  
+
+}
+crearVariablesPociones()
+
+
+
 
 
 
@@ -146,6 +213,8 @@ function NextLevelAfterDefeatBoss(background) {
 function isMpa() {
     if (background.image == mapa2) {
         movibles= [background,...cuadros, ...Enemys,foreground2,jefe2,enemigo2]
+    }else if(background.image == mapa1){
+        movibles= [background,...cuadros, ...Enemys,foreground1]
     }
 }
 
@@ -154,15 +223,17 @@ function isForeground() {
         enemigo2.draw()
         jefe2.draw()
         foreground2.draw()
+    }else if(background.image == mapa1){
+        foreground1.draw()
     }
 }
-
 
 const setBattle = {initiaded: false}
 const moving = true
 function animate() {
     const animationId = window.requestAnimationFrame(animate)
     background.draw()
+
 
     cuadros.forEach((row) => {
         row.draw()
@@ -177,6 +248,12 @@ function animate() {
     })
     lastFrame.player1.draw()
     isForeground()
+
+    //inventario
+    
+
+
+
 
 
     
@@ -323,6 +400,8 @@ function animate() {
             
         }
 
+
+
 }
 animate()
 
@@ -374,4 +453,5 @@ window.addEventListener('keyup',(e) => {
             break;
     }
 })
+
 
