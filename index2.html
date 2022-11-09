@@ -23,9 +23,9 @@
             margin-left: 40px;
             display: grid;
             grid-template-columns: repeat(auto-fill,700px);
-            gap: 700px;
+            gap: 1150px;
             align-items: center;
-            width: 8000px;
+            width: 10000px;
             height: 600px;
             align-content: center;
             transition: 2s;
@@ -106,7 +106,7 @@
         let backBoton = document.querySelector('.back-btt')
         let boton = document.querySelector('.next-btt')
         let parrafos = 1
-        let margen = -1350
+        let margen = -1750
 
         MainSound.play()
 
@@ -126,8 +126,8 @@
                 document.querySelector('.back-btt').style.display = 'block'
             }
             container.style.marginLeft = String(margen) + 'px'
-            if (margen != -5400) {
-                margen -= 1350
+            if (margen != -7400) {
+                margen -= 1750
             }
 
             if (parrafos == 4 ) {
@@ -137,14 +137,9 @@
         })
 
         backBoton.addEventListener('click', () => {
-            margen += 1350
+            margen += 1750
             parrafos -= 1
-      
-
-
-
             
-            console.log(margen,parrafos)
             if (parrafos < 1) {
                 document.querySelector('.back-btt').style.display = 'none'
             }

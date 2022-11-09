@@ -2,6 +2,7 @@ const EnemyBar = document.querySelector('#EnemyBar')
 const PlayerBar = document.querySelector('#playerBar')
 const EnemyName = document.querySelector('.nickname-enemy')
 const playerName = document.querySelector('.nickname')
+const playerStats= document.querySelector('#jugador-stats')
 
 
 //jugador

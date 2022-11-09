@@ -11,20 +11,7 @@ const inventarioContenedorMapa = document.querySelector('.inventario-mapa')
 
 let lastMover = 1
 
-const keys ={
-    w:{
-        pressed:false
-    },
-    a:{
-        pressed:false
-    },
-    s:{
-        pressed:false
-    },
-    d:{
-        pressed:false
-    }
-}
+
 
 //Creacion del Mapa
 canvas.width = 1054
@@ -74,9 +61,17 @@ let lastFrame = new movimiento({
         frames:{
             max:4
         },
-        velocity:8
+        velocity:8,
+        money:0
     })
 })
+
+//Relacion de dinero con html y js
+const Dinero = document.querySelector(".coins")
+function Billetera(cantidad) {
+    Dinero.innerHTML = cantidad
+}
+
 
 //Lugares inventario Mapa
 //limite es == cantidad
@@ -86,10 +81,10 @@ botonInventarioMapa.addEventListener('click',() => {
 })
 
 
-pocion1 = new ataquesLista({vida:35,limite:5,nombreAt:'Pocion grande',elemento:document.createElement('button'),letras:13,image: pocionBig.src})
-pocion2 = new ataquesLista({vida:35,nombreAt: 'Pocion small',limite:5,elemento:document.createElement('button'),letras:12,image: pocionSmall.src})
-LugaresPocionesGeneral.push(pocion1,pocion2)
-LugaresEnInventarioMapa.push(pocion1,pocion2)
+
+pocion1 = new ataquesLista({vida:35,nombreAt: 'Pocion grande',limite:5,elemento:document.createElement('button'),letras:12,image: pocionBig.src})
+LugaresPocionesGeneral.push(pocion1)
+LugaresEnInventarioMapa.push(pocion1)
 
 for (let index = 0; index < LugaresEnInventarioMapa.length; index++) {
     let actual = document.createElement('div')
@@ -145,11 +140,6 @@ crearVariablesPociones()
 
 
 
-
-
-
-
-
 //Determinar zona del jugador
 for (let i = 0; i < collision.length; i+=50) {
     batlleColisionPlayer.push(battleZonesDataPlayer.slice(i, 50 + i))
@@ -170,8 +160,8 @@ batlleColisionPlayer.forEach((row,i) => {
     })
 })
 
-UbicarZonasEnemigas(974,'juan',CollisionBattles)
-UbicarZonasEnemigas(965,'cannibal',CollisionBattles2)
+//UbicarZonasEnemigas(974,'juan',CollisionBattles)
+//UbicarZonasEnemigas(965,'cannibal',CollisionBattles2)
 
 
 
@@ -202,11 +192,13 @@ function collisionEnemys({rectangle1, rectangle2}) {
 function NextLevelAfterDefeatBoss(background) {
     if (background.image == mapa1) {
         console.log(background.position.x, background.position.y)
-        if (background.position.x < -736 && background.position.x > -820  )  {
-            if (background.position.y < -198 && background.position.y > -279  )  {
+        if (background.position.x < -2860 && background.position.x > -2908  )  {
+            if (background.position.y < -228 && background.position.y > -297  )  {
                 window.location.href = './level2.html'
             }
         }
+    }else if(background.image == mapa2){
+        console.log(background.position.x, background.position.y)
     }
 }
 
@@ -214,7 +206,7 @@ function isMpa() {
     if (background.image == mapa2) {
         movibles= [background,...cuadros, ...Enemys,foreground2,jefe2,enemigo2]
     }else if(background.image == mapa1){
-        movibles= [background,...cuadros, ...Enemys,foreground1]
+        movibles= [background,...cuadros, ...Enemys,foreground1,vendedorEduardo.imagen]
     }
 }
 
@@ -224,6 +216,7 @@ function isForeground() {
         jefe2.draw()
         foreground2.draw()
     }else if(background.image == mapa1){
+        vendedorEduardo.imagen.draw()
         foreground1.draw()
     }
 }
@@ -233,7 +226,7 @@ const moving = true
 function animate() {
     const animationId = window.requestAnimationFrame(animate)
     background.draw()
-
+    Billetera(lastFrame.player1.money)
 
     cuadros.forEach((row) => {
         row.draw()
@@ -256,10 +249,11 @@ function animate() {
 
 
 
-    
+    zonaVendedor(background)
     if(setBattle.initiaded) return
 
     if (keys.w.pressed || keys.a.pressed || keys.s.pressed || keys.d.pressed ) {
+        
         NextLevelAfterDefeatBoss(background)
         for (let i = 0; i < Enemys.length; i++) {
             actualBattle = Enemys[i]
@@ -408,50 +402,5 @@ animate()
 
 
 
-window.addEventListener('keydown',(e) => {
-    switch (e.key) {
-        case 'w':
-            keys.w.pressed = true
-            break;
-        case 'a':
-            keys.a.pressed = true
-            break;
-        case 's':
-            keys.s.pressed = true
-            break;
-        case 'd':
-            keys.d.pressed = true
-            break;
-        default:
-            break;
-    }
-})
-
-window.addEventListener('keyup',(e) => {
-    switch (e.key) {
-        case 'w':
-            keys.w.pressed = false
-            lastFrame.player1.moving = false
-            console.log(keys)
-            break;
-        case 'a':
-            keys.a.pressed = false
-            lastFrame.player1.moving = false
-            lastkey = 'a'
-            break;
-        case 's':
-            lastFrame.player1.moving = false
-            keys.s.pressed = false
-            lastkey = 's'
-            break;
-        case 'd':
-            keys.d.pressed = false
-            lastFrame.player1.moving = false
-            lastkey = 'd'
-            break;
-        default:
-            break;
-    }
-})
 
 

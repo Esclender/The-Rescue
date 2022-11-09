@@ -6,10 +6,8 @@ function animate() {
     cuadros.forEach((row) => {
         row.draw()
     })
-   
-    player.draw()
-
     
+    player.draw()
     
         if (keys.w.pressed) {
 

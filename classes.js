@@ -3,7 +3,7 @@ const canvas = document.querySelector('#mapa')
 const ctx = canvas.getContext('2d')
 
 class sprite{
-    constructor({position,image,frames = {max:1},animate,velocity,name}){
+    constructor({position,image,frames = {max:1},animate,velocity,name,money}){
         this.position = position
         this.image = image
         this.frames = {...frames,val:0,elapse:0}
@@ -17,6 +17,7 @@ class sprite{
         this.animate = animate
         this.moving= false
         this.name = name
+        this.money = money
         
     }
 
@@ -99,5 +100,22 @@ class frameso{
     constructor({dmg = {capas}}){
         this.damage = {frams:capas}
         
+    }
+}
+
+class vendedor{
+    constructor({nombre,image, pociones}){
+        this.nombre = nombre
+        this.imagen = image
+        this.pociones = pociones
+    }
+}
+
+class pocionesAvender{
+    constructor({nombre,precio,avaible,imagen}){
+        this.nombre = nombre
+        this.precio= precio
+        this.cantidad = avaible
+        this.imagen = imagen
     }
 }

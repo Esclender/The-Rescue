@@ -79,11 +79,7 @@ function CrearInventarioBatalla() {
     }
     InventarioContainer.appendChild(SalirDeInventario)
 }
-
-
-
-
-
+let crearInventario = 0
 
 
 const SalirDeInventario = document.createElement('button')
@@ -103,6 +99,14 @@ function animateBattle() {
     })
     gsap.to('.life',{
         opacity:1,
+        duration: 1
+    })
+    gsap.to('#jugador-stats',{
+        opacity:0,
+        duration: 1
+    })
+    gsap.to('.boton-inventario-mapa',{
+        opacity:0,
         duration: 1
     })
     document.querySelector('.atacks').classList.remove('off')
@@ -139,20 +143,21 @@ function animateBattle() {
                 objetosDesaparecer[i].style.display = 'block'
             }
             document.querySelector('.atacks').style.display ='flex'
-     
             pelea(choice.value)
-        }
-    
-
             
-
-        
+        }
     
 }
 function pelea(ataque) {
     //Ataque del Player
     if (restar) { 
-        CrearInventarioBatalla()
+        
+        if (crearInventario == 0) {
+            CrearInventarioBatalla()
+            crearInventario = 1
+        }
+        
+
         for (let i = 0; i < ataques.length ; i++) {
             if(ataque.slice(0,ataques[i].letras) ==  ataques[i].nombreAtaque ){
                 if (turno == 1 ) {
@@ -190,6 +195,14 @@ function pelea(ataque) {
                                                 gsap.to('.flash',{
                                                     opacity: 0
                                                 })
+                                                gsap.to('#jugador-stats',{
+                                                    opacity:1,
+                                                    duration: 1
+                                                })
+                                                gsap.to('.boton-inventario-mapa',{
+                                                    opacity:1,
+                                                    duration: 1
+                                                })
                                                 for (let i = 0; i < objetosDesaparecer.length; i++) {
                                                     objetosDesaparecer[i].style.display = 'none'
                                                 }
@@ -197,7 +210,7 @@ function pelea(ataque) {
                                                 EliminarZonasEnemigos(nombreactual)
                                                 animate()
                                             });
-                                            gsap.delayedCall(10,() => {ReUbicarZonasEnemigas(nombreactual)})
+                                            gsap.delayedCall(100,() => {ReUbicarZonasEnemigas(nombreactual)})
                                         }
                                     })
                                 })
@@ -274,22 +287,22 @@ function defaulter() {
 }
 
 function curar(objeto) {
-    for (let index = 0; index < LugaresEnInventarioBatalla.length; index++) {
-        if (objeto.slice(0,LugaresEnInventarioBatalla[index].letras) == LugaresEnInventarioBatalla[index].nombreAtaque ) {
+    for (let index = 0; index < LugaresPocionesGeneral.length; index++) {
+        console.log(objeto.slice(0,LugaresPocionesGeneral[index].letras))
+        if (objeto.slice(0,LugaresPocionesGeneral[index].letras) == LugaresPocionesGeneral[index].nombreAtaque ) {
             if (PlayerBar.clientWidth < vidasPlayer[vidasPlayer.length - 1].max) {
+                console.log("son iguales")
                 let actualImage = arrayDePociones[index]
                 const ancho = PlayerBar.clientWidth
-                const total =String(ancho + LugaresEnInventarioBatalla[index].vida)
+                const total =String(ancho + LugaresPocionesGeneral[index].vida)
                 vidasPlayer[vidasPlayer.length - 1].vida = total + 'px'
-                LugaresEnInventarioBatalla[index].limite -= 1
-                LugaresEnInventarioBatalla[index].elemento.innerHTML =  LugaresEnInventarioBatalla[index].nombreAtaque + ' (' + LugaresEnInventarioBatalla[index].limite + ')' 
-                LugaresEnInventarioBatalla[index].elemento.appendChild(actualImage)
+                LugaresPocionesGeneral[index].limite -= 1
+                InventarioContainer.childNodes[index+1].innerHTML =  LugaresPocionesGeneral[index].nombreAtaque + ' (' + LugaresPocionesGeneral[index].limite  + ')' 
+                InventarioContainer.childNodes[index+1].appendChild(actualImage)
+                
             }else{
                 aparecerMensaje('Tu vida esta al maximo')
-            }
-
-
-            
+            }   
         }
         
     }

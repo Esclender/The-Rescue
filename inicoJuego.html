@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Oswald&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/454708b8a6.js" crossorigin="anonymous"></script>
     <title>Document</title>  
     <link rel="stylesheet" href="./stylesMapa1.css"> 
 
@@ -12,6 +13,7 @@
 <body>
  
     <div id="container">
+        <div class="indicador off">Presiona <img src="./assets/Boton-F.png" alt="">  para hablar</div>
         <div class="inventario-mapa off">
             <div class="pociones-contenedor">
             </div>
@@ -20,7 +22,7 @@
         </div>
         <div id="jugador-stats">
             <div class="life-map"></div>
-            <span class="coins">0</span>
+            <span class="coins"></span>
         </div>
         <div class="boton-inventario-mapa"></div>
 
@@ -36,8 +38,21 @@
         </div>
         <div class="flash"></div>
         <canvas id="mapa"></canvas>        
-        <div class="mensaje ">
+        <div class="mensaje">
             <h1 class="EscribirMensaje"></h1>
+        </div>
+        <div class="mensaje-Npc off">
+            <h1 class="EscribirMensaje-Npc">Texto</h1>
+            <button class="botonNpc"><span></span><i class="icono"></i></button>
+        </div>
+        <div class="inventario-vendedor off">
+            <div class="pociones-contenedor-vendedor">
+                <div></div>
+            </div>
+        </div>
+        <div class="datos-de-la-pocion off">
+            <div class="datos">
+            </div>
         </div>
         <div class="inventario ">
         </div>
@@ -117,6 +132,7 @@
         })
 
     </script>
+    <script src="./vendedor.js"></script>
     <script src="./index.js"></script>
     
     

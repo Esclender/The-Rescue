@@ -32,7 +32,7 @@ canvas{
     left: 0;
     border-radius: 20px;
     background-color: #111111;
-    opacity: 1;
+    opacity: 0;
     position: absolute;
     pointer-events: none;
     z-index: 200;
@@ -164,6 +164,31 @@ button{
     border-top: 4px solid #690909 ;
 }
 
+.mensaje-Npc{
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    bottom: 0px;
+    width: 100%;
+    height: 150px;
+    align-items: center;
+    background-color: #fff;
+    border-top: 4px solid #690909 ;
+    border-radius: 0 0 20px 20px;
+    z-index: 888;
+}
+
+.mensaje-Npc > button{
+    align-self: flex-end;
+    cursor: pointer;
+    align-items: center;
+}
+
+.mensaje-Npc  i{
+    font-size: 20px;
+}
+
 .audio{
     display: inline-block;
     position: absolute;
@@ -235,7 +260,8 @@ button{
 .coins{
     color: #fff;
     font-weight: bolder;
-    margin-bottom: 25px;
+    margin-left: 5px;
+    margin-bottom: 28px;
 }
 
 .life-map{
@@ -305,6 +331,96 @@ button{
     margin-left: 5px;
     height: 75%;
     width: 70px;
+}
+
+
+
+
+.indicador{
+    backdrop-filter: blur(5px);
+    padding: 15px;
+    border-radius: 10px;
+    position: absolute;
+    bottom: 30%;
+    left: 35%;
+    animation: flasher 5s infinite ;
+}
+
+.indicador > img{
+    width: 38px;
+    height: auto;
+}
+
+@keyframes flasher {
+    35%{
+        opacity: 0.5;
+        transform: scale(0.8);
+    }
+
+}
+
+.inventario-vendedor{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    padding-left: 20px ;
+    top: 20%;
+    right: 25%;
+    width: 500px;
+    height: 400px;
+    background-image: url("./assets/Inventario-para-mapa.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+.pociones-contenedor-vendedor{
+    width: 400px;
+    height: 320px;
+    display: grid;
+    grid-template-columns: repeat(6,1fr);
+    grid-template-rows: repeat(5,1fr);
+}
+
+.pociones-contenedor-vendedor>div{
+    background-image: url('./assets/pociones/Icon12.png');
+    background-repeat: no-repeat;
+    background-size: 60px;
+    background-position: center;
+    cursor: pointer;
+}
+
+.datos-de-la-pocion{
+    width: 230px;
+    height: 300px;
+    position: absolute;
+    top: 155px;
+    right: 20px;
+    background-image: url('./assets/Datos-de-pocion.png');
+    background-size: cover;
+}
+
+.datos{
+    width: 80%;
+    height: 85%;
+    margin-top: 30px;
+    margin-left: 27px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4,1fr);
+    font-size: 12px;
+    padding: 5px;
+}
+
+.datos > span{
+    display: flex;
+    align-items: center;
+}
+
+.datos img{
+    width: 30px;
+    height: 30px;
 }
 
 .off{
