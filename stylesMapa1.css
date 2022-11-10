@@ -257,11 +257,15 @@ button{
     align-items: flex-end;
 }
 
-.coins{
+.coins-container{
+    display: flex;
+    align-items: center;
     color: #fff;
     font-weight: bolder;
-    margin-left: 5px;
-    margin-bottom: 28px;
+    width: 140px;
+    height: 70px;
+    position: absolute;
+    right: 0;
 }
 
 .life-map{
@@ -383,11 +387,9 @@ button{
     grid-template-rows: repeat(5,1fr);
 }
 
-.pociones-contenedor-vendedor>div{
-    background-image: url('./assets/pociones/Icon12.png');
-    background-repeat: no-repeat;
-    background-size: 60px;
-    background-position: center;
+.pociones-contenedor-vendedor>img{
+    width: 60px;
+    height: 60px;
     cursor: pointer;
 }
 
@@ -399,6 +401,7 @@ button{
     right: 20px;
     background-image: url('./assets/Datos-de-pocion.png');
     background-size: cover;
+    display: flex;
 }
 
 .datos{
@@ -408,10 +411,40 @@ button{
     margin-left: 27px;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(4,1fr);
+    grid-template-rows: repeat(5,1fr);
     font-size: 12px;
     padding: 5px;
 }
+
+.datos > button{
+    background-color: #f3953dbe;
+    width: 120px;
+    border-radius: 10px;
+    justify-self: center;
+    margin-top: 20px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.datos  input{
+    width: 50px;
+    height: 40px;
+    margin-left: 10px;
+    background: transparent;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button
+{
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number]:focus{
+    outline: none;
+    border: none;
+}
+
 
 .datos > span{
     display: flex;

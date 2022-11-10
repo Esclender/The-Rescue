@@ -62,7 +62,7 @@ let lastFrame = new movimiento({
             max:4
         },
         velocity:8,
-        money:0
+        money:225
     })
 })
 
@@ -102,10 +102,9 @@ let pocionesParaBatalla;
 //Eventos de click de las pociones en el mapa
 function crearVariablesPociones() {
     window.requestAnimationFrame(crearVariablesPociones)
-    console.log()
     pocionesEninventario = document.querySelectorAll('.pociones-mapa')
     pocionesParaBatalla = document.querySelectorAll('.pociones-batalla')
-
+// Codigo del click
     for (let index = 0; index < pocionesEninventario.length; index++) {
         pocionesEninventario[index].addEventListener('click', (e) => {
             if (e.target.classList.value == 'pociones-mapa') {
@@ -191,7 +190,6 @@ function collisionEnemys({rectangle1, rectangle2}) {
 
 function NextLevelAfterDefeatBoss(background) {
     if (background.image == mapa1) {
-        console.log(background.position.x, background.position.y)
         if (background.position.x < -2860 && background.position.x > -2908  )  {
             if (background.position.y < -228 && background.position.y > -297  )  {
                 window.location.href = './level2.html'
@@ -223,11 +221,14 @@ function isForeground() {
 
 const setBattle = {initiaded: false}
 const moving = true
+
 function animate() {
     const animationId = window.requestAnimationFrame(animate)
     background.draw()
     Billetera(lastFrame.player1.money)
-
+    let pocionesParaVender = document.querySelectorAll('.pocion-a-vender')
+ 
+    
     cuadros.forEach((row) => {
         row.draw()
     })
@@ -241,15 +242,19 @@ function animate() {
     })
     lastFrame.player1.draw()
     isForeground()
-
-    //inventario
     
-
-
-
-
-
+    EscucharClicksDeCompra(pocionesParaVender)
     zonaVendedor(background)
+
+    if (BotonComprar != undefined && limitadorDePago == 1) {
+        limitadorDePago = 0
+        BotonComprar.addEventListener('click',() => {
+            console.log('Compra')
+        })
+        
+    }
+
+
     if(setBattle.initiaded) return
 
     if (keys.w.pressed || keys.a.pressed || keys.s.pressed || keys.d.pressed ) {

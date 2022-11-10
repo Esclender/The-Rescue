@@ -8,6 +8,9 @@ vendedorMapa1.src = './assets/Mpa1-Vendedor.png'
 const inventarioVendedor = document.querySelector('.inventario-vendedor')
 const contenedorDatos = document.querySelector('.datos-de-la-pocion')
 const DatosdePocion = document.querySelector('.datos')
+const inputCantidad = document.querySelector('.cantidad-a-comprar')
+let BotonComprar ;
+let limitadorDePago = 1
 const vendedorEduardo = new vendedor({nombre:'Eduardo',image:new sprite({            
     position:{
     x: offset.x ,
@@ -15,15 +18,21 @@ const vendedorEduardo = new vendedor({nombre:'Eduardo',image:new sprite({
 },
 image:vendedorMapa1})
 ,pociones:[]})
+const coin = new Image()
+coin.src = './assets/COin.png'
 
 vendedorEduardo.pociones.push(new pocionesAvender({nombre:'Pocion grande', precio:50, avaible:20,imagen:pocionBig}))
-mostrarDatos(vendedorEduardo.pociones)
+vendedorEduardo.pociones.push(new pocionesAvender({nombre:'Pocion small', precio:25, avaible:50,imagen:pocionSmall}))
 
 const DialogoEduardo ='Bienvenido a Mi tienda, <br> sobrellevamos la explotacion y <br> aumentamos los precios cada dia, Como Puedo ayudarte?'
 botonNpc.addEventListener('click',() =>{
+    Indicacion.classList.add('off')
     MensajeNpc.classList.add('off')
     inventarioVendedor.classList.remove('off')
 })
+
+
+
 const keys ={
     w:{
         pressed:false
@@ -93,68 +102,93 @@ window.addEventListener('keyup',(e) => {
 })
 
 function mostrarDatos(elemento) {
-    let datos = elemento[0]
-    
-    for (let i = 0; i < 4; i++) {
+    DatosdePocion.innerHTML= ""
+    let datos = elemento
+    for (let i = 0; i <= 4; i++) {
         let actual = document.createElement('span')
+        let botonDecantidad = document.createElement('input')
+        botonDecantidad.type= 'number'
+        botonDecantidad.classList.add('cantidad-a-comprar')
+        let BotonCompra = document.createElement('button')
+        BotonCompra.classList.add('Boton-compra')
+        BotonCompra.innerHTML = 'Comprar'
         switch (i) {
             case 0:
                 actual.innerHTML = datos.nombre
+                actual.append(datos.imagen)
                 break;
             case 1:
-                actual.innerHTML = datos.precio
+                actual.innerHTML = 'Cantidad Disponible ' + datos.cantidad
+                break;
+            case 2 :
+                actual.innerHTML = 'Precio ' + datos.precio 
+                actual.append(coin)
+                break;
+            case 3:
+                actual.innerHTML = 'Cantidad'  
+                actual.append(botonDecantidad)
+                break;
+            case 4:
+                DatosdePocion.append(BotonCompra)
+                break;
             default:
                 break;
         }
+        
+        DatosdePocion.append(actual)
+        contenedorDatos.classList.remove('off')
+        BotonComprar = document.querySelector('.Boton-compra')
+        limitadorDePago = 1
+        keys.f.pressed = false
     }
     
 }
 
-
+let valorParaCambiaF = 1
 function zonaVendedor(background){
     if (background.image == mapa1) {
         if (background.position.x < -2221 && background.position.x > -2341 )  {
             if (background.position.y < -204 && background.position.y > -291  )  {
                 Indicacion.classList.remove('off')
-                if (keys.f.pressed) {
+                
+                if (keys.f.pressed ) {
+                    
+                    
+                    //Inicio de dialogo
                     Indicacion.classList.add('off')
                     HablarconNpc(DialogoEduardo,'Comprar')
+                    //
+        
                     
-                    window.addEventListener('keydown',(e) => {
-                        switch (e.key) {
-                            case 'w':
-                                keys.w.pressed = false
-                                break;
-                            case 'a':
-                                keys.a.pressed = false
-                                break;
-                            case 's':
-                                keys.s.pressed = false
-                                break;
-                            case 'd':
-                                keys.d.pressed = false
-                                break;
-                            case 'f':
-                                keys.f.pressed = false
-                    
-                            default:
-                                break;
-                        }
-                    })
                 }
+  
             }
         }else{
             keys.f.pressed = false
             Indicacion.classList.add('off')
         }
-    }else{
-        
     }
 }
 
+function EscucharClicksDeCompra(array) {
+                        
+    for (let index = 0; index < array.length; index++) {
+        array[index].addEventListener('click', (e) => {
+            if (e.path[0].src == vendedorEduardo.pociones[index].imagen.src && valorParaCambiaF == 1) {
+                mostrarDatos(vendedorEduardo.pociones[index])
+
+            }
+         
+        })
+    
+    }
+}
+
+
+
 function HablarconNpc(escribir,textoB) {
     if (inventarioVendedor.classList.contains('off')) {
-            MensajeNpc.classList.remove('off')
+        MensajeNpc.classList.remove('off')
         EscribirMensajeNpc.style.fontSize = '12px'
         EscribirMensajeNpc.innerHTML = escribir
         botonNpc.childNodes[0].textContent = textoB

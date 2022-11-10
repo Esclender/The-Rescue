@@ -22,7 +22,7 @@
         </div>
         <div id="jugador-stats">
             <div class="life-map"></div>
-            <span class="coins"></span>
+            <div class="coins-container"><span class="coins"></span></div>
         </div>
         <div class="boton-inventario-mapa"></div>
 
@@ -47,7 +47,8 @@
         </div>
         <div class="inventario-vendedor off">
             <div class="pociones-contenedor-vendedor">
-                <div></div>
+                <img class="pocion-a-vender" src="./assets/pociones/Icon4.png">
+                <img class="pocion-a-vender" src="./assets/pociones/Icon15.png">
             </div>
         </div>
         <div class="datos-de-la-pocion off">
@@ -86,6 +87,7 @@
     <script src="./audios.js"></script>
     <script src="./personajes.js"></script>
     <script src="./data/data.js"></script>
+    <script src="./data/dataMpa1.js"></script>
     <script src="./ubicacionesEnemys.js"></script>
     <script src="./spriteMpa1"></script>
     
@@ -113,7 +115,7 @@
                     cuadros.push(
                         new cuadro({
                             position:{
-                                x: (j * cuadro.width + offset.x)   ,
+                                x: (j * cuadro.width + offset.x),
                                 y: (i * cuadro.height + offset.y) 
                             }
                         })
@@ -130,6 +132,8 @@
             },
             image:foregrounMapa1
         })
+
+        UbicarZonasEnemigas(1143,'cannibal',collisionBattlesEnemigo1Mapa1)
 
     </script>
     <script src="./vendedor.js"></script>

@@ -30,15 +30,22 @@ const battleZone = []
 const batlleColisionPlayer = []
 const Enemys = []
 
-//Enemigo 1
+
+//Enemigo1 mapa1
+const collisionBattlesEnemigo1Mapa1=[]
+for (let i = 0; i < collision.length; i+=80) {
+    collisionBattlesEnemigo1Mapa1.push(ZonaEnemigo1Mapa1.slice(i, 80 + i))
+}
+
+//Enemigo 1 mapa 2
 const CollisionBattles = []
 for (let i = 0; i < collision.length; i+=80) {
-    CollisionBattles.push(zonaBatallaEnemigo1.slice(i, 80 + i))
+    CollisionBattles.push(zonaBatallaEnemigo1Mapa2.slice(i, 80 + i))
 }
-//Enemigo 2
+//Enemigo 2 mapa 2
 const CollisionBattles2 = []
 for (let i = 0; i < collision.length; i+=80) {
-    CollisionBattles2.push(zonaBatallaEnemigo2.slice(i, 80 + i))
+    CollisionBattles2.push(zonaBatallaEnemigo2Mapa2.slice(i, 80 + i))
 }
 
 

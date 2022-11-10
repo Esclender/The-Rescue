@@ -18,7 +18,6 @@ canvas{
     border: 4px solid #690909;
     border-radius: 20px;
     margin-top: 30px;
-    z-index: 2;
 }
 
 #container{
@@ -32,7 +31,7 @@ canvas{
     right: 0;
     left: 0;
     border-radius: 20px;
-    background-color: #11111100;
+    background-color: #111111;
     opacity: 0;
     position: absolute;
     pointer-events: none;
@@ -53,6 +52,10 @@ canvas{
 }
 
 
+.off{
+   display : none;
+}
+
 
 .inventario{
     display: grid;
@@ -66,11 +69,6 @@ canvas{
     background-size: 220px 190px;
     background-position-x: 40% ;
     text-align: center;
-    cursor: pointer;
-}
-
-.boton-inventario{
-    cursor: pointer;
 }
 
 .aparecer{
@@ -166,17 +164,41 @@ button{
     border-top: 4px solid #690909 ;
 }
 
+.mensaje-Npc{
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    bottom: 0px;
+    width: 100%;
+    height: 150px;
+    align-items: center;
+    background-color: #fff;
+    border-top: 4px solid #690909 ;
+    border-radius: 0 0 20px 20px;
+    z-index: 888;
+}
+
+.mensaje-Npc > button{
+    align-self: flex-end;
+    cursor: pointer;
+    align-items: center;
+}
+
+.mensaje-Npc  i{
+    font-size: 20px;
+}
+
 .audio{
     display: inline-block;
     position: absolute;
-    top: 70px;
+    top: 110px;
     left: 42%;
 }
 
 .audio > button{
     width: 40px;
     height: 40px;
-    cursor: pointer;
 }
 
 .audio > button:nth-child(1){
@@ -235,11 +257,15 @@ button{
     align-items: flex-end;
 }
 
-.coins{
+.coins-container{
+    display: flex;
+    align-items: center;
     color: #fff;
     font-weight: bolder;
-    margin-bottom: 30px;
-    margin-left: 10px;
+    width: 140px;
+    height: 70px;
+    position: absolute;
+    right: 0;
 }
 
 .life-map{
@@ -309,6 +335,125 @@ button{
     margin-left: 5px;
     height: 75%;
     width: 70px;
+}
+
+
+
+
+.indicador{
+    backdrop-filter: blur(5px);
+    padding: 15px;
+    border-radius: 10px;
+    position: absolute;
+    bottom: 30%;
+    left: 35%;
+    animation: flasher 5s infinite ;
+}
+
+.indicador > img{
+    width: 38px;
+    height: auto;
+}
+
+@keyframes flasher {
+    35%{
+        opacity: 0.5;
+        transform: scale(0.8);
+    }
+
+}
+
+.inventario-vendedor{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    padding-left: 20px ;
+    top: 20%;
+    right: 25%;
+    width: 500px;
+    height: 400px;
+    background-image: url("./assets/Inventario-para-mapa.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+.pociones-contenedor-vendedor{
+    width: 400px;
+    height: 320px;
+    display: grid;
+    grid-template-columns: repeat(6,1fr);
+    grid-template-rows: repeat(5,1fr);
+}
+
+.pociones-contenedor-vendedor>img{
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+}
+
+.datos-de-la-pocion{
+    width: 230px;
+    height: 300px;
+    position: absolute;
+    top: 155px;
+    right: 20px;
+    background-image: url('./assets/Datos-de-pocion.png');
+    background-size: cover;
+    display: flex;
+}
+
+.datos{
+    width: 80%;
+    height: 85%;
+    margin-top: 30px;
+    margin-left: 27px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(5,1fr);
+    font-size: 12px;
+    padding: 5px;
+}
+
+.datos > button{
+    background-color: #f3953dbe;
+    width: 120px;
+    border-radius: 10px;
+    justify-self: center;
+    margin-top: 20px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.datos  input{
+    width: 50px;
+    height: 40px;
+    margin-left: 10px;
+    background: transparent;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button
+{
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number]:focus{
+    outline: none;
+    border: none;
+}
+
+
+.datos > span{
+    display: flex;
+    align-items: center;
+}
+
+.datos img{
+    width: 30px;
+    height: 30px;
 }
 
 .off{
