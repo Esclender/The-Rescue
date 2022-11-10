@@ -150,7 +150,7 @@ function animateBattle() {
 }
 function pelea(ataque) {
     //Ataque del Player
-    if (restar) { 
+    if (restar){ 
         
         if (crearInventario == 0) {
             CrearInventarioBatalla()
@@ -161,9 +161,12 @@ function pelea(ataque) {
         for (let i = 0; i < ataques.length ; i++) {
             if(ataque.slice(0,ataques[i].letras) ==  ataques[i].nombreAtaque ){
                 if (turno == 1 ) {
+
                     if (ataques[i].limite > 0) {
+
                     let total = EnemyBar.clientWidth;
                     ataques[i].limite -= 1
+
                     if (total > 0) {
                         total = total - ataques[i].vida
                         ElegirEfecto(ataque.slice(0,ataques[i].letras))
@@ -374,7 +377,6 @@ function damage(total,index,array,vidaPersonaje,numero){
 }
 
 function AnimationDamage() {
-    console.log("animacion de ataque")
     gsap.delayedCall(1,() => {Enemigo.position.x += -155})
     gsap.delayedCall(1.1,() => {Enemigo.position.x += 155})
 

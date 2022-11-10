@@ -2,13 +2,19 @@ const Indicacion = document.querySelector('.indicador')
 const MensajeNpc =document.querySelector('.mensaje-Npc')
 const EscribirMensajeNpc = document.querySelector('.EscribirMensaje-Npc')
 const botonNpc = document.querySelector('.botonNpc')
+const cerrarVenta = document.querySelector('.close-sale')
 const iconoBoton = document.querySelector('.icono')
 const vendedorMapa1 = new Image()
 vendedorMapa1.src = './assets/Mpa1-Vendedor.png'
 const inventarioVendedor = document.querySelector('.inventario-vendedor')
 const contenedorDatos = document.querySelector('.datos-de-la-pocion')
 const DatosdePocion = document.querySelector('.datos')
-const inputCantidad = document.querySelector('.cantidad-a-comprar')
+let cantidadDePocionesEninventario = [];
+const inventarioContenedorMapa = document.querySelector('.inventario-mapa')
+let imagenDearticuloComprado;
+let cantidadLimitante =[];
+let precioDePocionActual;
+
 let BotonComprar ;
 let limitadorDePago = 1
 const vendedorEduardo = new vendedor({nombre:'Eduardo',image:new sprite({            
@@ -29,6 +35,13 @@ botonNpc.addEventListener('click',() =>{
     Indicacion.classList.add('off')
     MensajeNpc.classList.add('off')
     inventarioVendedor.classList.remove('off')
+})
+
+cerrarVenta.addEventListener('click',() => {
+    keys.f.pressed = false
+    MensajeNpc.classList.add('off')
+    inventarioVendedor.classList.add('off')
+    contenedorDatos.classList.add('off')
 })
 
 
@@ -134,7 +147,7 @@ function mostrarDatos(elemento) {
             default:
                 break;
         }
-        
+        precioDePocionActual = datos.precio
         DatosdePocion.append(actual)
         contenedorDatos.classList.remove('off')
         BotonComprar = document.querySelector('.Boton-compra')
@@ -148,24 +161,21 @@ let valorParaCambiaF = 1
 function zonaVendedor(background){
     if (background.image == mapa1) {
         if (background.position.x < -2221 && background.position.x > -2341 )  {
-            if (background.position.y < -204 && background.position.y > -291  )  {
+            if (background.position.y < -204 && background.position.y > -291  )  {    
                 Indicacion.classList.remove('off')
-                
+ 
                 if (keys.f.pressed ) {
-                    
-                    
+ 
                     //Inicio de dialogo
                     Indicacion.classList.add('off')
                     HablarconNpc(DialogoEduardo,'Comprar')
                     //
-        
-                    
+ 
                 }
   
+            }else{
+                Indicacion.classList.add('off')
             }
-        }else{
-            keys.f.pressed = false
-            Indicacion.classList.add('off')
         }
     }
 }
@@ -174,9 +184,10 @@ function EscucharClicksDeCompra(array) {
                         
     for (let index = 0; index < array.length; index++) {
         array[index].addEventListener('click', (e) => {
+            
             if (e.path[0].src == vendedorEduardo.pociones[index].imagen.src && valorParaCambiaF == 1) {
                 mostrarDatos(vendedorEduardo.pociones[index])
-
+                imagenDearticuloComprado = `url("${e.path[0].src}")`
             }
          
         })
@@ -194,6 +205,19 @@ function HablarconNpc(escribir,textoB) {
         botonNpc.childNodes[0].textContent = textoB
         iconoBoton.classList.add('fa-solid')
         iconoBoton.classList.add('fa-bag-shopping')
+    }
+
+}
+
+function CompraDePocion(pocionPrecio) {
+    if (lastFrame.player1.money > parseInt(pocionPrecio.value) ) {
+        let cantidad = parseInt(pocionPrecio.value) 
+        lastFrame.player1.money -= precioDePocionActual * cantidad
+        for (let index = 0; index < pocionContainer.childElementCount; index++) {
+            if (imagenDearticuloComprado == LugaresPocionesGeneral[index].url) {
+                cantidadDePocionesEninventario[index].innerHTML += cantidad
+            }
+        }
     }
 
 }

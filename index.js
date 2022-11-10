@@ -7,7 +7,7 @@ personajeleft.src= './assets/mi-proyecto-3.png'
 const personajeup = new Image()
 personajeup.src= './assets/Mi proyecto4.png'
 const botonInventarioMapa = document.querySelector('.boton-inventario-mapa')
-const inventarioContenedorMapa = document.querySelector('.inventario-mapa')
+
 
 let lastMover = 1
 
@@ -77,26 +77,31 @@ function Billetera(cantidad) {
 //limite es == cantidad
 botonInventarioMapa.addEventListener('click',() => {
     inventarioContenedorMapa.classList.toggle("off")
-    
 })
 
 
 
 pocion1 = new ataquesLista({vida:35,nombreAt: 'Pocion grande',limite:5,elemento:document.createElement('button'),letras:12,image: pocionBig.src})
-LugaresPocionesGeneral.push(pocion1)
-LugaresEnInventarioMapa.push(pocion1)
+pocion2 = new ataquesLista({vida:35,nombreAt: 'Pocion small',limite:5,elemento:document.createElement('button'),letras:12,image: pocionSmall.src})
 
-for (let index = 0; index < LugaresEnInventarioMapa.length; index++) {
-    let actual = document.createElement('div')
-    let cantidadTag = document.createElement('div')
-    let cantidad = LugaresEnInventarioMapa[index].limite
-    actual.classList.add('pociones-mapa')
-    cantidadTag.innerHTML = cantidad
-    actual.style.backgroundImage = LugaresEnInventarioMapa[index].url ;
-    actual.append(cantidadTag)
-    pocionContainer.append(actual)
-    
+LugaresPocionesGeneral.push(pocion1,pocion2)
+LugaresEnInventarioMapa.push(pocion1,pocion2)
+function CrearInventarioEnmapa() {
+    for (let index = 0; index < LugaresEnInventarioMapa.length; index++) {
+        console.log('Se ejecuto mapa')
+        let actual = document.createElement('div')
+        cantidadLimitante.push(document.createElement('div'))
+        cantidadDePocionesEninventario.push(LugaresEnInventarioMapa[index].limite)
+        
+        actual.classList.add('pociones-mapa')
+        cantidadLimitante[index].innerHTML = cantidadDePocionesEninventario[index]
+        actual.style.backgroundImage = LugaresEnInventarioMapa[index].url ;
+        actual.append(cantidadLimitante[index])
+        pocionContainer.append(actual)
+        
+    }
 }
+
 let pocionesEninventario;
 let pocionesParaBatalla;
 //Eventos de click de las pociones en el mapa
@@ -106,8 +111,10 @@ function crearVariablesPociones() {
     pocionesParaBatalla = document.querySelectorAll('.pociones-batalla')
 // Codigo del click
     for (let index = 0; index < pocionesEninventario.length; index++) {
+       
         pocionesEninventario[index].addEventListener('click', (e) => {
             if (e.target.classList.value == 'pociones-mapa') {
+                console.log('se ejcuto')
                 pocionesEninventario[index].classList.remove("pociones-mapa")
                 pocionesEninventario[index].classList.add("pociones-batalla")
                 PocionesBatalla.append(pocionesEninventario[index])
@@ -176,7 +183,7 @@ function collisionObjects({rectangle1, rectangle2}) {
         rectangle1.position.x + (rectangle1.width + 20)   >= rectangle2.position.x && 
         rectangle1.position.x <= rectangle2.position.x  + (rectangle2.width - 20)   && 
         rectangle1.position.y  + (rectangle1.height - 20)  >= rectangle2.position.y  && 
-        rectangle1.position.y <= rectangle2.position.y    )
+        rectangle1.position.y <= rectangle2.position.y )
 }
 
 function collisionEnemys({rectangle1, rectangle2}) {
@@ -226,8 +233,9 @@ function animate() {
     const animationId = window.requestAnimationFrame(animate)
     background.draw()
     Billetera(lastFrame.player1.money)
+    
     let pocionesParaVender = document.querySelectorAll('.pocion-a-vender')
- 
+    let inputCantidad = document.querySelector('.cantidad-a-comprar')
     
     cuadros.forEach((row) => {
         row.draw()
@@ -246,11 +254,18 @@ function animate() {
     EscucharClicksDeCompra(pocionesParaVender)
     zonaVendedor(background)
 
-    if (BotonComprar != undefined && limitadorDePago == 1) {
-        limitadorDePago = 0
-        BotonComprar.addEventListener('click',() => {
-            console.log('Compra')
-        })
+    if ( limitadorDePago == 1) {
+
+        if (BotonComprar != undefined ) {
+            limitadorDePago = 0
+            BotonComprar.addEventListener('click',() => {
+                CompraDePocion(inputCantidad)
+            })
+        }else{
+            CrearInventarioEnmapa()
+            limitadorDePago = 0
+        }
+        
         
     }
 
