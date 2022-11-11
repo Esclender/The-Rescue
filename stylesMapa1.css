@@ -69,6 +69,7 @@ canvas{
     background-size: 220px 190px;
     background-position-x: 40% ;
     text-align: center;
+    cursor: pointer;
 }
 
 .aparecer{
@@ -90,6 +91,7 @@ canvas{
     background-size: 370px 200px;
     background-position-x: 45% ;
     background-position-y: 50% ;
+    cursor: pointer;
 }
 
 .attacks-container{

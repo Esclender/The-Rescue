@@ -81,7 +81,7 @@ botonInventarioMapa.addEventListener('click',() => {
 
 
 
-pocion1 = new ataquesLista({vida:35,nombreAt: 'Pocion grande',limite:5,elemento:document.createElement('button'),letras:12,image: pocionBig.src})
+pocion1 = new ataquesLista({vida:35,nombreAt: 'Pocion grande',limite:5,elemento:document.createElement('button'),letras:13,image: pocionBig.src})
 pocion2 = new ataquesLista({vida:35,nombreAt: 'Pocion small',limite:5,elemento:document.createElement('button'),letras:12,image: pocionSmall.src})
 
 LugaresPocionesGeneral.push(pocion1,pocion2)

@@ -291,7 +291,7 @@ function defaulter() {
 
 function curar(objeto) {
     for (let index = 0; index < LugaresPocionesGeneral.length; index++) {
-        console.log(objeto.slice(0,LugaresPocionesGeneral[index].letras))
+        console.log(objeto.slice(0,LugaresPocionesGeneral[index].letras)) 
         if (objeto.slice(0,LugaresPocionesGeneral[index].letras) == LugaresPocionesGeneral[index].nombreAtaque ) {
             if (PlayerBar.clientWidth < vidasPlayer[vidasPlayer.length - 1].max) {
                 console.log("son iguales")
