@@ -254,14 +254,19 @@ function animate() {
     EscucharClicksDeCompra(pocionesParaVender)
     zonaVendedor(background)
 
-    if ( limitadorDePago == 1) {
+    if ( limitadorDePago == 1 || limitadorDePago == 2) {
 
-        if (BotonComprar != undefined ) {
+        if (BotonComprar != undefined  ) {
             limitadorDePago = 0
             BotonComprar.addEventListener('click',() => {
                 CompraDePocion(inputCantidad)
             })
         }else{
+            CrearInventarioEnmapa()
+            limitadorDePago = 0
+        }
+
+        if (limitadorDePago == 2) {
             CrearInventarioEnmapa()
             limitadorDePago = 0
         }

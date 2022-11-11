@@ -215,7 +215,10 @@ function CompraDePocion(pocionPrecio) {
         lastFrame.player1.money -= precioDePocionActual * cantidad
         for (let index = 0; index < pocionContainer.childElementCount; index++) {
             if (imagenDearticuloComprado == LugaresPocionesGeneral[index].url) {
-                cantidadDePocionesEninventario[index].innerHTML += cantidad
+                console.log('compro')
+                LugaresPocionesGeneral[index].limite += cantidad
+                cantidadLimitante[index].innerHTML = LugaresPocionesGeneral[index].limite
+                limitadorDePago = 2
             }
         }
     }
