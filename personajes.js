@@ -37,11 +37,13 @@ let vidasPlayer = [
 let vidasEnemys = [
     monster1={
         vida: '300px',
-        nombreMonster: 'cannibal'
+        nombreMonster: 'cannibal',
+        reward:40
     },
     monster2={
         vida: '300px',
-        nombreMonster: 'juan'
+        nombreMonster: 'juan',
+        reward: 100
         
     }
 

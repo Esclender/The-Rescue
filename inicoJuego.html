@@ -27,8 +27,10 @@
         <div class="boton-inventario-mapa"></div>
 
         <div class="audio">
-            <button class="play"></button>
-            <button class="pause"></button>
+            <button class="play off"></button>
+            <button class="pause off"></button>
+            <button class="play-mapa "></button>
+            <button class="pause-mapa "></button>
         </div>
         <div class="life">
             <h1 class="nickname">Esclender</h1>
@@ -50,6 +52,7 @@
             <div class="pociones-contenedor-vendedor">
                 <img class="pocion-a-vender" src="./assets/pociones/Icon4.png">
                 <img class="pocion-a-vender" src="./assets/pociones/Icon15.png">
+                <img class="pocion-a-vender" src="./assets/pociones/Icon14.png" alt="">
             </div>
         </div>
         <div class="datos-de-la-pocion off">
@@ -89,9 +92,9 @@
     <script src="./personajes.js"></script>
     <script src="./data/data.js"></script>
     <script src="./data/dataMpa1.js"></script>
+    <script src="./classes.js"></script>
+    <script src="./SpitesMapa2.js"></script>
     <script src="./ubicacionesEnemys.js"></script>
-    <script src="./spriteMpa1"></script>
-    
     <script src="battle.js"></script>
     <script>
         const foregrounMapa1 = new Image()
@@ -105,6 +108,15 @@
             },
             image:mapa1
         })
+
+    playMapa.addEventListener('click',() => {
+        Mapa1Soundtrack.play()
+    })
+
+    pauseMapa.addEventListener('click', () => {
+        Mapa1Soundtrack.pause()
+        estado = false
+    })
 
         for (let i = 0; i < collision.length; i+=80) {
             objectsCollison.push(collisionmapa1.slice(i, 80 + i))

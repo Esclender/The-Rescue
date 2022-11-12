@@ -1,12 +1,16 @@
 const personaje = new Image()
-personaje.src= './assets/Mi proyecto.png'
+personaje.src= './assets/Personaje-down.png'
 const personajeRigth = new Image()
-personajeRigth.src= './assets/Mi proyecto2.png'
+personajeRigth.src= './assets/personaje-right.png'
 const personajeleft = new Image()
-personajeleft.src= './assets/mi-proyecto-3.png'
+personajeleft.src= './assets/personaje-left.png'
 const personajeup = new Image()
-personajeup.src= './assets/Mi proyecto4.png'
+personajeup.src= './assets/personaje-up.png'
 const botonInventarioMapa = document.querySelector('.boton-inventario-mapa')
+
+botonInventarioMapa.addEventListener('mouseover', ()=>{
+    buttonsClick.play()
+})
 
 
 let lastMover = 1
@@ -54,14 +58,14 @@ const Enemigo= new sprite({
 let lastFrame = new movimiento({
     player1: new sprite({
         position:{
-            x:canvas.width / 2 - (189 / 3),
+            x:canvas.width / 2 - (188 / 3),
             y:canvas.height / 2 - (66 / 8) 
         },
         image:personaje,
         frames:{
-            max:4
+            max:3
         },
-        velocity:8,
+        velocity:15,
         money:225
     })
 })
@@ -77,30 +81,12 @@ function Billetera(cantidad) {
 //limite es == cantidad
 botonInventarioMapa.addEventListener('click',() => {
     inventarioContenedorMapa.classList.toggle("off")
+
 })
 
 
 
-pocion1 = new ataquesLista({vida:35,nombreAt: 'Pocion grande',limite:5,elemento:document.createElement('button'),letras:13,image: pocionBig.src})
-pocion2 = new ataquesLista({vida:35,nombreAt: 'Pocion small',limite:5,elemento:document.createElement('button'),letras:12,image: pocionSmall.src})
 
-LugaresPocionesGeneral.push(pocion1,pocion2)
-LugaresEnInventarioMapa.push(pocion1,pocion2)
-function CrearInventarioEnmapa() {
-    for (let index = 0; index < LugaresEnInventarioMapa.length; index++) {
-        console.log('Se ejecuto mapa')
-        let actual = document.createElement('div')
-        cantidadLimitante.push(document.createElement('div'))
-        cantidadDePocionesEninventario.push(LugaresEnInventarioMapa[index].limite)
-        
-        actual.classList.add('pociones-mapa')
-        cantidadLimitante[index].innerHTML = cantidadDePocionesEninventario[index]
-        actual.style.backgroundImage = LugaresEnInventarioMapa[index].url ;
-        actual.append(cantidadLimitante[index])
-        pocionContainer.append(actual)
-        
-    }
-}
 
 let pocionesEninventario;
 let pocionesParaBatalla;
@@ -111,10 +97,8 @@ function crearVariablesPociones() {
     pocionesParaBatalla = document.querySelectorAll('.pociones-batalla')
 // Codigo del click
     for (let index = 0; index < pocionesEninventario.length; index++) {
-       
         pocionesEninventario[index].addEventListener('click', (e) => {
             if (e.target.classList.value == 'pociones-mapa') {
-                console.log('se ejcuto')
                 pocionesEninventario[index].classList.remove("pociones-mapa")
                 pocionesEninventario[index].classList.add("pociones-batalla")
                 PocionesBatalla.append(pocionesEninventario[index])
@@ -133,7 +117,6 @@ function crearVariablesPociones() {
                 pocionesParaBatalla[index].classList.remove("pociones-batalla")
                 pocionesParaBatalla[index].classList.add("pociones-mapa")
                 pocionContainer.append(e.target)
-                console.log(pocionesParaBatalla)
             }
             
     
@@ -166,8 +149,6 @@ batlleColisionPlayer.forEach((row,i) => {
     })
 })
 
-//UbicarZonasEnemigas(974,'juan',CollisionBattles)
-//UbicarZonasEnemigas(965,'cannibal',CollisionBattles2)
 
 
 
@@ -203,7 +184,11 @@ function NextLevelAfterDefeatBoss(background) {
             }
         }
     }else if(background.image == mapa2){
-        console.log(background.position.x, background.position.y)
+        if (background.position.x < -44 && background.position.x > -61  )  {
+            if (background.position.y < -324 && background.position.y > -402  )  {
+                window.location.href = './inicoJuego.html'
+            }
+        }
     }
 }
 
@@ -254,7 +239,7 @@ function animate() {
     EscucharClicksDeCompra(pocionesParaVender)
     zonaVendedor(background)
 
-    if ( limitadorDePago == 1 || limitadorDePago == 2) {
+    if ( limitadorDePago == 1 ) {
 
         if (BotonComprar != undefined  ) {
             limitadorDePago = 0
@@ -262,11 +247,6 @@ function animate() {
                 CompraDePocion(inputCantidad)
             })
         }else{
-            CrearInventarioEnmapa()
-            limitadorDePago = 0
-        }
-
-        if (limitadorDePago == 2) {
             CrearInventarioEnmapa()
             limitadorDePago = 0
         }

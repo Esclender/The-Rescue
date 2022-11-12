@@ -1,4 +1,4 @@
-//Mapa
+
 const canvas = document.querySelector('#mapa')
 const ctx = canvas.getContext('2d')
 

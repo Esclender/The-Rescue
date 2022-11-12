@@ -192,7 +192,7 @@ button{
 }
 
 .audio{
-    display: inline-block;
+    display: flex;
     position: absolute;
     top: 110px;
     left: 42%;
@@ -201,6 +201,7 @@ button{
 .audio > button{
     width: 40px;
     height: 40px;
+    cursor: pointer;
 }
 
 .audio > button:nth-child(1){
@@ -210,6 +211,18 @@ button{
 }
 
 .audio > button:nth-child(2){
+    background-image: url('./assets/audio/pausa.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.audio > button:nth-child(3){
+    background-image: url('./assets/audio/play.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.audio > button:nth-child(4){
     background-image: url('./assets/audio/pausa.png');
     background-repeat: no-repeat;
     background-size: cover;

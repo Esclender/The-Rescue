@@ -5,7 +5,8 @@ const AttacksContainer = document.querySelector('.attacks-container')
 const MensajeContainer = document.querySelector('.mensaje')
 const mensaje = document.querySelector('.EscribirMensaje')
 const barraDevidaActual = String(PlayerBar.clientWidth) + 'px'
-const objetosDesaparecer = [EnemyBar,PlayerBar,playerName,EnemyName]
+const objetosDesaparecer = [EnemyBar,PlayerBar,playerName,EnemyName,play,pause]
+const buttonsClick = new Audio('./assets/audio/Menu Selection Click.wav')
 
 const battleBackground = new sprite({position:{
     x:0,
@@ -56,7 +57,7 @@ for (let index = 1; index < ataques.length; index++) {
 
 let finalAtaque = false
 let turno = 1
-let choice = {value: undefined}
+let choice = {value: undefined,clase:undefined}
 let restar = false
 
 //Lugares del Inventario batalla
@@ -89,9 +90,11 @@ SalirDeInventario.innerHTML = 'Salir'
 let battleAnimationID ;
 function animateBattle() {
     battleAnimationID = window.requestAnimationFrame(animateBattle)
-    for (let i = 0; i < objetosDesaparecer.length; i++) {
+    for (let i = 0; i < objetosDesaparecer.length - 2; i++) {
         objetosDesaparecer[i].style.display = 'block'
+ 
     }
+    Mapa1Soundtrack.pause()
     battleBackground.draw()
     gsap.to('.atacks',{
         opacity:1,
@@ -109,6 +112,14 @@ function animateBattle() {
         opacity:0,
         duration: 1
     })
+    gsap.to('.play-mapa',{
+        opacity:0,
+        duration: 1
+    })
+    gsap.to('.pause-mapa',{
+        opacity:0,
+        duration: 1
+    })
     document.querySelector('.atacks').classList.remove('off')
 
     
@@ -118,14 +129,18 @@ function animateBattle() {
     Enemigo.draw()
     GneralEfect.draw()
 
+
+
     document.querySelectorAll('button').forEach((e) =>{ e.addEventListener('click', (e) =>{choice = {
-        value: e.target.innerHTML}
+        value: e.target.innerHTML,clase:e.path[0]}
         restar = true
         if (e.target.innerHTML != 'Inventario') {
             finalAtaque = true
         }
         })
-    })
+    }
+
+    )
 
     PlayerBar.style.width = vidasPlayer[vidasPlayer.length - 1].vida
     let indexEnemigoActual;
@@ -141,6 +156,8 @@ function animateBattle() {
             }
             for (let i = 0; i < objetosDesaparecer.length; i++) {
                 objetosDesaparecer[i].style.display = 'block'
+                objetosDesaparecer[objetosDesaparecer.length-2].style.display = 'flex'
+                objetosDesaparecer[objetosDesaparecer.length-1].style.display = 'flex'
             }
             document.querySelector('.atacks').style.display ='flex'
             pelea(choice.value)
@@ -186,14 +203,15 @@ function pelea(ataque) {
                                 gsap.delayedCall(2,() => {Scream.pause()})
                                 gsap.delayedCall(2.5,() => {AnimationDamageEfecto(Enemigo,AtaquDefaultEfecct,4,10,false)}) 
                                 gsap.delayedCall(.5,defaulter)
-                                gsap.delayedCall(8, () => {
+                                gsap.delayedCall(11, () => {
                                     let nombreactual = EnemyName.innerHTML
                                     gsap.to('.flash',{
                                         opacity:1,
                                         duration: 2,
                                         onComplete(){
                                             
-                                            gsap.delayedCall(4,() => {
+                                            gsap.delayedCall(7,() => {
+                                                console.log('x4000')
                                                 cancelAnimationFrame(battleAnimationID);
                                                 gsap.to('.flash',{
                                                     opacity: 0
@@ -291,17 +309,23 @@ function defaulter() {
 
 function curar(objeto) {
     for (let index = 0; index < LugaresPocionesGeneral.length; index++) {
-        console.log(objeto.slice(0,LugaresPocionesGeneral[index].letras)) 
         if (objeto.slice(0,LugaresPocionesGeneral[index].letras) == LugaresPocionesGeneral[index].nombreAtaque ) {
-            if (PlayerBar.clientWidth < vidasPlayer[vidasPlayer.length - 1].max) {
-                console.log("son iguales")
-                let actualImage = arrayDePociones[index]
-                const ancho = PlayerBar.clientWidth
-                const total =String(ancho + LugaresPocionesGeneral[index].vida)
-                vidasPlayer[vidasPlayer.length - 1].vida = total + 'px'
-                LugaresPocionesGeneral[index].limite -= 1
-                InventarioContainer.childNodes[index+1].innerHTML =  LugaresPocionesGeneral[index].nombreAtaque + ' (' + LugaresPocionesGeneral[index].limite  + ')' 
-                InventarioContainer.childNodes[index+1].appendChild(actualImage)
+            if (PlayerBar.clientWidth < vidasPlayer[vidasPlayer.length - 1].max ) {
+                console.log(objeto,index)
+               
+                    
+                    let actualImage = arrayDePociones[index]
+                    const ancho = PlayerBar.clientWidth
+                    const total =String(ancho + LugaresPocionesGeneral[index].vida)
+                    vidasPlayer[vidasPlayer.length - 1].vida = total + 'px'
+                    LugaresPocionesGeneral[index].limite -= 1
+  
+
+                if (InventarioContainer.childNodes[index+1].classList[0] != 'salir') {
+                    InventarioContainer.childNodes[index+1].innerHTML =  LugaresPocionesGeneral[index].nombreAtaque + ' (' + LugaresPocionesGeneral[index].limite  + ')'
+                    InventarioContainer.childNodes[index+1].appendChild(actualImage)
+                }
+                
                 
             }else{
                 aparecerMensaje('Tu vida esta al maximo')
@@ -321,11 +345,24 @@ function aparecerMensaje(escribir) {
 
     if (escribir[escribir.length - 1] == 'o') {
         gsap.delayedCall(4, () => {
+            winSound.play()
             gsap.to('.mensaje',{opacity:1})
+            let reward;
+            let mostrarReward;
+            let rewardActual = vidasEnemys.forEach((e,i) =>{
+                if (EnemyName.innerHTML == e.nombreMonster) {
+                    reward =  parseInt(lastFrame.player1.money) + e.reward
+                    mostrarReward = String(e.reward)
+                }
+            })
+            console.log(reward)
             MensajeContainer.classList.add('aparecer')
-            mensaje.innerHTML = 'Tu recompensa es: '
+            mensaje.innerHTML = 'Tu recompensa es: ' + mostrarReward 
+            MensajeContainer.append(coin)
+            lastFrame.player1.money = reward
             gsap.delayedCall(2,() => {MensajeContainer.classList.remove('aparecer');
-            gsap.to('.mensaje',{opacity:0})})
+            gsap.to('.mensaje',{opacity:0});
+            winSound.pause()})
         })
 
     }

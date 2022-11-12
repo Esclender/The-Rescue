@@ -1,7 +1,4 @@
-let offset = {
-    x:-613,
-    y:-570
-}
+
 const collisionMapa2 = 965
 const collisionMapa1 = 1141
 const medidasExactasMapa2 = [
@@ -37,16 +34,6 @@ for (let i = 0; i < collision.length; i+=80) {
     collisionBattlesEnemigo1Mapa1.push(ZonaEnemigo1Mapa1.slice(i, 80 + i))
 }
 
-//Enemigo 1 mapa 2
-const CollisionBattles = []
-for (let i = 0; i < collision.length; i+=80) {
-    CollisionBattles.push(zonaBatallaEnemigo1Mapa2.slice(i, 80 + i))
-}
-//Enemigo 2 mapa 2
-const CollisionBattles2 = []
-for (let i = 0; i < collision.length; i+=80) {
-    CollisionBattles2.push(zonaBatallaEnemigo2Mapa2.slice(i, 80 + i))
-}
 
 
 
@@ -97,7 +84,7 @@ function ReUbicarZonasEnemigas(nombre) {
             
         }
     }else if(nombre == 'cannibal'){
-        enemigo2.image = Enemigo2
+        enemigo2.image = Enemigo2Batalla
         for (let index = 0; index < vidasEnemys.length; index++) {
             if (vidasEnemys[index].nombreMonster == nombre) {
                vidasEnemys[index].vida = '300px' 

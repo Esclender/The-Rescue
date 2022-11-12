@@ -45,9 +45,11 @@
             <button class="botonNpc"><span></span><i class="icono"></i></button>
         </div>
         <div class="inventario-vendedor off">
+            <button class="close-sale"></button>
             <div class="pociones-contenedor-vendedor">
                 <img class="pocion-a-vender" src="./assets/pociones/Icon4.png">
                 <img class="pocion-a-vender" src="./assets/pociones/Icon15.png">
+                <img class="pocion-a-vender" src="./assets/pociones/Icon14.png" alt="">
             </div>
         </div>
         <div class="datos-de-la-pocion off">
@@ -61,12 +63,9 @@
             </div>
             <button class="boton-inventario">Inventario</button>
         </div>
-
-    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js" integrity="sha512-gmwBmiTVER57N3jYS3LinA9eb8aHrJua5iQD7yqYCKa5x6Jjc7VDVaEA0je0Lu0bP9j7tEjV3+1qUm6loO99Kw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     
     <script src="./classes.js"></script>
-    <script src="./ImagenesEnemigosEnNivel.js"></script>
     <script>
         
         const mapa2= new Image()
@@ -85,8 +84,8 @@
     <script src="./audios.js"></script>
     <script src="./personajes.js"></script>
     <script src="./data/data.js"></script>
-    <script src="./ubicacionesEnemys.js"></script>
     <script src="./SpitesMapa2.js"></script>
+    <script src="./ubicacionesEnemys.js"></script>
     <script src="battle.js"></script>
     <script>
         const foregrounMapa2 = new Image()
@@ -128,6 +127,22 @@
             },
             image:foregrounMapa2
         })
+
+        //Enemigo 1 mapa 2
+        const CollisionBattles = []
+        for (let i = 0; i < collision.length; i+=80) {
+            CollisionBattles.push(zonaBatallaEnemigo1Mapa2.slice(i, 80 + i))
+        }
+        //Enemigo 2 mapa 2
+        const CollisionBattles2 = []
+        for (let i = 0; i < collision.length; i+=80) {
+            CollisionBattles2.push(zonaBatallaEnemigo2Mapa2.slice(i, 80 + i))
+        }
+
+
+        
+        UbicarZonasEnemigas(974,'juan',CollisionBattles)
+        UbicarZonasEnemigas(965,'cannibal',CollisionBattles2)
     </script>
     <script src="./vendedor.js"></script>
     <script src="./index.js"></script>
