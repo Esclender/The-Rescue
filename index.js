@@ -7,6 +7,7 @@ personajeleft.src= './assets/personaje-left.png'
 const personajeup = new Image()
 personajeup.src= './assets/personaje-up.png'
 const botonInventarioMapa = document.querySelector('.boton-inventario-mapa')
+const lifeMap = document.querySelector('.life-map')
 
 botonInventarioMapa.addEventListener('mouseover', ()=>{
     buttonsClick.play()
@@ -14,7 +15,6 @@ botonInventarioMapa.addEventListener('mouseover', ()=>{
 
 
 let lastMover = 1
-
 
 
 //Creacion del Mapa
@@ -63,7 +63,7 @@ let lastFrame = new movimiento({
         },
         image:personaje,
         frames:{
-            max:3
+            max:4
         },
         velocity:15,
         money:225
@@ -84,8 +84,11 @@ botonInventarioMapa.addEventListener('click',() => {
 
 })
 
-
-
+function BajarVidaMapa() {
+    if (PlayerBar.clientWidth < 250) {
+        lifeMap.style.width = '150px'
+    }
+}
 
 
 let pocionesEninventario;
@@ -150,9 +153,6 @@ batlleColisionPlayer.forEach((row,i) => {
 })
 
 
-
-
-
 const anchoBoundaries = {
     ancho: cuadros.length + 10
 }
@@ -196,7 +196,7 @@ function isMpa() {
     if (background.image == mapa2) {
         movibles= [background,...cuadros, ...Enemys,foreground2,jefe2,enemigo2]
     }else if(background.image == mapa1){
-        movibles= [background,...cuadros, ...Enemys,foreground1,vendedorEduardo.imagen]
+        movibles= [background,...cuadros, ...Enemys,foreground1,vendedorEduardo.imagen,enemigo1,enemigo2]
     }
 }
 
@@ -206,6 +206,8 @@ function isForeground() {
         jefe2.draw()
         foreground2.draw()
     }else if(background.image == mapa1){
+        enemigo1.draw()
+        enemigo2.draw()
         vendedorEduardo.imagen.draw()
         foreground1.draw()
     }
@@ -218,6 +220,7 @@ function animate() {
     const animationId = window.requestAnimationFrame(animate)
     background.draw()
     Billetera(lastFrame.player1.money)
+    BajarVidaMapa()
     
     let pocionesParaVender = document.querySelectorAll('.pocion-a-vender')
     let inputCantidad = document.querySelector('.cantidad-a-comprar')

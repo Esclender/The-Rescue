@@ -60,12 +60,14 @@ const FireballFrame = new Image()
 FireballFrame.src = './assets/Boladfuego.png'
 const CuchillaFrame = new Image()
 CuchillaFrame.src = './assets/cuchillaEffect.png'
+const Rayo = new Image()
+Rayo.src = './assets/Rayo3.png'
 
 
 const GneralEfect= new sprite({
     position:{
         x:canvas.width / 2 - (-596) ,
-        y:canvas.height / 2 - (-159)  
+        y:canvas.height / 2 - (-142)  
     },
     image:AtaquDefaultEfecct,
     frames:{
@@ -83,6 +85,10 @@ const arrayDeEfectos = [
     cuchilla={
         nombre: 'Cuchilla',
         frame: CuchillaFrame
+    },
+    rayo={
+        nombre: 'Rayo',
+        frame: Rayo
     }
 ]
 

@@ -27,31 +27,7 @@ image:vendedorMapa1})
 const coin = new Image()
 coin.src = './assets/COin.png'
 
-pocion1 = new ataquesLista({vida:35,nombreAt: 'Pocion grande',limite:5,elemento:document.createElement('button'),letras:13,image: pocionBig.src})
-pocion2 = new ataquesLista({vida:35,nombreAt: 'Pocion small',limite:5,elemento:document.createElement('button'),letras:12,image: pocionSmall.src})
-pocion3 = new ataquesLista({vida:45,nombreAt: 'Pocion mediana',limite:0,elemento:document.createElement('button'),letras:12,image: pocionMedium.src})
 
-LugaresPocionesGeneral.push(pocion1,pocion2,pocion3)
-LugaresEnInventarioMapa.push(pocion1,pocion2)
-function CrearInventarioEnmapa() {
-    
-    for (let index = 0; index < LugaresEnInventarioMapa.length; index++) {
-        if (index == 0) {
-            pocionContainer.innerHTML= ""
-            cantidadDePocionesEninventario = []
-        }
-        let actual = document.createElement('div')
-        cantidadLimitante.push(document.createElement('div'))
-        cantidadDePocionesEninventario.push(LugaresEnInventarioMapa[index].limite)
-        
-        actual.classList.add('pociones-mapa')
-        cantidadLimitante[index].innerHTML = cantidadDePocionesEninventario[index]
-        actual.style.backgroundImage = LugaresEnInventarioMapa[index].url ;
-        actual.append(cantidadLimitante[index])
-        pocionContainer.append(actual)
-        
-    }
-}
 
 vendedorEduardo.pociones.push(new pocionesAvender({nombre:'Pocion grande', precio:50, avaible:20,imagen:pocionBig}))
 vendedorEduardo.pociones.push(new pocionesAvender({nombre:'Pocion small', precio:25, avaible:50,imagen:pocionSmall}))
@@ -241,15 +217,18 @@ function CompraDePocion(pocionPrecio) {
         let cantidad = parseInt(pocionPrecio.value) 
         lastFrame.player1.money -= precioDePocionActual * cantidad
         for (let index = 0; index < LugaresPocionesGeneral.length; index++) {
-            console.log(imagenDearticuloComprado, LugaresPocionesGeneral[index])
             if (imagenDearticuloComprado == LugaresPocionesGeneral[index].url) {
                 
                 if (LugaresPocionesGeneral[index].limite == 0) {
+                    vendedorEduardo.pociones[index].cantidad -= cantidad
+                    mostrarDatos(vendedorEduardo.pociones[index])
                     LugaresPocionesGeneral[index].limite +=cantidad
                     LugaresEnInventarioMapa.push(LugaresPocionesGeneral[index])
                     CrearInventarioEnmapa()
                     limitadorDePago = 0
                 }else{
+                    vendedorEduardo.pociones[index].cantidad -= cantidad
+                    mostrarDatos(vendedorEduardo.pociones[index])
                     LugaresPocionesGeneral[index].limite += cantidad
                     cantidadLimitante[index].innerHTML = LugaresPocionesGeneral[index].limite
                     limitadorDePago = 1   

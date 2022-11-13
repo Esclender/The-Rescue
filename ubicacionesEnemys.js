@@ -34,6 +34,12 @@ for (let i = 0; i < collision.length; i+=80) {
     collisionBattlesEnemigo1Mapa1.push(ZonaEnemigo1Mapa1.slice(i, 80 + i))
 }
 
+//Enemigo2 mapa1
+const collisionBattlesEnemigo2Mapa1=[]
+for (let i = 0; i < collision.length; i+=80) {
+    collisionBattlesEnemigo2Mapa1.push(ZonaEnemigo2Mapa1.slice(i, 80 + i))
+}
+
 
 
 
@@ -114,6 +120,11 @@ function SeleccionarFrameBatalla(nombre) {
         Enemigo.image = jefeMapa2Batalla
         Enemigo.animate = false
         Enemigo.frames.max = 1
+        Enemigo.width = Enemigo.image.width / Enemigo.frames.max
+    }else if(nombre == 'cannibal'){
+        Enemigo.image = EnemigoImage
+        Enemigo.animate = true
+        Enemigo.frames.max = 6
         Enemigo.width = Enemigo.image.width / Enemigo.frames.max
     }
 }

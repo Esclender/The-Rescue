@@ -21,6 +21,7 @@
             </div>
         </div>
         <div id="jugador-stats">
+            <div class="avatar"></div>
             <div class="life-map"></div>
             <div class="coins-container"><span class="coins"></span></div>
         </div>
@@ -33,7 +34,7 @@
             <button class="pause-mapa "></button>
         </div>
         <div class="life">
-            <h1 class="nickname">Esclender</h1>
+            <h1 class="nickname"></h1>
             <h1 class="nickname-enemy"></h1>
             <div id="EnemyBar"></div>
             <div id="playerBar"></div>
@@ -93,7 +94,7 @@
     <script src="./data/data.js"></script>
     <script src="./data/dataMpa1.js"></script>
     <script src="./classes.js"></script>
-    <script src="./SpitesMapa2.js"></script>
+    <script src="./SpitesMapa1.js"></script>
     <script src="./ubicacionesEnemys.js"></script>
     <script src="battle.js"></script>
     <script>
@@ -147,6 +148,7 @@
         })
 
         UbicarZonasEnemigas(1143,'cannibal',collisionBattlesEnemigo1Mapa1)
+        UbicarZonasEnemigas(1143,'cannibal',collisionBattlesEnemigo2Mapa1)
 
     </script>
     <script src="./vendedor.js"></script>

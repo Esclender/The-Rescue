@@ -7,6 +7,7 @@ const mensaje = document.querySelector('.EscribirMensaje')
 const barraDevidaActual = String(PlayerBar.clientWidth) + 'px'
 const objetosDesaparecer = [EnemyBar,PlayerBar,playerName,EnemyName,play,pause]
 const buttonsClick = new Audio('./assets/audio/Menu Selection Click.wav')
+let resetAtaques = true
 
 const battleBackground = new sprite({position:{
     x:0,
@@ -35,6 +36,32 @@ const healthEnemyBar = new sprite({
     image:Enemyhealth
 })
 
+pocion1 = new ataquesLista({vida:35,nombreAt: 'Pocion grande',limite:5,elemento:document.createElement('button'),letras:13,image: pocionBig.src})
+pocion2 = new ataquesLista({vida:35,nombreAt: 'Pocion small',limite:5,elemento:document.createElement('button'),letras:12,image: pocionSmall.src})
+pocion3 = new ataquesLista({vida:45,nombreAt: 'Pocion mediana',limite:0,elemento:document.createElement('button'),letras:12,image: pocionMedium.src})
+
+LugaresPocionesGeneral.push(pocion1,pocion2,pocion3)
+LugaresEnInventarioMapa.push(pocion1,pocion2)
+function CrearInventarioEnmapa() {
+    
+    for (let index = 0; index < LugaresEnInventarioMapa.length; index++) {
+        if (index == 0) {
+            pocionContainer.innerHTML= ""
+            cantidadDePocionesEninventario = []
+        }
+        let actual = document.createElement('div')
+        cantidadLimitante.push(document.createElement('div'))
+        cantidadDePocionesEninventario.push(LugaresEnInventarioMapa[index].limite)
+        
+        actual.classList.add('pociones-mapa')
+        cantidadLimitante[index].innerHTML = cantidadDePocionesEninventario[index]
+        actual.style.backgroundImage = LugaresEnInventarioMapa[index].url ;
+        actual.append(cantidadLimitante[index])
+        pocionContainer.append(actual)
+        
+    }
+}
+
 
 
 
@@ -46,13 +73,15 @@ const ataqueThree = new ataquesLista({vida:45,nombreAt:'Fire Ball',limite:10,tur
 const ataqueFour = new ataquesLista({vida:55,nombreAt:'Rayo',limite:10,turno:3,elemento:document.createElement('button'),letras:4})
 
 ataques.push(ataqueOne,ataqueTwo,ataqueThree,ataqueFour)
-for (let index = 1; index < ataques.length; index++) {
+function AtaquesBatalla() {
+    for (let index = 1; index < ataques.length; index++) {
     let actual = ataques[index].elemento
     actual.innerHTML = ataques[index].nombreAtaque + ' (' + ataques[index].limite + ')'
-    console.log(actual.innerHTML,ataques[index].nombreAtaque)
     AttacksContainer.appendChild(actual)
     
 }
+}
+AtaquesBatalla()
 
 
 let finalAtaque = false
@@ -92,8 +121,28 @@ function animateBattle() {
     battleAnimationID = window.requestAnimationFrame(animateBattle)
     for (let i = 0; i < objetosDesaparecer.length - 2; i++) {
         objetosDesaparecer[i].style.display = 'block'
- 
     }
+    if (resetAtaques) {
+       ataques.forEach((e) => {
+        switch (e.turno) {
+            case 1:
+                e.limite=5
+                break;
+            case 2:
+                e.limite=10
+                break;
+            case 3:
+                e.limite=10
+                break;
+        
+            default:
+                break;
+        }
+       })
+       AtaquesBatalla()
+       resetAtaques = false
+    }
+
     Mapa1Soundtrack.pause()
     battleBackground.draw()
     gsap.to('.atacks',{
@@ -121,7 +170,7 @@ function animateBattle() {
         duration: 1
     })
     document.querySelector('.atacks').classList.remove('off')
-
+    
     
     healthBar.draw()
     healthEnemyBar.draw()
@@ -151,7 +200,7 @@ function animateBattle() {
         }
     }
         if( !parseInt(vidasEnemys[indexEnemigoActual].vida.slice(0,3)) <= 0 && !PlayerBar.clientWidth == 0) {
-            if (estado) {
+            if (!estado) {
               sound.play()  
             }
             for (let i = 0; i < objetosDesaparecer.length; i++) {
@@ -200,8 +249,8 @@ function pelea(ataque) {
                                 gsap.delayedCall(3,() => {aparecerMensaje(EnemyName.innerHTML + " Ha muerto")}) 
                                 document.querySelector('.atacks').style.display ='none'
                                 gsap.delayedCall(0.1,() => {Scream.play(); sound.pause()})
-                                gsap.delayedCall(2,() => {Scream.pause()})
-                                gsap.delayedCall(2.5,() => {AnimationDamageEfecto(Enemigo,AtaquDefaultEfecct,4,10,false)}) 
+                                gsap.delayedCall(2.5,() => {Scream.pause()})
+                                gsap.delayedCall(3,() => {AnimationDamageEfecto(Enemigo,AtaquDefaultEfecct,4,10,false)}) 
                                 gsap.delayedCall(.5,defaulter)
                                 gsap.delayedCall(11, () => {
                                     let nombreactual = EnemyName.innerHTML
@@ -229,6 +278,8 @@ function pelea(ataque) {
                                                 }
                                                 setBattle.initiaded = false
                                                 EliminarZonasEnemigos(nombreactual)
+                                                cantidadLimitante.forEach((e,i) => {e.innerHTML= LugaresEnInventarioMapa[i].limite})
+                                                resetAtaques = true
                                                 animate()
                                             });
                                             gsap.delayedCall(100,() => {ReUbicarZonasEnemigas(nombreactual)})
@@ -302,9 +353,6 @@ function defaulter() {
     jugador.width = jugador.image.width / jugador.frames.max
     GneralEfect.image = AtaquDefaultEfecct
 
-    
-
-
 }
 
 function curar(objeto) {
@@ -318,10 +366,11 @@ function curar(objeto) {
                     const ancho = PlayerBar.clientWidth
                     const total =String(ancho + LugaresPocionesGeneral[index].vida)
                     vidasPlayer[vidasPlayer.length - 1].vida = total + 'px'
-                    LugaresPocionesGeneral[index].limite -= 1
+                    
   
 
                 if (InventarioContainer.childNodes[index+1].classList[0] != 'salir') {
+                    LugaresPocionesGeneral[index].limite -= 1
                     InventarioContainer.childNodes[index+1].innerHTML =  LugaresPocionesGeneral[index].nombreAtaque + ' (' + LugaresPocionesGeneral[index].limite  + ')'
                     InventarioContainer.childNodes[index+1].appendChild(actualImage)
                 }
@@ -355,7 +404,6 @@ function aparecerMensaje(escribir) {
                     mostrarReward = String(e.reward)
                 }
             })
-            console.log(reward)
             MensajeContainer.classList.add('aparecer')
             mensaje.innerHTML = 'Tu recompensa es: ' + mostrarReward 
             MensajeContainer.append(coin)
@@ -431,7 +479,9 @@ function AnimationDamageEfecto(character,image,frames,velocity,animate) {
 function ElegirEfecto(nombreEfecto) {
     for (let index = 0; index < arrayDeEfectos.length; index++) {
         if (nombreEfecto == arrayDeEfectos[index].nombre) {
-            AnimationDamageEfecto(GneralEfect,arrayDeEfectos[index].frame,4,10,true)
+            Scream.play()
+            AnimationDamageEfecto(GneralEfect,arrayDeEfectos[index].frame,10,10,true)
+            gsap.delayedCall(2, () => {Scream.pause})
         }
         
     }

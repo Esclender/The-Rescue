@@ -140,6 +140,7 @@ button{
 
 #playerBar{
     height: 20px;
+    width: 300px;
     position: absolute;
     top: 110px;
     left: 60px;
@@ -291,6 +292,18 @@ button{
     height: 14px;
     background-color: #0f0;
 }
+
+.avatar{
+    width: 80px;
+    height: 80px;
+    background-image: url('./assets/avatar.jpg');
+    background-size: cover;
+    border-radius: 10px;
+    position: absolute;
+    top: 20px;
+    left: 16px;
+}
+
 
 .boton-inventario-mapa{
     position: absolute;
