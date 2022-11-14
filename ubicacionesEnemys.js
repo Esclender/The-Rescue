@@ -27,6 +27,12 @@ const battleZone = []
 const batlleColisionPlayer = []
 const Enemys = []
 
+//Jefe mapa1
+const collisionBattlesJefeMapa1=[]
+for (let i = 0; i < collision.length; i+=80) {
+    collisionBattlesJefeMapa1.push(ZonaJefeMapa1.slice(i, 80 + i))
+}
+
 
 //Enemigo1 mapa1
 const collisionBattlesEnemigo1Mapa1=[]
@@ -125,6 +131,11 @@ function SeleccionarFrameBatalla(nombre) {
         Enemigo.image = EnemigoImage
         Enemigo.animate = true
         Enemigo.frames.max = 6
+        Enemigo.width = Enemigo.image.width / Enemigo.frames.max
+    }else if(nombre == 'Rey Ogro'){
+        Enemigo.image = jefeMapa1Batalla
+        Enemigo.animate = true
+        Enemigo.frames.max = 1
         Enemigo.width = Enemigo.image.width / Enemigo.frames.max
     }
 }

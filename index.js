@@ -85,8 +85,10 @@ botonInventarioMapa.addEventListener('click',() => {
 })
 
 function BajarVidaMapa() {
-    if (PlayerBar.clientWidth < 250) {
-        lifeMap.style.width = '150px'
+    if (totalDamage < 250 && totalDamage >= 150) {
+        lifeMap.style.width = '100px'
+    }else if(totalDamage < 150 && totalDamage > 50){
+        lifeMap.style.width = '50px'
     }
 }
 
@@ -194,9 +196,9 @@ function NextLevelAfterDefeatBoss(background) {
 
 function isMpa() {
     if (background.image == mapa2) {
-        movibles= [background,...cuadros, ...Enemys,foreground2,jefe2,enemigo2]
+        movibles= [background,...cuadros, ...Enemys,foreground2,jefe2,enemigo2,vendedorLuis.imagen]
     }else if(background.image == mapa1){
-        movibles= [background,...cuadros, ...Enemys,foreground1,vendedorEduardo.imagen,enemigo1,enemigo2]
+        movibles= [background,...cuadros, ...Enemys,foreground1,vendedorEduardo.imagen,enemigo1,enemigo2,jefe1]
     }
 }
 
@@ -204,8 +206,10 @@ function isForeground() {
     if (background.image == mapa2) {
         enemigo2.draw()
         jefe2.draw()
+        vendedorLuis.imagen.draw()
         foreground2.draw()
     }else if(background.image == mapa1){
+        jefe1.draw()
         enemigo1.draw()
         enemigo2.draw()
         vendedorEduardo.imagen.draw()

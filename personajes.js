@@ -17,15 +17,6 @@ JugadorDMG.src = './assets/personaje2.png'
 
 
 
-//Enemigos
-
-//juan (Datos y Frames)
-const EnemigoImage = new Image()
-EnemigoImage.src = './assets/Enemigo.png'
-
-
-
-
 //vidas Enemgios (datos)
 
 let vidasPlayer = [
@@ -45,6 +36,11 @@ let vidasEnemys = [
         nombreMonster: 'juan',
         reward: 100
         
+    },
+    monster3={
+        vida: '300px',
+        nombreMonster: 'Rey Ogro',
+        reward:100
     }
 
 ]

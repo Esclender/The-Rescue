@@ -4,6 +4,8 @@ let offset = {
 }
 
 //Enemigos en batalla
+const EnemigoImage = new Image()
+EnemigoImage.src = './assets/Enemigo.png'
 const Enemigo2Batalla = new Image()
 Enemigo2Batalla.src = './assets/Jefe2Batalla.png'
 

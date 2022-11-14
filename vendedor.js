@@ -6,6 +6,8 @@ const cerrarVenta = document.querySelector('.close-sale')
 const iconoBoton = document.querySelector('.icono')
 const vendedorMapa1 = new Image()
 vendedorMapa1.src = './assets/Mpa1-Vendedor.png'
+const vendedorMapa2 = new Image()
+vendedorMapa2.src = './assets/vendedor_segundo_mpaa.png'
 const inventarioVendedor = document.querySelector('.inventario-vendedor')
 const contenedorDatos = document.querySelector('.datos-de-la-pocion')
 const DatosdePocion = document.querySelector('.datos')
@@ -24,6 +26,14 @@ const vendedorEduardo = new vendedor({nombre:'Eduardo',image:new sprite({
 },
 image:vendedorMapa1})
 ,pociones:[]})
+const vendedorLuis = new vendedor({nombre:'Luis',image:new sprite({            
+    position:{
+    x: offset.x ,
+    y: offset.y 
+},
+image:vendedorMapa2})
+,pociones:[]})
+
 const coin = new Image()
 coin.src = './assets/COin.png'
 
@@ -33,7 +43,12 @@ vendedorEduardo.pociones.push(new pocionesAvender({nombre:'Pocion grande', preci
 vendedorEduardo.pociones.push(new pocionesAvender({nombre:'Pocion small', precio:25, avaible:50,imagen:pocionSmall}))
 vendedorEduardo.pociones.push(new pocionesAvender({nombre:'Pocion mediana', precio:35, avaible:30,imagen:pocionMedium}))
 
+vendedorLuis.pociones.push(new pocionesAvender({nombre:'Pocion grande', precio:50, avaible:20,imagen:pocionBig}))
+vendedorLuis.pociones.push(new pocionesAvender({nombre:'Pocion small', precio:25, avaible:50,imagen:pocionSmall}))
+vendedorLuis.pociones.push(new pocionesAvender({nombre:'Pocion mediana', precio:35, avaible:30,imagen:pocionMedium}))
+
 const DialogoEduardo ='Bienvenido a Mi tienda, <br> sobrellevamos la explotacion y <br> aumentamos los precios cada dia, Como Puedo ayudarte?'
+const DialogoLuis ='Bienvenido viajero, que trae a estas zonas <br> Debes tener cuidado <br> Aqui tengo pociones compra una!'
 botonNpc.addEventListener('click',() =>{
     Indicacion.classList.add('off')
     MensajeNpc.classList.add('off')
@@ -172,6 +187,24 @@ function zonaVendedor(background){
                     //Inicio de dialogo
                     Indicacion.classList.add('off')
                     HablarconNpc(DialogoEduardo,'Comprar')
+                    //
+ 
+                }
+  
+            }else{
+                Indicacion.classList.add('off')
+            }
+        }
+    }else if(background.image == mapa2){
+        if (background.position.x < -2560 && background.position.x > -2716 )  {
+            if (background.position.y < -300 && background.position.y > -530  )  {    
+                Indicacion.classList.remove('off')
+ 
+                if (keys.f.pressed ) {
+ 
+                    //Inicio de dialogo
+                    Indicacion.classList.add('off')
+                    HablarconNpc(DialogoLuis,'Comprar')
                     //
  
                 }

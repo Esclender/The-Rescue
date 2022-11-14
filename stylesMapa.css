@@ -69,6 +69,7 @@ canvas{
     background-size: 220px 190px;
     background-position-x: 40% ;
     text-align: center;
+    cursor: pointer;
 }
 
 .aparecer{
@@ -90,6 +91,7 @@ canvas{
     background-size: 370px 200px;
     background-position-x: 45% ;
     background-position-y: 50% ;
+    cursor: pointer;
 }
 
 .attacks-container{
@@ -138,6 +140,7 @@ button{
 
 #playerBar{
     height: 20px;
+    width: 300px;
     position: absolute;
     top: 110px;
     left: 60px;
@@ -190,7 +193,7 @@ button{
 }
 
 .audio{
-    display: inline-block;
+    display: flex;
     position: absolute;
     top: 110px;
     left: 42%;
@@ -199,6 +202,7 @@ button{
 .audio > button{
     width: 40px;
     height: 40px;
+    cursor: pointer;
 }
 
 .audio > button:nth-child(1){
@@ -208,6 +212,18 @@ button{
 }
 
 .audio > button:nth-child(2){
+    background-image: url('./assets/audio/pausa.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.audio > button:nth-child(3){
+    background-image: url('./assets/audio/play.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.audio > button:nth-child(4){
     background-image: url('./assets/audio/pausa.png');
     background-repeat: no-repeat;
     background-size: cover;
@@ -276,6 +292,18 @@ button{
     height: 14px;
     background-color: #0f0;
 }
+
+.avatar{
+    width: 80px;
+    height: 80px;
+    background-image: url('./assets/avatar.jpg');
+    background-size: cover;
+    border-radius: 10px;
+    position: absolute;
+    top: 20px;
+    left: 16px;
+}
+
 
 .boton-inventario-mapa{
     position: absolute;
@@ -378,6 +406,16 @@ button{
     background-position: center;
 }
 
+.inventario-vendedor > button {
+    width: 50px;
+    height: 50px;
+    background-image: url('./assets/Cerrar.png');
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    right: 60px;
+    cursor: pointer;
+}
 
 .pociones-contenedor-vendedor{
     width: 400px;
@@ -454,6 +492,39 @@ input[type=number]:focus{
 .datos img{
     width: 30px;
     height: 30px;
+}
+
+
+
+.next-level{
+    backdrop-filter: blur(10px);
+    padding: 10px;
+    border-radius: 20px;
+    position: absolute;
+    left: 35%;
+    top: 30%;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    animation: flasher 5s infinite;
+}
+
+.next-level > img{
+    width: 45px;
+}
+
+.next-level > span{
+    color: #0f0;
+    
+}
+
+
+@keyframes flasher {
+    35%{
+        opacity: 0.5;
+        transform: scale(0.8);
+    }
+
 }
 
 .off{

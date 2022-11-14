@@ -9,8 +9,6 @@
     <link rel="stylesheet" href="./stylesMapa.css">
 </head>
 <body>
- 
- 
     <div id="container">
         <div class="indicador off">Presiona <img src="./assets/Boton-F.png" alt="">  para hablar</div>
         <div class="inventario-mapa off">
@@ -27,16 +25,22 @@
         <div class="boton-inventario-mapa"></div>
 
         <div class="audio">
-            <button class="play"></button>
-            <button class="pause"></button>
+            <button class="play off"></button>
+            <button class="pause off"></button>
+            <button class="play-mapa "></button>
+            <button class="pause-mapa "></button>
         </div>
         <div class="life">
-            <h1 class="nickname">Esclender</h1>
+            <h1 class="nickname"></h1>
             <h1 class="nickname-enemy"></h1>
             <div id="EnemyBar"></div>
             <div id="playerBar"></div>
         </div>
         <div class="flash"></div>
+        <div class="next-level off">
+            <img src="./assets/Next-level.png" alt="">
+            <span>Siguiente nivel</span>
+        </div>
         <canvas id="mapa"></canvas>        
         <div class="mensaje">
             <h1 class="EscribirMensaje"></h1>
@@ -64,6 +68,8 @@
             </div>
             <button class="boton-inventario">Inventario</button>
         </div>
+
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js" integrity="sha512-gmwBmiTVER57N3jYS3LinA9eb8aHrJua5iQD7yqYCKa5x6Jjc7VDVaEA0je0Lu0bP9j7tEjV3+1qUm6loO99Kw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     
     <script src="./classes.js"></script>

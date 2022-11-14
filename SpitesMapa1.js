@@ -4,15 +4,17 @@ let offset = {
 }
 
 //Enemigos en batalla
+const EnemigoImage = new Image()
+EnemigoImage.src = './assets/Enemigo.png'
 const Enemigo2Batalla = new Image()
 Enemigo2Batalla.src = './assets/Jefe2Batalla.png'
 const jefeMapa1Batalla = new Image()
-jefeMapa1Batalla.src = './assets/Jefe2Batalla.png'
+jefeMapa1Batalla.src = './assets/JefeMapa1.png'
 
 
-//jefe mapa2
+//jefe mapa1
 const jefeMpa1 =new Image()
-jefeMpa1.src = './assets/Jefe-Segundo-mapa.png'
+jefeMpa1.src = './assets/Enemigos-mapa1/JEFE 1.png'
 const jefe1 = new sprite({
     position:{
         x: offset.x,

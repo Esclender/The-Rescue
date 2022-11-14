@@ -7,6 +7,7 @@ const mensaje = document.querySelector('.EscribirMensaje')
 const barraDevidaActual = String(PlayerBar.clientWidth) + 'px'
 const objetosDesaparecer = [EnemyBar,PlayerBar,playerName,EnemyName,play,pause]
 const buttonsClick = new Audio('./assets/audio/Menu Selection Click.wav')
+let totalDamage;
 let resetAtaques = true
 
 const battleBackground = new sprite({position:{
@@ -178,6 +179,8 @@ function animateBattle() {
     Enemigo.draw()
     GneralEfect.draw()
 
+    document.querySelectorAll('button').forEach((e) =>{ e.addEventListener('mouseover', (e) =>{ buttonsClick.play()})
+    })
 
 
     document.querySelectorAll('button').forEach((e) =>{ e.addEventListener('click', (e) =>{choice = {
@@ -251,6 +254,7 @@ function pelea(ataque) {
                                 gsap.delayedCall(0.1,() => {Scream.play(); sound.pause()})
                                 gsap.delayedCall(2.5,() => {Scream.pause()})
                                 gsap.delayedCall(3,() => {AnimationDamageEfecto(Enemigo,AtaquDefaultEfecct,4,10,false)}) 
+                                totalDamage = PlayerBar.clientWidth
                                 gsap.delayedCall(.5,defaulter)
                                 gsap.delayedCall(11, () => {
                                     let nombreactual = EnemyName.innerHTML
@@ -276,9 +280,11 @@ function pelea(ataque) {
                                                 for (let i = 0; i < objetosDesaparecer.length; i++) {
                                                     objetosDesaparecer[i].style.display = 'none'
                                                 }
+                                                
                                                 setBattle.initiaded = false
                                                 EliminarZonasEnemigos(nombreactual)
                                                 cantidadLimitante.forEach((e,i) => {e.innerHTML= LugaresEnInventarioMapa[i].limite})
+                                                LevelUp(EnemyName.innerHTML)
                                                 resetAtaques = true
                                                 animate()
                                             });
@@ -424,6 +430,7 @@ function damage(total,index,array,vidaPersonaje,numero){
             if (total > 0 ) {
                 AnimationDamage()
                 gsap.delayedCall(2, () => {vidaPersonaje[index].vida = String(total) + 'px'})
+                totalDamage = PlayerBar.clientWidth
             }else if(index == vidasPlayer.length - 1){
                 vidaPersonaje[index].vida ='0px'
                 document.querySelector('.atacks').style.display ='none'
@@ -484,6 +491,20 @@ function ElegirEfecto(nombreEfecto) {
             gsap.delayedCall(2, () => {Scream.pause})
         }
         
+    }
+}
+
+function LevelUp(nombre) {
+    switch (nombre) {
+        case 'Rey Ogro':
+            document.querySelector('.next-level').classList.remove('off')
+            break;
+        case 'juan':
+            document.querySelector('.next-level').classList.remove('off')
+            break;
+    
+        default:
+            break;
     }
 }
 
