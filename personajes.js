@@ -33,14 +33,23 @@ let vidasEnemys = [
     },
     monster2={
         vida: '300px',
-        nombreMonster: 'juan',
-        reward: 100
+        nombreMonster: 'Demonio gargola',
+        reward: 180
         
     },
     monster3={
         vida: '300px',
         nombreMonster: 'Rey Ogro',
         reward:100
+    },
+    monster4={
+        vida: '300px',
+        nombreMonster: 'Lobo oscuro',
+        reward:40
+    },monster5={
+        vida: '300px',
+        nombreMonster: 'Goblin',
+        reward:40
     }
 
 ]

@@ -527,6 +527,11 @@ input[type=number]:focus{
 
 }
 
+.nombre-npc{
+    position: absolute;
+    top: 5px;
+}
+
 .off{
     display: none;
 }

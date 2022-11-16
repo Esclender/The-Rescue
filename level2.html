@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Oswald&family=Press+Start+2P&display=swap" rel="stylesheet">
-    <title>Document</title>   
+    <title>The rescue</title>   
     <link rel="stylesheet" href="./stylesMapa.css">
 </head>
 <body>
@@ -47,7 +47,8 @@
         </div>
         <div class="mensaje-Npc off">
             <h1 class="EscribirMensaje-Npc">Texto</h1>
-            <button class="botonNpc"><span></span><i class="icono"></i></button>
+            <button class="botonNpc off"><span></span><i class="icono"></i></button>
+            <button class="botonNpc1 off"><span></span><i class="icono"></i></button>
         </div>
         <div class="inventario-vendedor off">
             <button class="close-sale"></button>
@@ -97,6 +98,7 @@
     <script src="./ubicacionesEnemys.js"></script>
     <script src="battle.js"></script>
     <script>
+        
         const foregrounMapa2 = new Image()
         foregrounMapa2.src = './assets/Foreground-mapa2.png'
         const objectsCollison = []
@@ -147,15 +149,25 @@
         for (let i = 0; i < collision.length; i+=80) {
             CollisionBattles2.push(zonaBatallaEnemigo2Mapa2.slice(i, 80 + i))
         }
+        //Enemigo3 mapa2
+        const collisionBattlesEnemigo3Mapa2=[]
+        for (let i = 0; i < collision.length; i+=80) {
+            collisionBattlesEnemigo3Mapa2.push(ZonaEnemigo3.slice(i, 80 + i))
+        }
+        
 
 
         
         UbicarZonasEnemigas(974,'juan',CollisionBattles)
         UbicarZonasEnemigas(965,'cannibal',CollisionBattles2)
+        UbicarZonasEnemigas(978,'Demonio gargola',collisionBattlesEnemigo3Mapa2)
     </script>
     <script src="./vendedor.js"></script>
     <script src="./index.js"></script>
-
+    <script >
+        lastFrame.player1.money = localStorage.getItem('Money')
+        Dinero.innerHTML = lastFrame.player1.money
+    </script>
     
 </body>
 </html>

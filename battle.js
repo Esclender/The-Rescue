@@ -68,10 +68,10 @@ function CrearInventarioEnmapa() {
 
 // contenedor de ataques
 let ataques = []
-const ataqueOne = new ataquesLista({vida:105,nombreAt:'zero',turno:0})
+const ataqueOne = new ataquesLista({vida:95,nombreAt:'zero',turno:0})
 const ataqueTwo = new ataquesLista({vida:65,nombreAt:'Cuchilla',limite:5,turno: 1,elemento:document.createElement('button'),letras:8,image:'./assets/personaje2.png'})
-const ataqueThree = new ataquesLista({vida:45,nombreAt:'Fire Ball',limite:10,turno:2,elemento:document.createElement('button'),letras:9})
-const ataqueFour = new ataquesLista({vida:55,nombreAt:'Rayo',limite:10,turno:3,elemento:document.createElement('button'),letras:4})
+const ataqueThree = new ataquesLista({vida:65,nombreAt:'Fire Ball',limite:10,turno:2,elemento:document.createElement('button'),letras:9})
+const ataqueFour = new ataquesLista({vida:85,nombreAt:'Rayo',limite:5,turno:3,elemento:document.createElement('button'),letras:4})
 
 ataques.push(ataqueOne,ataqueTwo,ataqueThree,ataqueFour)
 function AtaquesBatalla() {
@@ -92,7 +92,10 @@ let restar = false
 
 //Lugares del Inventario batalla
 function CrearInventarioBatalla() {
-    
+    for (let index = 1; index < InventarioContainer.childElementCount; index++){
+        let eliminar=InventarioContainer.childNodes[index]
+        InventarioContainer.removeChild(eliminar)
+    }
     for (let i = 0; i < LugaresEnInventarioBatalla.length; i++) { 
    
         for (let index = 0; index < arrayDePociones.length; index++) {
@@ -185,6 +188,7 @@ function animateBattle() {
 
     document.querySelectorAll('button').forEach((e) =>{ e.addEventListener('click', (e) =>{choice = {
         value: e.target.innerHTML,clase:e.path[0]}
+        turno = 1
         restar = true
         if (e.target.innerHTML != 'Inventario') {
             finalAtaque = true
@@ -203,7 +207,7 @@ function animateBattle() {
         }
     }
         if( !parseInt(vidasEnemys[indexEnemigoActual].vida.slice(0,3)) <= 0 && !PlayerBar.clientWidth == 0) {
-            if (!estado) {
+            if (estado) {
               sound.play()  
             }
             for (let i = 0; i < objetosDesaparecer.length; i++) {
@@ -218,10 +222,12 @@ function animateBattle() {
     
 }
 function pelea(ataque) {
+    
     //Ataque del Player
     if (restar){ 
         
         if (crearInventario == 0) {
+
             CrearInventarioBatalla()
             crearInventario = 1
         }
@@ -229,12 +235,13 @@ function pelea(ataque) {
 
         for (let i = 0; i < ataques.length ; i++) {
             if(ataque.slice(0,ataques[i].letras) ==  ataques[i].nombreAtaque ){
+                
                 if (turno == 1 ) {
-
+                    console.log('Ataque')
                     if (ataques[i].limite > 0) {
-
-                    let total = EnemyBar.clientWidth;
-                    ataques[i].limite -= 1
+                        console.log(ataques[i].limite)
+                        let total = EnemyBar.clientWidth;
+                        ataques[i].limite -= 1
 
                     if (total > 0) {
                         total = total - ataques[i].vida
@@ -365,9 +372,8 @@ function curar(objeto) {
     for (let index = 0; index < LugaresPocionesGeneral.length; index++) {
         if (objeto.slice(0,LugaresPocionesGeneral[index].letras) == LugaresPocionesGeneral[index].nombreAtaque ) {
             if (PlayerBar.clientWidth < vidasPlayer[vidasPlayer.length - 1].max ) {
-                console.log(objeto,index)
-               
-                    
+                if (LugaresPocionesGeneral[index].limite > 0) {
+                                        
                     let actualImage = arrayDePociones[index]
                     const ancho = PlayerBar.clientWidth
                     const total =String(ancho + LugaresPocionesGeneral[index].vida)
@@ -375,13 +381,17 @@ function curar(objeto) {
                     
   
 
-                if (InventarioContainer.childNodes[index+1].classList[0] != 'salir') {
-                    LugaresPocionesGeneral[index].limite -= 1
-                    InventarioContainer.childNodes[index+1].innerHTML =  LugaresPocionesGeneral[index].nombreAtaque + ' (' + LugaresPocionesGeneral[index].limite  + ')'
-                    InventarioContainer.childNodes[index+1].appendChild(actualImage)
+                    if (InventarioContainer.childNodes[index+1].classList[0] != 'salir') {
+                        LugaresPocionesGeneral[index].limite -= 1
+                        InventarioContainer.childNodes[index+1].innerHTML =  LugaresPocionesGeneral[index].nombreAtaque + ' (' + LugaresPocionesGeneral[index].limite  + ')'
+                        InventarioContainer.childNodes[index+1].appendChild(actualImage)
+                    }
+                
+                }else{
+                    aparecerMensaje('No tienes suficientes pociones')
                 }
-                
-                
+               
+
             }else{
                 aparecerMensaje('Tu vida esta al maximo')
             }   
@@ -392,6 +402,10 @@ function curar(objeto) {
 }
 
 function aparecerMensaje(escribir) {
+    if (MensajeContainer.childElementCount > 1) {
+        MensajeContainer.removeChild(coin)
+    }
+    MensajeContainer.append(mensaje)
     gsap.to('.mensaje',{opacity:1})
     MensajeContainer.classList.add('aparecer')
     mensaje.innerHTML = escribir

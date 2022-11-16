@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Oswald&family=Press+Start+2P&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/454708b8a6.js" crossorigin="anonymous"></script>
-    <title>Document</title>  
+    <title>The rescue</title>  
     <link rel="stylesheet" href="./stylesMapa1.css"> 
 
 </head>
@@ -49,8 +49,10 @@
             <h1 class="EscribirMensaje"></h1>
         </div>
         <div class="mensaje-Npc off">
+            <span class="nombre-npc">Npc</span>
             <h1 class="EscribirMensaje-Npc">Texto</h1>
-            <button class="botonNpc"><span></span><i class="icono"></i></button>
+            <button class="botonNpc off"><span></span><i class="icono"></i></button>
+            <button class="botonNpc1 off"><span></span><i class="icono"></i></button>
         </div>
         <div class="inventario-vendedor off">
             <button class="close-sale"></button>
@@ -102,6 +104,7 @@
     <script src="./ubicacionesEnemys.js"></script>
     <script src="battle.js"></script>
     <script>
+        let bucle = 1
         const foregrounMapa1 = new Image()
         foregrounMapa1.src = './assets/Mapa1-Defrente.png'
         const objectsCollison = []
@@ -113,6 +116,7 @@
             },
             image:mapa1
         })
+    
 
     playMapa.addEventListener('click',() => {
         Mapa1Soundtrack.play()
@@ -151,8 +155,8 @@
             image:foregrounMapa1
         })
 
-        UbicarZonasEnemigas(1143,'cannibal',collisionBattlesEnemigo2Mapa1)
-        UbicarZonasEnemigas(1143,'cannibal',collisionBattlesEnemigo1Mapa1)
+        UbicarZonasEnemigas(1143,'Lobo oscuro',collisionBattlesEnemigo2Mapa1)
+        UbicarZonasEnemigas(1143,'Goblin',collisionBattlesEnemigo1Mapa1)
         UbicarZonasEnemigas(1143,'Rey Ogro',collisionBattlesJefeMapa1)
 
     </script>

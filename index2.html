@@ -76,22 +76,29 @@
     <div id="contenedor">
         <div class="flash"></div>
         <div class="historia">
-            <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem aut vitae asperiores! Id fugit <br>   explicabo, iusto sit suscipit molestiae doloremque dignissimos repudiandae non! Dolorem a facilis nisi. Totam, aliquid esse!Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem aut vitae asperiores! Id fugit explicabo, iusto sit suscipit molestiae doloremque dignissimos repudiandae non! Dolorem a facilis nisi. Totam, aliquid esseLoreLorem ipsum. </h1>
+            <h1>El rey demonio alzo sus manos hacia el nuevo mundo, muchos guerreros fueron a por
+            él y sus soldados, lamentablemente sus fuerzas son escazas ante el demonio, el mal a
+            puesto sus ojos en el reino de “Medor”. <br> </h1>
 
         </div>
 
         <div class="historia">
-            <h1>Lorem ch dolor sit amet consectetur adipisicing elit. Autem aut vitae asperiores! Id fugit <br>   explicabo, iusto sit suscipit molestiae doloremque dignissimos repudiandae non! Dolorem a facilis nisi. Totam, aliquid esse!Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem aut vitae asperiores! Id fugit explicabo, iusto sit suscipit molestiae doloremque dignissimos repudiandae non! Dolorem a facilis nisi. Totam, aliquid esseLoreLorem ipsum. </h1>
+            <h1>Los soldados del demonio se acercan, los valientes soldados de Medor los enfrentan
+                por su honor y el del reino, saben que es inútil con sus fuerzas vencerlos, pero tratan
+                de frenarlos mientras viene la ayuda… se alarga la guerra y la fuerza del reino se
+                debilita. </h1>
 
         </div>
 
         <div class="historia">
-            <h1>Lorem ch dolor sit amet consectetur adipisicing elit. Autem aut vitae asperiores! Id fugit <br>   explicabo, iusto sit suscipit molestiae doloremque dignissimos repudiandae non! Dolorem a facilis nisi. Totam, aliquid esse!Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem aut vitae asperiores! Id fugit explicabo, iusto sit suscipit molestiae doloremque dignissimos repudiandae non! Dolorem a facilis nisi. Totam, aliquid esseLoreLorem ipsum. </h1>
+            <h1>El rey busca aliados, prende las antorchas en busca de los otros reinos… no hay respuesta… Los han dejado a su suerte… <br>
+                El rey desesperado manda que su reina junto a su hija escape.
+                Pero es inútil, los demonios tomaron la capital y entran al castillo. </h1>
 
         </div>
 
         <div class="historia">
-            <h1>Lorem ch dolor sit amet consectetur adipisicing elit. Autem aut vitae asperiores! Id fugit <br>   explicabo, iusto sit suscipit molestiae doloremque dignissimos repudiandae non! Dolorem a facilis nisi. Totam, aliquid esse!Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem aut vitae asperiores! Id fugit explicabo, iusto sit suscipit molestiae doloremque dignissimos repudiandae non! Dolorem a facilis nisi. Totam, aliquid esseLoreLorem ipsum. </h1>
+            <h1>Tu eres un soldado sin nombre en busca de algo especial. </h1>
 
         </div>
     </div>
@@ -101,14 +108,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js" integrity="sha512-gmwBmiTVER57N3jYS3LinA9eb8aHrJua5iQD7yqYCKa5x6Jjc7VDVaEA0je0Lu0bP9j7tEjV3+1qUm6loO99Kw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script>
-        let MainSound = new Audio('./assets/audio/Castlecall.mp3')
+        let MainSound = new Audio('./assets/audio/Dark Intro.ogg')
         let container = document.querySelector('#contenedor')
         let backBoton = document.querySelector('.back-btt')
         let boton = document.querySelector('.next-btt')
         let parrafos = 1
         let margen = -1750
 
-        
+        MainSound.play()
 
         boton.addEventListener('click', () => {
             if (boton.innerHTML == "Empezar aventura") {

@@ -20,12 +20,11 @@
         }
 
         #contenedor{
-            margin-left: 40px;
             display: grid;
             grid-template-columns: repeat(auto-fill,700px);
-            gap: 1150px;
+            gap: 1050px;
             align-items: center;
-            width: 10000px;
+            width: 14000px;
             height: 600px;
             align-content: center;
             transition: 2s;
@@ -65,17 +64,32 @@
             left: 0;
             height: 100vh;
             background-color: #111111;
-            opacity: 1;
+            opacity: 0;
             position: absolute;
             pointer-events: none;
             z-index: 200;
         }
 
         .historia{
-            width: 750px;
-            margin-left: 200px;
+            display: flex;
+            flex-flow: column;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            margin-top: 55px;
+            height: 100vh;
+        }
+
+        .historia > img{
+            width: 850px;
             height: 450px;
-            background-color: #fff;
+            border-radius: 20px;
+        }
+
+        .historia > span{
+            color: #fff;
+            width: 650px;
+            margin-top: 15px;
         }
 
 
@@ -85,21 +99,49 @@
     <div id="contenedor">
         <div class="flash"></div>
         <div class="historia">
+            <img src="./assets/Tutorial7.jpg" alt="">
+            <span>Al estar cerca de un NPC puedes presionar "F" para hablar con el</span>
+        </div>
+
+        <div class="historia">
+            <img src="./assets/Tutorial2.png" alt="">
+            <span>Al estar cerca del rango de un enemigo, este te atacara iniciando una batalla</span>
 
         </div>
 
         <div class="historia">
+            <img src="./assets/Tutorial-batalla.png" alt="">
+            <span>Al momento de la batalla tendras disponible 3 ataques, a un lado del nombre del ataque podras ver el limite de veces que puedes usar un ataque por pelea.</span>
+        </div>
 
+        <div class="historia">
+            <img src="./assets/Tutorial-inventario.jpg" alt="">
+            <span>A un lado de tus ataques podras ver tu inventario, el cual contendra tus pociones, igualmente podras ver la cantidad de pociones que tienes. </span>
 
         </div>
 
         <div class="historia">
- 
+            <img src="./assets/Tutorial3-4.png" alt="">
+            <span>En la interfaz principal podras ver debajo de tus estadisticas un boton que representara tu inventario, en el cual podras entrar y observar las pociones que actualmente tienes y cuantas tienes disponibles.</span>
 
         </div>
 
         <div class="historia">
+            <img src="./assets/Tutorial4.jpg" alt="">
+            <span>Dentro del inventario podras elegir que pociones usaras en batalla, solo puedes tener un maximo de 4 pociones para la batalla .</span>
 
+        </div>
+
+        
+        <div class="historia">
+            <img src="./assets/Tutorial5.jpg" alt="">
+            <span>Luego de derrotar al jefe del mapa actual, te aparecera una flecha la cual te indicara que avanzes unos pasos hacia adelante para ir al siguiente nivel.</span>
+
+        </div>
+
+        <div class="historia">
+            <img src="./assets/Tutorila-vendedor.jpg" alt="">
+            <span>En algunos mapas estaran los vendedores los cuales te podran vender pociones, solo debes darle click a la pocion que quieres ingresar la cantidad que quieres y comprar, luego estas apareceran en tu inventario.</span>
 
         </div>
     </div>
@@ -109,14 +151,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js" integrity="sha512-gmwBmiTVER57N3jYS3LinA9eb8aHrJua5iQD7yqYCKa5x6Jjc7VDVaEA0je0Lu0bP9j7tEjV3+1qUm6loO99Kw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script>
-        let MainSound = new Audio('./assets/audio/Castlecall.mp3')
+        let MainSound = new Audio('./assets/audio/Adventure Theme Intro.wav')
         let container = document.querySelector('#contenedor')
         let backBoton = document.querySelector('.back-btt')
         let boton = document.querySelector('.next-btt')
         let parrafos = 1
         let margen = -1750
 
-        
+       
 
         boton.addEventListener('click', () => {
             if (boton.innerHTML == "Empezar aventura") {
@@ -138,7 +180,7 @@
                 margen -= 1750
             }
 
-            if (parrafos == 4 ) {
+            if (parrafos == 8) {
                 boton.innerHTML = "Empezar aventura"
             } 
 

@@ -61,19 +61,21 @@ let lastFrame = new movimiento({
             x:canvas.width / 2 - (188 / 3),
             y:canvas.height / 2 - (66 / 8) 
         },
-        image:personaje,
+        image:personajeRigth,
         frames:{
             max:4
         },
         velocity:15,
-        money:225
+        money:100
     })
 })
 
 //Relacion de dinero con html y js
 const Dinero = document.querySelector(".coins")
+let BilleteraStorage ;
 function Billetera(cantidad) {
     Dinero.innerHTML = cantidad
+    BilleteraStorage  = localStorage.setItem('Money', Dinero.innerHTML )
 }
 
 
@@ -180,8 +182,8 @@ function collisionEnemys({rectangle1, rectangle2}) {
 
 function NextLevelAfterDefeatBoss(background) {
     if (background.image == mapa1) {
-        if (background.position.x < -2860 && background.position.x > -2908  )  {
-            if (background.position.y < -228 && background.position.y > -297  )  {
+        if (background.position.x < -2800 && background.position.x > -2908  )  {
+            if (background.position.y < -218 && background.position.y > -297  )  {
                 window.location.href = './level2.html'
             }
         }
@@ -196,22 +198,24 @@ function NextLevelAfterDefeatBoss(background) {
 
 function isMpa() {
     if (background.image == mapa2) {
-        movibles= [background,...cuadros, ...Enemys,foreground2,jefe2,enemigo2,vendedorLuis.imagen]
+        movibles= [background,...cuadros, ...Enemys,foreground2,jefe2,enemigo2,vendedorLuis.imagen,enemigo3]
     }else if(background.image == mapa1){
-        movibles= [background,...cuadros, ...Enemys,foreground1,vendedorEduardo.imagen,enemigo1,enemigo2,jefe1]
+        movibles= [background,...cuadros, ...Enemys,foreground1,vendedorEduardo.imagen,enemigo1Mpa1,enemigo2Mpa1,jefe1,Npc.imagen]
     }
 }
 
 function isForeground() {
     if (background.image == mapa2) {
+        enemigo3.draw()
         enemigo2.draw()
         jefe2.draw()
         vendedorLuis.imagen.draw()
         foreground2.draw()
     }else if(background.image == mapa1){
+        Npc.imagen.draw()
         jefe1.draw()
-        enemigo1.draw()
-        enemigo2.draw()
+        enemigo1Mpa1.draw()
+        enemigo2Mpa1.draw()
         vendedorEduardo.imagen.draw()
         foreground1.draw()
     }
@@ -223,7 +227,10 @@ const moving = true
 function animate() {
     const animationId = window.requestAnimationFrame(animate)
     background.draw()
-    Billetera(lastFrame.player1.money)
+    if (background.image == mapa1) {
+        Billetera(lastFrame.player1.money)
+    }
+    
     BajarVidaMapa()
     
     let pocionesParaVender = document.querySelectorAll('.pocion-a-vender')
@@ -244,6 +251,7 @@ function animate() {
     isForeground()
     
     EscucharClicksDeCompra(pocionesParaVender)
+    zonaNpc(background)
     zonaVendedor(background)
 
     if ( limitadorDePago == 1 ) {
@@ -265,7 +273,7 @@ function animate() {
     if(setBattle.initiaded) return
 
     if (keys.w.pressed || keys.a.pressed || keys.s.pressed || keys.d.pressed ) {
-        
+        crearInventario = 0
         NextLevelAfterDefeatBoss(background)
         for (let i = 0; i < Enemys.length; i++) {
             actualBattle = Enemys[i]
@@ -273,28 +281,38 @@ function animate() {
                 rectangle1: lastFrame.player1,
                 rectangle2:actualBattle
             })){
+
                 SeleccionarFrameBatalla(actualBattle.nombre)
                 EnemyName.innerHTML = actualBattle.nombre
-                gsap.to('.flash',{
-                    opacity:1,
-                    repeat:5,
-                    onComplete(){
-                        gsap.to('.flash',{
-                            opacity: 0
-                        })
-                        gsap.delayedCall(-0.2, animateBattle)
-                    }
+                let mensaje = actualBattle.nombre + " te esta atacando!!"
+                aparecerMensaje(mensaje)
+                gsap.delayedCall(3,() => {
+                    gsap.to('.flash',{
+                        opacity:1,
+                        repeat:5,
+                        onComplete(){
+                            gsap.to('.flash',{
+                                opacity: 0
+                            })
+                            gsap.delayedCall(-0.2, animateBattle)
+                        }
+                    })
                 })
-                
 
-                setBattle.initiaded = true
-                window.cancelAnimationFrame(animationId)
-                break;
-
+                    
+    
+                    setBattle.initiaded = true
+                    window.cancelAnimationFrame(animationId)
+                    break;
             }
+
+        
+ 
+
+        }
            
-        }   
-    }
+    }   
+    
 
     
         if (keys.w.pressed) {

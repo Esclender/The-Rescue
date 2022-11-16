@@ -2,8 +2,11 @@ const Indicacion = document.querySelector('.indicador')
 const MensajeNpc =document.querySelector('.mensaje-Npc')
 const EscribirMensajeNpc = document.querySelector('.EscribirMensaje-Npc')
 const botonNpc = document.querySelector('.botonNpc')
+const botonNpc1 = document.querySelector('.botonNpc1')
 const cerrarVenta = document.querySelector('.close-sale')
 const iconoBoton = document.querySelector('.icono')
+const npcImage = new Image()
+npcImage.src = './assets/Npc-mapa1.png'
 const vendedorMapa1 = new Image()
 vendedorMapa1.src = './assets/Mpa1-Vendedor.png'
 const vendedorMapa2 = new Image()
@@ -13,6 +16,7 @@ const contenedorDatos = document.querySelector('.datos-de-la-pocion')
 const DatosdePocion = document.querySelector('.datos')
 let cantidadDePocionesEninventario = [];
 const inventarioContenedorMapa = document.querySelector('.inventario-mapa')
+const nombreNpc = document.querySelector('.nombre-npc')
 let imagenDearticuloComprado;
 let cantidadLimitante =[];
 let precioDePocionActual;
@@ -34,6 +38,14 @@ const vendedorLuis = new vendedor({nombre:'Luis',image:new sprite({
 image:vendedorMapa2})
 ,pociones:[]})
 
+const Npc = new vendedor({nombre:'Gerson',image:new sprite({            
+    position:{
+    x: offset.x ,
+    y: offset.y 
+},
+image:npcImage})
+,pociones:[]})
+
 const coin = new Image()
 coin.src = './assets/COin.png'
 
@@ -47,12 +59,22 @@ vendedorLuis.pociones.push(new pocionesAvender({nombre:'Pocion grande', precio:5
 vendedorLuis.pociones.push(new pocionesAvender({nombre:'Pocion small', precio:25, avaible:50,imagen:pocionSmall}))
 vendedorLuis.pociones.push(new pocionesAvender({nombre:'Pocion mediana', precio:35, avaible:30,imagen:pocionMedium}))
 
-const DialogoEduardo ='Bienvenido a Mi tienda, <br> sobrellevamos la explotacion y <br> aumentamos los precios cada dia, Como Puedo ayudarte?'
+const DialogoEduardo ='Bienvenido a Mi tienda, <br> Buscas alguna pocion?'
 const DialogoLuis ='Bienvenido viajero, que trae a estas zonas <br> Debes tener cuidado <br> Aqui tengo pociones compra una!'
+const DialogoGerson = "Hay historias que cuentan <br> que el rey demonio habia sido derrotado <br> por unos heroes, luego que lo sellaron y eso es lo unico que se sabe "
+
+
 botonNpc.addEventListener('click',() =>{
     Indicacion.classList.add('off')
     MensajeNpc.classList.add('off')
     inventarioVendedor.classList.remove('off')
+})
+
+
+botonNpc1.addEventListener('click',() =>{
+    Indicacion.classList.add('off')
+    MensajeNpc.classList.add('off')
+    keys.f.pressed = false
 })
 
 cerrarVenta.addEventListener('click',() => {
@@ -186,12 +208,15 @@ function zonaVendedor(background){
  
                     //Inicio de dialogo
                     Indicacion.classList.add('off')
+                    nombreNpc.innerHTML = vendedorEduardo.nombre
+                    botonNpc.classList.remove('off')
                     HablarconNpc(DialogoEduardo,'Comprar')
                     //
  
                 }
   
             }else{
+                botonNpc.classList.add('off')
                 Indicacion.classList.add('off')
             }
         }
@@ -204,14 +229,44 @@ function zonaVendedor(background){
  
                     //Inicio de dialogo
                     Indicacion.classList.add('off')
+                    nombreNpc.innerHTML = vendedorLuis.nombre
+                    botonNpc.classList.remove('off')
                     HablarconNpc(DialogoLuis,'Comprar')
+                    
                     //
  
                 }
   
             }else{
+                botonNpc.classList.add('off')
                 Indicacion.classList.add('off')
             }
+        }
+    }
+}
+
+function zonaNpc(background){
+    if (background.image == mapa1) {
+        if (background.position.x < -625 && background.position.x > -699 )  {
+            if (background.position.y < -550 && background.position.y > -682  )  {    
+                Indicacion.classList.remove('off')
+ 
+                if (keys.f.pressed ) {
+ 
+                    //Inicio de dialogo
+                    Indicacion.classList.add('off')
+                    nombreNpc.innerHTML = Npc.nombre
+                    botonNpc1.classList.remove('off')
+                    botonNpc1.innerHTML = 'Terminar'
+                    HablarconNpc(DialogoGerson,'Siguiente')
+                    //
+ 
+                }
+  
+            }
+        }else{
+            botonNpc1.classList.add('off')
+            Indicacion.classList.add('off')
         }
     }
 }

@@ -50,6 +50,9 @@ for (let i = 0; i < collision.length; i+=80) {
 
 
 
+
+
+
 //Colocacion de las zonas (Por tipo de monstruo)
 
 
@@ -103,6 +106,22 @@ function ReUbicarZonasEnemigas(nombre) {
             }      
             
         }
+    }else if(nombre == 'Lobo oscuro'){
+        enemigo2.image = Enemigo2Batalla
+        for (let index = 0; index < vidasEnemys.length; index++) {
+            if (vidasEnemys[index].nombreMonster == nombre) {
+               vidasEnemys[index].vida = '300px' 
+            }      
+            
+        }
+    }else if(nombre = 'Demonio gargola'){
+        enemigo2.image = Enemigo3Mapa2
+        for (let index = 0; index < vidasEnemys.length; index++) {
+            if (vidasEnemys[index].nombreMonster == nombre) {
+               vidasEnemys[index].vida = '300px' 
+            }      
+            
+        }
     }
 }
 
@@ -116,14 +135,18 @@ function EliminarZonasEnemigos(nombre) {
 
     if (nombre == 'juan') {
         jefe2.image = AtaquDefaultEfecct
-    }else if(nombre == 'cannibal'){
-        enemigo2.image = AtaquDefaultEfecct
+    }else if(nombre == 'Rey Ogro'){
+        jefe1.image = AtaquDefaultEfecct
+    }else if(nombre == 'Goblin'){
+        enemigo1Mpa1.image = AtaquDefaultEfecct
+    }else if(nombre == 'Lobo oscuro'){
+        enemigo2Mpa1.image = AtaquDefaultEfecct
     }
 }
 
 function SeleccionarFrameBatalla(nombre) {
-    if (nombre == 'juan') {
-        Enemigo.image = jefeMapa2Batalla
+    if (nombre == 'Demonio gargola') {
+        Enemigo.image = Enemigo3Mapa2
         Enemigo.animate = false
         Enemigo.frames.max = 1
         Enemigo.width = Enemigo.image.width / Enemigo.frames.max
@@ -134,6 +157,11 @@ function SeleccionarFrameBatalla(nombre) {
         Enemigo.width = Enemigo.image.width / Enemigo.frames.max
     }else if(nombre == 'Rey Ogro'){
         Enemigo.image = jefeMapa1Batalla
+        Enemigo.animate = true
+        Enemigo.frames.max = 1
+        Enemigo.width = Enemigo.image.width / Enemigo.frames.max
+    }else if(nombre == 'Lobo oscuro'){
+        Enemigo.image = Enemigo2Mapa1Batalla
         Enemigo.animate = true
         Enemigo.frames.max = 1
         Enemigo.width = Enemigo.image.width / Enemigo.frames.max
