@@ -1,6 +1,8 @@
 
 const collisionMapa2 = 965
 const collisionMapa1 = 1141
+const collisionMapa3 = 3433
+let activarBtallaFinal = false
 const medidasExactasMapa2 = [
     roj={
         x:292 ,
@@ -90,7 +92,7 @@ function ReUbicarZonasEnemigas(nombre) {
         }
     })
 
-    if (nombre == 'juan') {
+    if (nombre == 'Rey fantasma') {
         jefe2.image = jefeMpa2
         for (let index = 0; index < vidasEnemys.length; index++) {
             if (vidasEnemys[index].nombreMonster == nombre) {
@@ -133,7 +135,7 @@ function EliminarZonasEnemigos(nombre) {
         }
     })
 
-    if (nombre == 'juan') {
+    if (nombre == 'Rey fantasma') {
         jefe2.image = AtaquDefaultEfecct
     }else if(nombre == 'Rey Ogro'){
         jefe1.image = AtaquDefaultEfecct
@@ -141,6 +143,12 @@ function EliminarZonasEnemigos(nombre) {
         enemigo1Mpa1.image = AtaquDefaultEfecct
     }else if(nombre == 'Lobo oscuro'){
         enemigo2Mpa1.image = AtaquDefaultEfecct
+    }else if(nombre == 'Demonio gargola'){
+        enemigo2.image = AtaquDefaultEfecct
+    }else if(nombre == 'cannibal'){
+        enemigo3.image = AtaquDefaultEfecct
+    }else if(nombre == 'Rey demonio'){
+        JefeFinal.image = AtaquDefaultEfecct
     }
 }
 
@@ -162,6 +170,21 @@ function SeleccionarFrameBatalla(nombre) {
         Enemigo.width = Enemigo.image.width / Enemigo.frames.max
     }else if(nombre == 'Lobo oscuro'){
         Enemigo.image = Enemigo2Mapa1Batalla
+        Enemigo.animate = true
+        Enemigo.frames.max = 1
+        Enemigo.width = Enemigo.image.width / Enemigo.frames.max
+    }else if(nombre == 'Goblin'){
+        Enemigo.image = Enemigo1Mpa1Btalla
+        Enemigo.animate = true
+        Enemigo.frames.max = 1
+        Enemigo.width = Enemigo.image.width / Enemigo.frames.max
+    }else if(nombre == 'Rey fantasma'){
+        Enemigo.image = jefeMapa2Batalla
+        Enemigo.animate = true
+        Enemigo.frames.max = 1
+        Enemigo.width = Enemigo.image.width / Enemigo.frames.max
+    }else if(nombre == 'Rey demonio'){
+        Enemigo.image = ReyFinal
         Enemigo.animate = true
         Enemigo.frames.max = 1
         Enemigo.width = Enemigo.image.width / Enemigo.frames.max

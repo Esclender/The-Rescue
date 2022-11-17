@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The rescue</title>
     <link href="https://fonts.googleapis.com/css2?family=Oswald&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="./credi/Logops_.png" type="image/x-icon">
     <style>
         *{
             font-family: 'Press Start 2P', cursive;
@@ -118,13 +119,13 @@
         MainSound.play()
 
         boton.addEventListener('click', () => {
-            if (boton.innerHTML == "Empezar aventura") {
+            if (boton.innerHTML == "Tutorial") {
                 gsap.to('.flash',{
                     opacity:1,
                     duration: 2
 
                 })
-                gsap.delayedCall(3, () =>{window.location.href = './inicoJuego.html'}) 
+                gsap.delayedCall(3, () =>{window.location.href = './index3.html'}) 
             }
 
             
@@ -138,7 +139,7 @@
             }
 
             if (parrafos == 4 ) {
-                boton.innerHTML = "Empezar aventura"
+                boton.innerHTML = "Tutorial"
             } 
 
         })

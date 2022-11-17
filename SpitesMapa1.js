@@ -3,9 +3,14 @@ let offset = {
     y:-680
 }
 
+function JefeFinalUbicacion(){
+    return(background.position.x < -1605 && background.position.x > -1803 &&
+            background.position.y < -358 && background.position.y > -402 )
+}
+
 //Enemigos en batalla
-const EnemigoImage = new Image()
-EnemigoImage.src = './assets/Enemigo.png'
+const Enemigo1Mpa1Btalla = new Image()
+Enemigo1Mpa1Btalla.src = './assets/Enemigos-mapa1/Goblin.png'
 const Enemigo2Batalla = new Image()
 Enemigo2Batalla.src = './assets/Jefe2Batalla.png'
 const jefeMapa1Batalla = new Image()

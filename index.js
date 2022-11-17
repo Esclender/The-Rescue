@@ -9,6 +9,7 @@ personajeup.src= './assets/personaje-up.png'
 const botonInventarioMapa = document.querySelector('.boton-inventario-mapa')
 const lifeMap = document.querySelector('.life-map')
 
+
 botonInventarioMapa.addEventListener('mouseover', ()=>{
     buttonsClick.play()
 })
@@ -46,7 +47,7 @@ const Enemigo= new sprite({
         x:canvas.width / 2 - (-196) ,
         y:canvas.height / 2 - (209 / 2) 
     },
-    image:EnemigoImage,
+    image:AtaquDefaultEfecct,
     frames:{
         max:6
     },
@@ -188,9 +189,17 @@ function NextLevelAfterDefeatBoss(background) {
             }
         }
     }else if(background.image == mapa2){
-        if (background.position.x < -44 && background.position.x > -61  )  {
-            if (background.position.y < -324 && background.position.y > -402  )  {
-                window.location.href = './inicoJuego.html'
+        console.log(background.position)
+        if (background.position.x < -1406 && background.position.x > -1646  )  {
+            if (background.position.y < -43 && background.position.y > -163  )  {
+                window.location.href = './MpaFinal.html'
+            }
+        }
+    }else if(background.image == mapa3){
+        console.log(background.position)
+        if (background.position.x < -3333 && background.position.x > -1646  )  {
+            if (background.position.y < -43 && background.position.y > -163  )  {
+                window.location.href = './credi/creditos.html'
             }
         }
     }
@@ -201,6 +210,8 @@ function isMpa() {
         movibles= [background,...cuadros, ...Enemys,foreground2,jefe2,enemigo2,vendedorLuis.imagen,enemigo3]
     }else if(background.image == mapa1){
         movibles= [background,...cuadros, ...Enemys,foreground1,vendedorEduardo.imagen,enemigo1Mpa1,enemigo2Mpa1,jefe1,Npc.imagen]
+    }else if(background.image == mapa3){
+        movibles= [background,...cuadros, ...Enemys,Devil]
     }
 }
 
@@ -218,6 +229,8 @@ function isForeground() {
         enemigo2Mpa1.draw()
         vendedorEduardo.imagen.draw()
         foreground1.draw()
+    }else if(background.image == mapa3){
+        Devil.draw()
     }
 }
 
@@ -249,7 +262,24 @@ function animate() {
     })
     lastFrame.player1.draw()
     isForeground()
+    if (background.image == mapa3) {
+            if (JefeFinalUbicacion(activarBtallaFinal)) {
+                Enemigo.position.x = canvas.width / 2 - (-106) 
+                Enemigo.position.y = canvas.height / 2 - (480 / 2) 
+                Enemys.push(
+                    new cuadro({
+                        position:{
+                            x: 0,
+                            y: 0
+                        },
+                        name: "Rey demonio"
+                    })
     
+                    )
+                    activarBtallaFinal = true
+            }
+    }
+
     EscucharClicksDeCompra(pocionesParaVender)
     zonaNpc(background)
     zonaVendedor(background)
@@ -273,18 +303,29 @@ function animate() {
     if(setBattle.initiaded) return
 
     if (keys.w.pressed || keys.a.pressed || keys.s.pressed || keys.d.pressed ) {
+
         crearInventario = 0
         NextLevelAfterDefeatBoss(background)
         for (let i = 0; i < Enemys.length; i++) {
             actualBattle = Enemys[i]
+
+            
             if (collisionEnemys({
                 rectangle1: lastFrame.player1,
                 rectangle2:actualBattle
-            })){
+            }) || activarBtallaFinal){
 
                 SeleccionarFrameBatalla(actualBattle.nombre)
                 EnemyName.innerHTML = actualBattle.nombre
-                let mensaje = actualBattle.nombre + " te esta atacando!!"
+                let mensaje;
+                if (actualBattle.nombre == "Rey Ogro"||actualBattle.nombre == "Rey Ogro") {
+                    mensaje = actualBattle.nombre + " cambio a su verdaddera forma!!"   
+                }else if(actualBattle.nombre == "Rey demonio"){
+                    mensaje = "Dominare el reino de medor y nadie me podra detener!!!"                    
+                }else{
+                    mensaje = actualBattle.nombre + " te esta atacando!!" 
+                }
+
                 aparecerMensaje(mensaje)
                 gsap.delayedCall(3,() => {
                     gsap.to('.flash',{
@@ -298,9 +339,6 @@ function animate() {
                         }
                     })
                 })
-
-                    
-    
                     setBattle.initiaded = true
                     window.cancelAnimationFrame(animationId)
                     break;
@@ -312,8 +350,6 @@ function animate() {
         }
            
     }   
-    
-
     
         if (keys.w.pressed) {
             lastFrame.player1.image = personajeup

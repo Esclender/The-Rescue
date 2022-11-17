@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/454708b8a6.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="./credi/Logops_.png" type="image/x-icon">
+    <title>The rescue</title>  
+    <link rel="stylesheet" href="./stylesMapa1.css"> 
+
+</head>
+<body>
+ 
+    <div id="container">
+        <div class="indicador off">Presiona <img src="./assets/Boton-F.png" alt="">  para hablar</div>
+        <div class="inventario-mapa off">
+            <div class="pociones-contenedor">
+            </div>
+            <div class="pociones-a-usar">
+            </div>
+        </div>
+        <div id="jugador-stats">
+            <div class="avatar"></div>
+            <div class="life-map"></div>
+            <div class="coins-container"><span class="coins"></span></div>
+        </div>
+        <div class="boton-inventario-mapa"></div>
+
+        <div class="audio">
+            <button class="play off"></button>
+            <button class="pause off"></button>
+            <button class="play-mapa "></button>
+            <button class="pause-mapa "></button>
+        </div>
+        <div class="life">
+            <h1 class="nickname"></h1>
+            <h1 class="nickname-enemy"></h1>
+            <div id="EnemyBar"></div>
+            <div id="playerBar"></div>
+        </div>
+        <div class="flash"></div>
+        <canvas id="mapa"></canvas>
+        <div class="next-level off">
+            <img src="./assets/Next-level.png" alt="">
+            <span>Siguiente nivel</span>
+        </div>        
+        <div class="mensaje">
+            <h1 class="EscribirMensaje"></h1>
+        </div>
+        <div class="mensaje-Npc off">
+            <span class="nombre-npc">Npc</span>
+            <h1 class="EscribirMensaje-Npc">Texto</h1>
+            <button class="botonNpc off"><span></span><i class="icono"></i></button>
+            <button class="botonNpc1 off"><span></span><i class="icono"></i></button>
+        </div>
+        <div class="inventario-vendedor off">
+            <button class="close-sale"></button>
+            <div class="pociones-contenedor-vendedor">
+                <img class="pocion-a-vender" src="./assets/pociones/Icon4.png">
+                <img class="pocion-a-vender" src="./assets/pociones/Icon15.png">
+                <img class="pocion-a-vender" src="./assets/pociones/Icon14.png" alt="">
+            </div>
+        </div>
+        <div class="datos-de-la-pocion off">
+            <div class="datos">
+            </div>
+        </div>
+        <div class="inventario ">
+        </div>
+        <div class="atacks off">
+            <div class="attacks-container">
+            </div>
+            <button class="boton-inventario">Inventario</button>
+        </div>
+
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js" integrity="sha512-gmwBmiTVER57N3jYS3LinA9eb8aHrJua5iQD7yqYCKa5x6Jjc7VDVaEA0je0Lu0bP9j7tEjV3+1qUm6loO99Kw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+
+    <script src="./classes.js"></script>
+    <script>
+        const mapa1 = new Image()
+        mapa1.src= './assets/DEFINITIVO1.5.png'
+        let mapa2;
+        const mapa3 = new Image()
+        mapa3.src = './assets/Mpa-final.png'
+        gsap.delayedCall(3,() =>{
+            gsap.to('.flash',{
+                opacity:0,
+                duration: 2
+
+            })
+        })
+
+
+
+    </script>
+    <script src="./pociones.js"></script>
+    <script src="./audios.js"></script>
+    <script src="./personajes.js"></script>
+    <script src="./data/data.js"></script>
+    <script src="./data/dataMpa1.js"></script>
+    <script src="./data/data-mapa-final.js"></script>
+    <script src="./classes.js"></script>
+    <script src="./spiteMpa3.js"></script>
+    <script src="./ubicacionesEnemys.js"></script>
+    <script src="battle.js"></script>
+    <script>
+        let bucle = 1
+        const foregrounMapa1 = new Image()
+        foregrounMapa1.src = './assets/Mapa1-Defrente.png'
+        const objectsCollison = []
+        const cuadros = []
+        const background = new sprite({
+            position:{
+                x: offset.x,
+                y: offset.y
+            },
+            image:mapa3
+        })
+    
+
+    playMapa.addEventListener('click',() => {
+        Mapa1Soundtrack.play()
+    })
+
+    pauseMapa.addEventListener('click', () => {
+        Mapa1Soundtrack.pause()
+        estado = false
+    })
+
+        for (let i = 0; i < zonaRey.length; i+=70) {
+            objectsCollison.push(zonaRey.slice(i, 70 + i))
+        }
+    
+        objectsCollison.forEach((row,i) => {
+            row.forEach((date,j) => {
+                if (date === 444) {
+                    cuadros.push(
+                        new cuadro({
+                            position:{
+                                x: (j * cuadro.width + offset.x),
+                                y: (i * cuadro.height + offset.y) 
+                            }
+                        })
+                    )
+                }
+           
+            })
+        })
+
+
+        const foreground1 = new sprite({
+            position:{
+                x: offset.x ,
+                y: offset.y 
+            },
+            image:foregrounMapa1
+        })
+
+
+
+    </script>
+    <script src="./vendedor.js"></script>
+    <script src="./index.js"></script>
+    <script >
+        lastFrame.player1.money = localStorage.getItem('Money')
+        Dinero.innerHTML = lastFrame.player1.money
+    </script>
+    
+</body>
+</html>

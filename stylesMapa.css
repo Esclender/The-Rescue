@@ -32,7 +32,7 @@ canvas{
     left: 0;
     border-radius: 20px;
     background-color: #111111;
-    opacity: 0;
+    opacity: 1;
     position: absolute;
     pointer-events: none;
     z-index: 200;
@@ -165,6 +165,7 @@ button{
     align-items: center;
     background-color: #fff;
     border-top: 4px solid #690909 ;
+    text-align: center;
 }
 
 .mensaje-Npc{

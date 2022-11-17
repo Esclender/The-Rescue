@@ -1,0 +1,48 @@
+*{
+    font-family: 'Press Start 2P', cursive;
+    margin: 0;
+    padding: 0;
+    background-color: black;
+}
+
+
+
+.end{
+    width: 1000px;
+    height: 900px;
+    background-color: rgba(0, 0, 0, 0.299);
+    position: absolute;
+    z-index: 999;
+    left: 120px;
+}
+
+.letras{
+    color: #fff;
+    text-align: center;
+    list-style: none;
+}
+.letras li{
+    text-align: center;
+    list-style: none;
+    font-size: 400%;
+
+}
+.gracias{
+    text-align: center;
+    list-style: none;
+    font-size: 200%;
+    
+}
+.gracias li{
+    text-align: center;
+    list-style: none;
+    font-size: 300%;
+}
+h1{
+    text-align: center;
+    list-style: none;
+}
+.imagen{
+    text-align: center;
+    list-style: none;
+}

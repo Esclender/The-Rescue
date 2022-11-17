@@ -3,6 +3,11 @@ let offset = {
     y:-700
 }
 
+function JefeFinalUbicacion(){
+    return(background.position.x < -1605 && background.position.x > -1803 &&
+            background.position.y < -358 && background.position.y > -402 )
+}
+
 //Enemigos en batalla
 const EnemigoImage = new Image()
 EnemigoImage.src = './assets/Enemigo.png'
@@ -11,11 +16,11 @@ Enemigo2Batalla.src = './assets/Jefe2Batalla.png'
 const Enemigo3Mapa2 = new Image()
 Enemigo3Mapa2.src = './assets/EnemigosMapa2/Enemigo3Btalla.png'
 const jefeMapa2Batalla = new Image()
-jefeMapa2Batalla.src = './assets/Jefe2Batalla.png'
+jefeMapa2Batalla.src = './assets/EnemigosMapa2/Rey-fantasma.png'
 
 //jefe mapa2
 const jefeMpa2 =new Image()
-jefeMpa2.src = './assets/Jefe-Segundo-mapa.png'
+jefeMpa2.src = './assets/EnemigosMapa2/Jefe-2.png'
 const jefe2 = new sprite({
     position:{
         x: offset.x,

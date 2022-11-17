@@ -1,5 +1,9 @@
 const batlleBackgroundImage = new Image()
 batlleBackgroundImage.src = './assets/Fondo de batalla.png'
+const battleBackground2 = new Image()
+battleBackground2.src = './assets/Fondo-BtallaMpa2.png'
+const battleBackground3 = new Image()
+battleBackground3.src = './assets/Fondo-final.jpg'
 const InventarioContainer = document.querySelector('.inventario')
 const AttacksContainer = document.querySelector('.attacks-container')
 const MensajeContainer = document.querySelector('.mensaje')
@@ -147,6 +151,15 @@ function animateBattle() {
        resetAtaques = false
     }
 
+    if (background.image == mapa2) {
+        battleBackground.position.y = -310
+        battleBackground.image = battleBackground2
+    }else if(background.image == mapa3){
+        battleBackground.position.x = -90
+        battleBackground.position.y = -610
+        battleBackground.image = battleBackground3
+    }
+
     Mapa1Soundtrack.pause()
     battleBackground.draw()
     gsap.to('.atacks',{
@@ -239,7 +252,6 @@ function pelea(ataque) {
                 if (turno == 1 ) {
                     console.log('Ataque')
                     if (ataques[i].limite > 0) {
-                        console.log(ataques[i].limite)
                         let total = EnemyBar.clientWidth;
                         ataques[i].limite -= 1
 
@@ -428,6 +440,7 @@ function aparecerMensaje(escribir) {
             mensaje.innerHTML = 'Tu recompensa es: ' + mostrarReward 
             MensajeContainer.append(coin)
             lastFrame.player1.money = reward
+            Dinero.innerHTML = lastFrame.player1.money
             gsap.delayedCall(2,() => {MensajeContainer.classList.remove('aparecer');
             gsap.to('.mensaje',{opacity:0});
             winSound.pause()})
