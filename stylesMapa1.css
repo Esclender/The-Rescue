@@ -32,7 +32,7 @@ canvas{
     left: 0;
     border-radius: 20px;
     background-color: #111111;
-    opacity: 0;
+    opacity: 1;
     position: absolute;
     pointer-events: none;
     z-index: 200;
