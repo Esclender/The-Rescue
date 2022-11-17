@@ -160,7 +160,8 @@ function animateBattle() {
         battleBackground.image = battleBackground3
     }
 
-    Mapa1Soundtrack.pause()
+    sound.pause()
+
     battleBackground.draw()
     gsap.to('.atacks',{
         opacity:1,
@@ -178,14 +179,7 @@ function animateBattle() {
         opacity:0,
         duration: 1
     })
-    gsap.to('.play-mapa',{
-        opacity:0,
-        duration: 1
-    })
-    gsap.to('.pause-mapa',{
-        opacity:0,
-        duration: 1
-    })
+
     document.querySelector('.atacks').classList.remove('off')
     
     
@@ -221,10 +215,12 @@ function animateBattle() {
     }
         if( !parseInt(vidasEnemys[indexEnemigoActual].vida.slice(0,3)) <= 0 && !PlayerBar.clientWidth == 0) {
             if (estado) {
-              sound.play()  
+              batallaSound.play()  
             }
             for (let i = 0; i < objetosDesaparecer.length; i++) {
                 objetosDesaparecer[i].style.display = 'block'
+                playMapa.classList.add('off')
+                pauseMapa.classList.add('off')
                 objetosDesaparecer[objetosDesaparecer.length-2].style.display = 'flex'
                 objetosDesaparecer[objetosDesaparecer.length-1].style.display = 'flex'
             }
@@ -267,6 +263,7 @@ function pelea(ataque) {
                                 gsap.delayedCall(1.5,defaulter)
                                 
                             }else{
+                                batallaSound.pause()
                                 vidasEnemys[i].vida ='0px'
                                 gsap.delayedCall(3,() => {aparecerMensaje(EnemyName.innerHTML + " Ha muerto")}) 
                                 document.querySelector('.atacks').style.display ='none'
@@ -283,7 +280,6 @@ function pelea(ataque) {
                                         onComplete(){
                                             
                                             gsap.delayedCall(7,() => {
-                                                console.log('x4000')
                                                 cancelAnimationFrame(battleAnimationID);
                                                 gsap.to('.flash',{
                                                     opacity: 0
@@ -305,9 +301,15 @@ function pelea(ataque) {
                                                 cantidadLimitante.forEach((e,i) => {e.innerHTML= LugaresEnInventarioMapa[i].limite})
                                                 LevelUp(EnemyName.innerHTML)
                                                 resetAtaques = true
+                                                playMapa.classList.remove('off')
+                                                pauseMapa.classList.remove('off')
+                                                
+                                                sound.play()
+                                                terminarJuego = false
+                                                activarBtallaFinal = false
                                                 animate()
                                             });
-                                            gsap.delayedCall(100,() => {ReUbicarZonasEnemigas(nombreactual)})
+                                            gsap.delayedCall(500,() => {ReUbicarZonasEnemigas(nombreactual)})
                                         }
                                     })
                                 })
@@ -405,7 +407,7 @@ function curar(objeto) {
                
 
             }else{
-                aparecerMensaje('Tu vida esta al maximo')
+                aparecerMensaje('Tu vida esta al maximo!')
             }   
         }
         
@@ -441,6 +443,7 @@ function aparecerMensaje(escribir) {
             MensajeContainer.append(coin)
             lastFrame.player1.money = reward
             Dinero.innerHTML = lastFrame.player1.money
+            localStorage.setItem('Money',mostrarReward)
             gsap.delayedCall(2,() => {MensajeContainer.classList.remove('aparecer');
             gsap.to('.mensaje',{opacity:0});
             winSound.pause()})
@@ -469,23 +472,7 @@ function damage(total,index,array,vidaPersonaje,numero){
                         opacity:1,
                         duration: 2,
                         onComplete(){
-                            
-                            gsap.delayedCall(4,() => {
-                                cancelAnimationFrame(battleAnimationID);
-                                gsap.to('.flash',{
-                                    opacity: 0
-                                })
-                                for (let i = 0; i < objetosDesaparecer.length; i++) {
-                                    objetosDesaparecer[i].style.display = 'none'
-                                }
-                                setBattle.initiaded = false
-                                EliminarZonasEnemigos(EnemyName.innerHTML)
-                                gsap.delayedCall(10, () => {
-                                    ReUbicarZonasEnemigas();
-                                })
-
-                                animate()
-                            });
+                            location.reload()
                         }
                     })
                 })
@@ -526,10 +513,13 @@ function LevelUp(nombre) {
         case 'Rey Ogro':
             document.querySelector('.next-level').classList.remove('off')
             break;
-        case 'juan':
+        case 'Rey demonio':
             document.querySelector('.next-level').classList.remove('off')
             break;
-    
+        case 'Rey fantasma':
+            document.querySelector('.next-level').classList.remove('off')
+            break;
+        
         default:
             break;
     }

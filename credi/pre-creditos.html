@@ -11,31 +11,32 @@
 
 </head>
 <body>
-    <div class="end">
-        <div class="texto">
-            <img src="./Logops_.png" alt="">
-            <h1>Rescue</h1></div>   
-        </div>
-        
+    <div class="end"></div>
     <div class="letras">
-    <marquee direction="up" width="1200" height="900" scrollamount="9" scrolldelay="40"> <li><img src="Logops_.png" alt="" width="400px"> <h1>RESCUE</h1></li>  <hr>
-    <div class="gracias">GRACIAS A:</div> 
-        <li>Esclender, Lugo  <br> Arcentales, Gerson <br>Melendez, Eduardo <br>Luis, Chávez <br><br><br></li> <h1>¡GRACIAS POR JUGAR!</h1>  <div class="imagen"><img src="GAJER.png" alt=""></div> <br><br><br><br><br><br> CONTINUARA... </marquee>
+    <marquee direction="up" width="1200" height="900" scrollamount="10" scrolldelay="40">
+        <h1>El rey demonio fue derrotado, pero... <br> el mal sigue asechando medor <br><br><br></h1>
+
+        <h1>El heroe debera continuar su camino <br> para poder eliminar todo el mal de medor.
+        <br>
+        <br><br><br><br><br><br><br> 
+        <br><br><br><br><br><br><br><br><br><br>
+        <br><br><br><br><br><br><br><br><br><br>
+        </h1>      
+         
+        <h1>El heroe volvera...</h1>
+    </marquee>
     
     </div>
  
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js" integrity="sha512-gmwBmiTVER57N3jYS3LinA9eb8aHrJua5iQD7yqYCKa5x6Jjc7VDVaEA0je0Lu0bP9j7tEjV3+1qUm6loO99Kw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
 <script>
-    
     const audio = new Audio('./musica/retro.mp3')
     const end = document.querySelector('.end')
-    gsap.delayedCall(2,() => {
+    gsap.delayedCall(5,() => {
         gsap.to('.end',{
             opacity:0,
             duration:10
         }) 
-        audio.play()
     })
 
     
@@ -43,12 +44,9 @@
 
     
 
-    gsap.delayedCall(20, ()=>{
-        gsap.to('.end',{
-            opacity:1
-        } )
+    gsap.delayedCall(18, ()=>{
+        window.location = './creditos.html'
     })
-    
 </script>
 
 </body>

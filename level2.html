@@ -47,6 +47,7 @@
             <h1 class="EscribirMensaje"></h1>
         </div>
         <div class="mensaje-Npc off">
+            <span class="nombre-npc">Npc</span>
             <h1 class="EscribirMensaje-Npc">Texto</h1>
             <button class="botonNpc off"><span></span><i class="icono"></i></button>
             <button class="botonNpc1 off"><span></span><i class="icono"></i></button>
@@ -73,6 +74,7 @@
 
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js" integrity="sha512-gmwBmiTVER57N3jYS3LinA9eb8aHrJua5iQD7yqYCKa5x6Jjc7VDVaEA0je0Lu0bP9j7tEjV3+1qUm6loO99Kw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     
     <script src="./classes.js"></script>
     <script>
@@ -88,12 +90,17 @@
 
                 })
             })
+        sound = new Audio('./assets/audio/a new beginning.ogg')
         
     </script> 
     <script src="./SpitesMapa2.js"></script>
     <script src="./ImagenesEnemigosEnNivel2.js"></script>
     <script src="./pociones.js"></script>
     <script src="./audios.js"></script>
+    <script>
+        sound = new Audio('./assets/audio/a new beginning.ogg')
+        sound.play()
+    </script>
     <script src="./personajes.js"></script>
     <script src="./data/dataMpa1.js"></script>
     <script src="./data/data.js"></script>
@@ -160,9 +167,9 @@
 
 
         
-        //UbicarZonasEnemigas(974,'Rey fantasma',CollisionBattles)
+        UbicarZonasEnemigas(974,'Rey fantasma',CollisionBattles)
         UbicarZonasEnemigas(965,'cannibal',CollisionBattles2)
-        //UbicarZonasEnemigas(978,'Demonio gargola',collisionBattlesEnemigo3Mapa2)
+        UbicarZonasEnemigas(978,'Demonio gargola',collisionBattlesEnemigo3Mapa2)
     </script>
     <script src="./vendedor.js"></script>
     <script src="./index.js"></script>

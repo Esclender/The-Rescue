@@ -144,11 +144,11 @@ function EliminarZonasEnemigos(nombre) {
     }else if(nombre == 'Lobo oscuro'){
         enemigo2Mpa1.image = AtaquDefaultEfecct
     }else if(nombre == 'Demonio gargola'){
-        enemigo2.image = AtaquDefaultEfecct
-    }else if(nombre == 'cannibal'){
         enemigo3.image = AtaquDefaultEfecct
+    }else if(nombre == 'cannibal'){
+        enemigo2.image = AtaquDefaultEfecct
     }else if(nombre == 'Rey demonio'){
-        JefeFinal.image = AtaquDefaultEfecct
+        Devil.image = AtaquDefaultEfecct
     }
 }
 

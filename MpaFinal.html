@@ -9,6 +9,12 @@
     <link rel="shortcut icon" href="./credi/Logops_.png" type="image/x-icon">
     <title>The rescue</title>  
     <link rel="stylesheet" href="./stylesMapa1.css"> 
+    <style>
+        .next-level{
+            left: 50%;
+            top: 54%;
+        }
+    </style>
 
 </head>
 <body>
@@ -43,8 +49,8 @@
         <div class="flash"></div>
         <canvas id="mapa"></canvas>
         <div class="next-level off">
-            <img src="./assets/Next-level.png" alt="">
-            <span>Siguiente nivel</span>
+            <img src="./assets/Next-level - copia.png" alt="">
+            <span class="text-nivel">Final</span>
         </div>        
         <div class="mensaje">
             <h1 class="EscribirMensaje"></h1>
@@ -99,6 +105,10 @@
     </script>
     <script src="./pociones.js"></script>
     <script src="./audios.js"></script>
+    <script>
+        sound = new Audio('./assets/audio/boss theme.ogg')
+        sound.play()
+    </script>
     <script src="./personajes.js"></script>
     <script src="./data/data.js"></script>
     <script src="./data/dataMpa1.js"></script>
@@ -122,14 +132,6 @@
         })
     
 
-    playMapa.addEventListener('click',() => {
-        Mapa1Soundtrack.play()
-    })
-
-    pauseMapa.addEventListener('click', () => {
-        Mapa1Soundtrack.pause()
-        estado = false
-    })
 
         for (let i = 0; i < zonaRey.length; i+=70) {
             objectsCollison.push(zonaRey.slice(i, 70 + i))

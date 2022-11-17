@@ -8,7 +8,7 @@ const personajeup = new Image()
 personajeup.src= './assets/personaje-up.png'
 const botonInventarioMapa = document.querySelector('.boton-inventario-mapa')
 const lifeMap = document.querySelector('.life-map')
-
+let terminarJuego = true
 
 botonInventarioMapa.addEventListener('mouseover', ()=>{
     buttonsClick.play()
@@ -197,9 +197,9 @@ function NextLevelAfterDefeatBoss(background) {
         }
     }else if(background.image == mapa3){
         console.log(background.position)
-        if (background.position.x < -3333 && background.position.x > -1646  )  {
-            if (background.position.y < -43 && background.position.y > -163  )  {
-                window.location.href = './credi/creditos.html'
+        if (background.position.x < -1850 && background.position.x > -1946  )  {
+            if (background.position.y < -43 && background.position.y > -563  )  {
+                window.location.href = './credi/pre-creditos.html'
             }
         }
     }
@@ -262,7 +262,7 @@ function animate() {
     })
     lastFrame.player1.draw()
     isForeground()
-    if (background.image == mapa3) {
+    if (background.image == mapa3 && terminarJuego) {
             if (JefeFinalUbicacion(activarBtallaFinal)) {
                 Enemigo.position.x = canvas.width / 2 - (-106) 
                 Enemigo.position.y = canvas.height / 2 - (480 / 2) 
@@ -318,7 +318,7 @@ function animate() {
                 SeleccionarFrameBatalla(actualBattle.nombre)
                 EnemyName.innerHTML = actualBattle.nombre
                 let mensaje;
-                if (actualBattle.nombre == "Rey Ogro"||actualBattle.nombre == "Rey Ogro") {
+                if (actualBattle.nombre == "Rey Ogro"||actualBattle.nombre == "Rey fantasma") {
                     mensaje = actualBattle.nombre + " cambio a su verdaddera forma!!"   
                 }else if(actualBattle.nombre == "Rey demonio"){
                     mensaje = "Dominare el reino de medor y nadie me podra detener!!!"                    

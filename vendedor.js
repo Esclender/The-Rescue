@@ -237,11 +237,11 @@ function zonaVendedor(background){
  
                 }
   
-            }else{
+            }
+        }else{
                 botonNpc.classList.add('off')
                 Indicacion.classList.add('off')
             }
-        }
     }
 }
 
@@ -301,9 +301,10 @@ function HablarconNpc(escribir,textoB) {
 }
 
 function CompraDePocion(pocionPrecio) {
-    if (lastFrame.player1.money > parseInt(pocionPrecio.value) ) {
+    if (lastFrame.player1.money >= parseInt(pocionPrecio.value)*precioDePocionActual) {
         let cantidad = parseInt(pocionPrecio.value) 
         lastFrame.player1.money -= precioDePocionActual * cantidad
+        Dinero.innerHTML = lastFrame.player1.money
         for (let index = 0; index < LugaresPocionesGeneral.length; index++) {
             if (imagenDearticuloComprado == LugaresPocionesGeneral[index].url) {
                 
@@ -325,6 +326,8 @@ function CompraDePocion(pocionPrecio) {
 
             }
         }
+    }else{
+        aparecerMensaje('No tienes suficiente oro!')
     }
 
 }
