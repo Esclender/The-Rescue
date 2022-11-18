@@ -307,12 +307,31 @@ function CompraDePocion(pocionPrecio) {
         Dinero.innerHTML = lastFrame.player1.money
         for (let index = 0; index < LugaresPocionesGeneral.length; index++) {
             if (imagenDearticuloComprado == LugaresPocionesGeneral[index].url) {
-                
+                console.log(LugaresPocionesGeneral[index])
                 if (LugaresPocionesGeneral[index].limite == 0) {
+                    
+                    
+                    for (let index =PocionesBatalla.childElementCount  ; index <= PocionesBatalla.childElementCount; index--) {
+                        if (index > 0) {
+                            let pocion = PocionesBatalla.childNodes[index]   
+                            PocionesBatalla.removeChild(pocion) 
+                            LugaresEnInventarioBatalla = []
+                            eliminar=InventarioContainer.childNodes[index]
+                            console.log("x700")
+                            InventarioContainer.removeChild(eliminar)
+                        }else{
+                            break;
+                        }
+                        
+                    }
+                        
                     vendedorEduardo.pociones[index].cantidad -= cantidad
                     mostrarDatos(vendedorEduardo.pociones[index])
                     LugaresPocionesGeneral[index].limite +=cantidad
-                    LugaresEnInventarioMapa.push(LugaresPocionesGeneral[index])
+                    if (LugaresEnInventarioMapa[index] == undefined) {
+                      LugaresEnInventarioMapa.push(LugaresPocionesGeneral[index])  
+                    }
+                    
                     CrearInventarioEnmapa()
                     limitadorDePago = 0
                 }else{

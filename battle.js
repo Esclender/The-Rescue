@@ -93,11 +93,15 @@ let finalAtaque = false
 let turno = 1
 let choice = {value: undefined,clase:undefined}
 let restar = false
+let eliminar;
 
 //Lugares del Inventario batalla
 function CrearInventarioBatalla() {
-    for (let index = 1; index < InventarioContainer.childElementCount; index++){
-        let eliminar=InventarioContainer.childNodes[index]
+    console.log(InventarioContainer.childElementCount)
+    for (let index = 1; index <= InventarioContainer.childElementCount ; index++){
+        
+        eliminar=InventarioContainer.childNodes[index]
+        console.log("x700")
         InventarioContainer.removeChild(eliminar)
     }
     for (let i = 0; i < LugaresEnInventarioBatalla.length; i++) { 
@@ -127,6 +131,8 @@ SalirDeInventario.innerHTML = 'Salir'
 let battleAnimationID ;
 function animateBattle() {
     battleAnimationID = window.requestAnimationFrame(animateBattle)
+
+    
     for (let i = 0; i < objetosDesaparecer.length - 2; i++) {
         objetosDesaparecer[i].style.display = 'block'
     }
@@ -234,13 +240,12 @@ function pelea(ataque) {
     
     //Ataque del Player
     if (restar){ 
-        
         if (crearInventario == 0) {
 
             CrearInventarioBatalla()
             crearInventario = 1
         }
-        
+
 
         for (let i = 0; i < ataques.length ; i++) {
             if(ataque.slice(0,ataques[i].letras) ==  ataques[i].nombreAtaque ){
@@ -303,7 +308,7 @@ function pelea(ataque) {
                                                 resetAtaques = true
                                                 playMapa.classList.remove('off')
                                                 pauseMapa.classList.remove('off')
-                                                
+                                                crearInventario = 0
                                                 sound.play()
                                                 terminarJuego = false
                                                 activarBtallaFinal = false

@@ -90,7 +90,7 @@ botonInventarioMapa.addEventListener('click',() => {
 function BajarVidaMapa() {
     if (totalDamage < 250 && totalDamage >= 150) {
         lifeMap.style.width = '100px'
-    }else if(totalDamage < 150 && totalDamage > 50){
+    }else if(totalDamage < 150 && totalDamage > 10){
         lifeMap.style.width = '50px'
     }
 }

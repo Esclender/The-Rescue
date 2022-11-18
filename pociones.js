@@ -2,7 +2,7 @@ let pocion1;
 let pocion2;
 let pocion3;
 let pocion4;
-const LugaresEnInventarioBatalla = []
+let LugaresEnInventarioBatalla = []
 const LugaresEnInventarioMapa = []
 const LugaresPocionesGeneral = []
 const PocionesBatalla = document.querySelector(".pociones-a-usar")
