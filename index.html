@@ -4,200 +4,48 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Oswald&family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="./credi/Logops_.png" type="image/x-icon">
-    <title>The rescue</title>   
+    <link href="https://fonts.googleapis.com/css2?family=Oswald&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <title>The rescue</title>
     <style>
-        *{
-            font-family: 'Press Start 2P', cursive;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-    
         body{
-            background-color: #040404;
+            background-color: #000;
             display: flex;
             justify-content: center;
-            align-items: center;
             height: 100vh;
-            
-        }
-    
-        canvas{
-            border: 4px solid #690909;
-            border-radius: 20px;
-            margin-top: 30px;
+            overflow: hidden;
         }
 
-        #container{
-            display: inline-block;
-            position: relative;
-        }
-
-        .flash{
-            top: 30px;
-            bottom: 0;
-            right: 0;
-            left: 0;
-            border-radius: 20px;
-            background-color: #111111;
+        img{
             opacity: 0;
-            position: absolute;
-            pointer-events: none;
-            z-index: 200;
-        }
-
-        .off{
-           display : none;
         }
 
 
-  
-        #menu-principal{
-            border-radius: 20px;
-            background-image: url("./assets/Fonfo-menu.jpg");
-            background-repeat: no-repeat;
-            background-size: cover;
-            position: absolute;
-            width: 1000px;
-            height: 580px;
-        }
-
-        .menu-contenedor{
-            position: absolute;
-            left: 2%;
-            top: 25%;
-            width: 40%;
-            height: 40%;
-            font-size: 20px;
-        }
-        
-        .menu-contenedor > button{
-            margin-top: 30px;
-            width: 80%;
-            border-radius: 10px;
-            height: 60px;
-            background-color: #11111161;
-            border: none;
-            cursor: pointer;
-            color: #fff;
-        }
-
-        a{
-            text-decoration: none;
-            color: #fff;
-        }
-
-        button:hover{
-            background-color: #ffffff;
-            color: #111111;
-        }
-
-        
-        .play,.pause{
-            background-color: rgba(0, 0, 0, 0);
-            border: none;
-            background-image: url('./assets/audio/play.png');
-            background-repeat: no-repeat;
-            background-size: cover;
-            height: 80px;
-            width: 80px;
-            position:absolute;
-            right: 0;
-            cursor: pointer;
-        }
-        .pause{
-            background-image: url('./assets/audio/pausa.png');
-            right: 81px;
-        }
-        .play:hover{
-            background-color:rgba(0, 0, 0, 0) ;
-        }
-        .pause:hover{
-            background-color:rgba(0, 0, 0, 0) ;
-        }
-        .flash{
-            top: 0;
-            bottom: 0;
-            right: 0;
-            left: 0;
-            border-radius: 20px;
-            background-color: #111111;
-            opacity: 0;
-            position: absolute;
-            pointer-events: none;
-            z-index: 200;
-        }
-
-        h1{
-            line-height: 55px;
-        }
-
-        .titulo-juego{
-            font-size: 75px;
-            margin-top: 25px;
-            padding: 25px;
-            color: rgba(255, 255, 255, 0);
-
-            background-image: url('./assets/Rescue-fondo.jpeg');
-            background-position-x: 45% ;
-            background-position-Y: 78% ;
-            
-            -webkit-background-clip: text;
-        }
-
-        .titulo{
-            color: rgba(255, 255, 255, 0);
-
-            background-image: url('./assets/FOndo.jpg');
-            background-size: cover;
-            background-position-x: 45% ;
-            background-position-Y: 55% ;
-            
-            -webkit-background-clip: text;
-        }
-        
-        
 
     </style>
 </head>
 <body>
-    
-    
-    <div id="menu-principal">
-        <div class="flash"></div>
-        <button class="play"></button>
-        <button class="pause"></button>
-        <h1 class="titulo-juego">RESCUE</h1>
-        <div class="menu-contenedor">
-            <h1 class="titulo" >Estas Listo<br> para  Forjar  Tu Leyenda?</h1>
-            <button class="begin">Iniciar</a></button>
-        </div>
-            
-    </div>
-
+    <img class="gajer" src="./credi/GAJER.png" alt="">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js" integrity="sha512-gmwBmiTVER57N3jYS3LinA9eb8aHrJua5iQD7yqYCKa5x6Jjc7VDVaEA0je0Lu0bP9j7tEjV3+1qUm6loO99Kw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
-        let MainSound = new Audio("./assets/audio/Castlecall.mp3")
-        document.querySelector('.play').addEventListener('click', () =>{MainSound.play()})
-        document.querySelector('.pause').addEventListener('click', () =>{MainSound.pause()})
-
-        let empezarbtt = document.querySelector('.begin')
-
-        empezarbtt.addEventListener('click', () => {
-            console.log("funciona")
-            gsap.to('.flash',{
+        gsap.delayedCall(1.5,() => {
+            gsap.to('.gajer', {
                 opacity:1,
-                duration: 2
-
-            })
-            gsap.delayedCall(3,() => {
-                window.location.href = './index2.html'
+                duration:5
             })
         })
 
+        gsap.delayedCall(7,() => {
+            gsap.to('.gajer', {
+                opacity:0,
+                duration:5
+            })
+        })
+
+        gsap.delayedCall(15,() => {
+            window.location.href='./index-inicio.html' 
+        })
+       
     </script>
-    
 </body>
 </html>
