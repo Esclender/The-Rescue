@@ -307,8 +307,7 @@ function CompraDePocion(pocionPrecio) {
         Dinero.innerHTML = lastFrame.player1.money
         for (let index = 0; index < LugaresPocionesGeneral.length; index++) {
             if (imagenDearticuloComprado == LugaresPocionesGeneral[index].url) {
-                console.log(LugaresPocionesGeneral[index])
-                if (LugaresPocionesGeneral[index].limite == 0) {
+                
                     
                     
                     for (let index =PocionesBatalla.childElementCount  ; index <= PocionesBatalla.childElementCount; index--) {
@@ -317,7 +316,6 @@ function CompraDePocion(pocionPrecio) {
                             PocionesBatalla.removeChild(pocion) 
                             LugaresEnInventarioBatalla = []
                             eliminar=InventarioContainer.childNodes[index]
-                            console.log("x700")
                             InventarioContainer.removeChild(eliminar)
                         }else{
                             break;
@@ -334,13 +332,7 @@ function CompraDePocion(pocionPrecio) {
                     
                     CrearInventarioEnmapa()
                     limitadorDePago = 0
-                }else{
-                    vendedorEduardo.pociones[index].cantidad -= cantidad
-                    mostrarDatos(vendedorEduardo.pociones[index])
-                    LugaresPocionesGeneral[index].limite += cantidad
-                    cantidadLimitante[index].innerHTML = LugaresPocionesGeneral[index].limite
-                    limitadorDePago = 1   
-                }
+               
 
 
             }
